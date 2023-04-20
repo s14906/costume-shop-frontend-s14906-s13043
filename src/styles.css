@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+  background-color: #dedede;
+}
+
+body {
+  margin: auto;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+
+
+
+
+
+
+
+.mat-form-field-label-wrapper {
+  top: -1.5em;
+}
+
