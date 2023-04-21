@@ -10,6 +10,7 @@ import {products} from "../../data/products";
 })
 export class ProductDetailsComponent implements OnInit {
   product?: Product;
+  sizes: string[] = ['XL', 'L', 'M', 'S'];
 
   constructor(private route: ActivatedRoute) {
     this.route.queryParams

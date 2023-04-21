@@ -16,6 +16,11 @@
   background-color: white;
 }
 
+.product:hover {
+  transform: scale(105%);
+  transition-duration: 300ms;
+}
+
 .product img {
   display: block;
   margin: 0 auto;

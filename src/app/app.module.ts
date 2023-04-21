@@ -16,6 +16,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
 import { ProductListComponent } from './core/product/product-list/product-list.component';
 import { ProductDetailsComponent } from './core/product/product-details/product-details.component';
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -25,19 +26,20 @@ import {MatGridListModule} from "@angular/material/grid-list";
     ProductListComponent,
     ProductDetailsComponent
   ],
-    imports: [
-        BrowserModule,
-        MatIconModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        RouterLinkActive,
-        MatTabsModule,
-        MatButtonModule,
-        RouterLink,
-        AppRoutingModule,
-        MatInputModule,
-        MatGridListModule
-    ],
+  imports: [
+    BrowserModule,
+    MatIconModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    RouterLinkActive,
+    MatTabsModule,
+    MatButtonModule,
+    RouterLink,
+    AppRoutingModule,
+    MatInputModule,
+    MatGridListModule,
+    MatSelectModule
+  ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } }
   ],

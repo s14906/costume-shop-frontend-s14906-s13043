@@ -27,7 +27,7 @@
 
 .element {
   align-items: center;
-  /*display: flex;*/
+  text-align: center;
   width: 600px;
   margin: 16px;
   padding: 16px;
@@ -37,25 +37,17 @@
   background-color: white;
 }
 
-.title-with-image {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 400px;
-  margin: 16px;
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  background-color: white;
+mat-option {
+  position: center;
+  top: 0;
+  left: 0;
 }
 
-.title-with-image img {
-  max-width: 100%;
-  height: auto;
+.element img {
+  max-width: 600px;
+  max-height: 600px;
 }
+
 
 .image-box {
   display: flex;

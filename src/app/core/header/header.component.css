@@ -4,22 +4,6 @@
   align-items: center;
 }
 
-/*.header-items-center {*/
-/*  text-align: center;*/
-/*  width: 100%;*/
-/*  max-width: 600px;*/
-/*  margin: 0 auto;*/
-/*  justify-content: center;*/
-/*}*/
-
-/*.header-items-center .search-div {*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-/*}*/
-
-/* Header */
 mat-toolbar {
   height: 64px;
   display: flex;
@@ -53,7 +37,19 @@ mat-toolbar {
 }
 
 .search-input {
-  color: white;
+  color: white !important;
+}
+
+.mat-mdc-form-field-infix {
+  padding-top: 16px !important;
+}
+
+.mat-mdc-form-field-flex {
+  display: inline-flex;
+  align-items: center !important;
+  box-sizing: border-box;
+  width: 100%;
+  max-height: 35px;
 }
 
 .search-input::placeholder {

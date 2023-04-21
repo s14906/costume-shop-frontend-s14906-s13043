@@ -1,17 +1,40 @@
 <div class="container">
-  <div class="title-with-image">
-    <p>Product</p>
+  <div class="element">
+    <p>Product title here</p>
     <img [src]="product?.imageUrl" [alt]="product?.name">
   </div>
   <div class="product-data-container">
     <div class="element">
 
-      <mat-grid-list cols="2" rowHeight="2:1">
+      <mat-grid-list cols="4" rowHeight="2:1">
+        <mat-grid-tile><p>Price:</p></mat-grid-tile>
+        <mat-grid-tile><p>price-placeholder</p></mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="fill">
+            <mat-label>Size</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let size of sizes" [value]="size">
+                {{size}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+
         <mat-grid-tile><p>Element</p></mat-grid-tile>
         <mat-grid-tile><p>Element</p></mat-grid-tile>
         <mat-grid-tile><p>Element</p></mat-grid-tile>
         <mat-grid-tile><p>Element</p></mat-grid-tile>
 
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile><p>Element</p></mat-grid-tile>
       </mat-grid-list>
 
     </div>
