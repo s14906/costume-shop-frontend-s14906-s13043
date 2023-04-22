@@ -11,11 +11,15 @@ import {products} from "../../data/products";
 export class ProductDetailsComponent implements OnInit {
   product?: Product;
   sizes: string[] = ['XL', 'L', 'M', 'S'];
+  colors: string[] = ['Red', 'Green', 'Blue'];
+
+  size: string = 'S';
+  color: string = 'Red';
 
   constructor(private route: ActivatedRoute) {
     this.route.queryParams
       .subscribe(params => {
-          console.log(params); // { orderby: "price" }
+          console.log(params);
           this.product = products.find(prod => prod.id.toString() === params['id']);
         }
       );
@@ -25,4 +29,7 @@ export class ProductDetailsComponent implements OnInit {
     console.log(this.product);
     }
 
+  clearInput(amountInput: HTMLInputElement) {
+    amountInput.setRangeText('');
+  }
 }

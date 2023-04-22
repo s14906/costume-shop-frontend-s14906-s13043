@@ -1,49 +1,66 @@
 <div class="container">
   <div class="element">
-    <p>Product title here</p>
+    <h1>Product name here</h1>
     <img [src]="product?.imageUrl" [alt]="product?.name">
   </div>
   <div class="product-data-container">
     <div class="element">
-
-      <mat-grid-list cols="4" rowHeight="2:1">
+      <h1>Details</h1>
+      <mat-grid-list cols="4" rowHeight="1.5:1">
         <mat-grid-tile><p>Price:</p></mat-grid-tile>
         <mat-grid-tile><p>price-placeholder</p></mat-grid-tile>
+        <mat-grid-tile><p>Size:</p></mat-grid-tile>
         <mat-grid-tile>
-          <mat-form-field appearance="fill">
-            <mat-label>Size</mat-label>
-            <mat-select>
+          <mat-form-field appearance="outline">
+            <mat-select [(ngModel)]="size">
               <mat-option *ngFor="let size of sizes" [value]="size">
                 {{size}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
 
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile><p>Amount:</p></mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field>
+            <input #amountInput
+                   type="number"
+                   matInput
+                   [min]="1"
+                   [max]="10"
+                   (keydown)="clearInput(amountInput)"
+                   value="1">
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile><p>Color:</p></mat-grid-tile>
+        <mat-grid-tile>
+          <mat-form-field appearance="outline">
+            <mat-select [(ngModel)]="color">
+              <mat-option *ngFor="let color of colors" [value]="color">
+                {{color}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
 
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile>
+          <a class="header-button" mat-stroked-button>Add to basket</a>
+        </mat-grid-tile>
 
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
-        <mat-grid-tile><p>Element</p></mat-grid-tile>
+        <mat-grid-tile>
+          <a class="header-button" mat-stroked-button>Buy now</a>
+        </mat-grid-tile>
       </mat-grid-list>
 
     </div>
     <div class="element">
       <!--      <img [src]="product?.imageUrl" [alt]="product?.name">-->
-      <p>Price</p>
-      <p>Price</p>
-      <p>Price</p>
-      <p>Price</p>
+      <h1>Description</h1>
+      <p>lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum
+        cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam
+        lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum
+        cos tam lorem ipsum cos tam </p>
+
 
     </div>
     <!--    <div class="image-box">-->
