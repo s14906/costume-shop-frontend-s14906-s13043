@@ -14,12 +14,10 @@ body {
   flex: 1 1 auto;
 }
 
-.mat-mdc-outlined-button {
-  color: white !important;
-}
 
 .button {
   background-color: #0069e1 !important;
+  color: white !important;
   text-decoration: none;
 }
 

@@ -1,0 +1,22 @@
+mat-card {
+  max-width: 400px;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-form-field {
+  display: block;
+  margin-bottom: 2em;
+}
+
+.login-and-sign-up {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-up-link {
+  margin-top: 2em;
+}
+
+
+

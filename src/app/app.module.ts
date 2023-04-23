@@ -18,6 +18,9 @@ import { ProductDetailsComponent } from './core/product/product-details/product-
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
+import { LoginComponent } from './core/login/login.component';
+import {MatCardModule} from "@angular/material/card";
+import { RegistrationComponent } from './core/registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import {FormsModule} from "@angular/forms";
     HeaderComponent,
     FooterComponent,
     ProductListComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,8 @@ import {FormsModule} from "@angular/forms";
     MatInputModule,
     MatGridListModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    MatCardModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' } }
