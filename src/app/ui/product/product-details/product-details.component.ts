@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Product} from "../../model/product";
 import {ActivatedRoute} from "@angular/router";
-import {products} from "../../data/products";
+import {products} from "../../../shared/data/products";
+import {ProductModel} from "../../../shared/models/data.models";
 
 @Component({
   selector: 'app-product-details',
@@ -9,7 +9,7 @@ import {products} from "../../data/products";
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  product?: Product;
+  product?: ProductModel;
   sizes: string[] = ['XL', 'L', 'M', 'S'];
   colors: string[] = ['Red', 'Green', 'Blue'];
 

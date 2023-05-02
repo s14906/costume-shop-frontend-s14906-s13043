@@ -1,6 +1,6 @@
-import {Product} from "../model/product";
+import {ProductModel} from "../models/data.models";
 
-export let products: Product[] = [
+export let products: ProductModel[] = [
   {
     id: 1,
     name: 'Product 1',

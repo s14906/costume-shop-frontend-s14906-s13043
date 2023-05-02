@@ -5,7 +5,7 @@
       <div class="form-container">
         <div class="column">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="User name" [(ngModel)]="username" name="username" required>
+            <input matInput placeholder="User name" [(ngModel)]="nick" name="username" required>
             <mat-error>
               Please provide a valid user name
             </mat-error>
@@ -46,7 +46,7 @@
       </div>
 
       <div class="login-and-sign-up">
-        <button mat-raised-button color="primary" [disabled]="!registerForm.form.valid" class="button">Sign up</button>
+        <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.form.valid" class="button">Sign up</button>
       </div>
     </form>
   </mat-card-content>

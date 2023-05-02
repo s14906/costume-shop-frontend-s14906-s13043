@@ -1,10 +1,13 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <div class="header-items-left">
-      <img src="assets/logo.png" alt="Internet Shop Logo" class="logo" [routerLink]="'/'">
-      <div>
-        <a class="button" mat-stroked-button [routerLink]="'/login'">Log in</a>
+      <img src="../../../assets/logo.png" alt="Internet Shop Logo" class="logo" [routerLink]="'/'">
+      <div *ngIf="isLoggedIn; else elseBlock">
+        <a class="button" mat-stroked-button (click)="logout()">Logged!!!</a>
       </div>
+      <ng-template #elseBlock>
+        <a class="button" mat-stroked-button [routerLink]="'/login'">Log in</a>
+      </ng-template>
     </div>
     <span class="spacer"></span>
 
@@ -18,7 +21,7 @@
 
     <span class="spacer"></span>
     <button mat-button>
-      <img src="assets/shopping-cart.png" class="logo" alt="Cart">
+      <img src="../../../assets/shopping-cart.png" class="logo" alt="Cart">
     </button>
   </mat-toolbar-row>
 </mat-toolbar>

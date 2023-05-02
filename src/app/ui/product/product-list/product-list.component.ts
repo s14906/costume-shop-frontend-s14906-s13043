@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Product} from "../../model/product";
-import {Router} from '@angular/router';
-import {products} from "../../data/products";
+import {products} from "../../../shared/data/products";
+import {ProductModel} from "../../../shared/models/data.models";
 
 @Component({
   selector: 'app-product-list',
@@ -9,10 +8,10 @@ import {products} from "../../data/products";
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  @Output() productEventEmitter = new EventEmitter<Product>();
-  products: Product[] = products;
+  @Output() productEventEmitter = new EventEmitter<ProductModel>();
+  products: ProductModel[] = products;
 
-  constructor(private router: Router) {
+  constructor() {
 
   }
 
@@ -20,8 +19,7 @@ export class ProductListComponent implements OnInit {
 
   }
 
-
-  clickProduct(product: Product) {
+  clickProduct(product: ProductModel) {
     this.productEventEmitter.emit(product)
   }
 }
