@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/service/auth.service";
-import {HeaderRefreshService} from "../../core/service/header-refresh.service";
+import {MessageService} from "../../core/service/message.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
 
 @Component({
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   private loginSuccess: boolean;
 
   constructor(private authService: AuthService,
-              private commonService: HeaderRefreshService,
+              private commonService: MessageService,
               private snackbarService: SnackbarService,
               private http: HttpClient,
               private router: Router) {
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       next: next => {
         this.invalidLogin = false;
         this.loginSuccess = true;
-        this.commonService.sendUpdate();
+        this.commonService.sendUpdate(this.email);
         this.snackbarService.openSnackBar(next.message);
         this.router.navigate(['/']);
       },

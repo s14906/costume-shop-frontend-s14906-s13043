@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class HeaderRefreshService {
+export class MessageService {
   private subject = new Subject<any>();
 
-  sendUpdate() {
-    this.subject.next('');
+  sendUpdate(message: string) {
+    this.subject.next({ text: message });
   }
 
   getUpdate(): Observable<any> {

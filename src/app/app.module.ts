@@ -23,7 +23,7 @@ import {MatCardModule} from "@angular/material/card";
 import { RegistrationComponent } from './ui/registration/registration.component';
 import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./core/service/auth.service";
-import {HeaderRefreshService} from "./core/service/header-refresh.service";
+import {MessageService} from "./core/service/message.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarService} from "./core/service/snackbar.service";
 
@@ -57,7 +57,7 @@ import {SnackbarService} from "./core/service/snackbar.service";
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' }, },
     AuthService,
-    HeaderRefreshService,
+    MessageService,
     SnackbarService,
     MatSnackBar
   ],

@@ -1,7 +1,7 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import {finalize, Subscription} from "rxjs";
 import {AuthService} from "../../core/service/auth.service";
-import {HeaderRefreshService} from "../../core/service/header-refresh.service";
+import {MessageService} from "../../core/service/message.service";
 
 @Component({
   selector: 'app-header',
@@ -13,12 +13,15 @@ import {HeaderRefreshService} from "../../core/service/header-refresh.service";
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
 
+  username: string;
+
   private subscription: Subscription;
 
-  constructor(public authService: AuthService, private headerRefreshService: HeaderRefreshService) {
+  constructor(public authService: AuthService, private headerRefreshService: MessageService) {
     this.subscription = this.headerRefreshService.getUpdate().subscribe
-    (() => {
+    ((message) => {
       this.ngOnInit();
+      this.username = message.text;
     });
   }
 
