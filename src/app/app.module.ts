@@ -24,6 +24,8 @@ import { RegistrationComponent } from './ui/registration/registration.component'
 import {HttpClientModule} from "@angular/common/http";
 import {AuthService} from "./core/service/auth.service";
 import {HeaderRefreshService} from "./core/service/header-refresh.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SnackbarService} from "./core/service/snackbar.service";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,7 @@ import {HeaderRefreshService} from "./core/service/header-refresh.service";
     ProductListComponent,
     ProductDetailsComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,9 @@ import {HeaderRefreshService} from "./core/service/header-refresh.service";
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' }, },
     AuthService,
-    HeaderRefreshService
+    HeaderRefreshService,
+    SnackbarService,
+    MatSnackBar
   ],
   bootstrap: [AppComponent]
 })

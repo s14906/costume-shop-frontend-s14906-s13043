@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Router } from '@angular/router';
-import {map} from "rxjs";
+import {map, Observable} from "rxjs";
 import {HttpService} from "./http.service";
 
 @Injectable({
@@ -12,27 +10,16 @@ export class AuthService {
   public username: string;
   public password: string;
 
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService) { }
 
-  // login(username: string, password: string){
-  //   return this.http.post(`http://localhost:8080/api/login`,
-  //     { email: this.username, password: this.password },
-  //     { headers:
-  //         { authorization: this.createBasicAuthToken(username, password) }
-  //     }).pipe(map((res) => {
-  //     this.username = username;
-  //     this.password = password;
-  //     sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-  //   }));
-  // }
-
-  login(username: string, password: string){
+  login(username: string, password: string): Observable<any>{
     return this.httpService.postLogin(
       { email: username, password: password },
       ).pipe(map((res) => {
       this.username = username;
       this.password = password;
       sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+      return res;
     }));
   }
 
@@ -47,9 +34,5 @@ export class AuthService {
     let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
     return user !== null;
 
-  }
-
-  createBasicAuthToken(username: String, password: String) {
-    return 'Basic ' + window.btoa(username + ":" + password)
   }
 }
