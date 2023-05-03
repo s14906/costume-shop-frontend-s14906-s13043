@@ -1,9 +1,9 @@
 <div class="product-list">
-  <div class="product" *ngFor="let product of products" [routerLink]="'/product'" [queryParams]="{ id: product.id }" (click)="clickProduct(product)">
-    <img [src]="product.imageUrl" [alt]="product.name">
-    <h2>{{ product.name }}</h2>
-    <p>{{ product.description }}</p>
-    <p class="price">{{ product.price | currency }}</p>
+  <div class="product" *ngFor="let item of items" [routerLink]="'/product'" [queryParams]="{ id: item.id }" (click)="clickProduct(item)">
+    <img [src]="item.itemImages[0].imageBase64" [alt]="item.title">
+    <h2>{{ item.title }}</h2>
+    <p>{{ item.description }}</p>
+    <p class="price">{{ item.price | currency }}</p>
     <button class="button" mat-stroked-button>Add to Cart</button>
   </div>
 </div>

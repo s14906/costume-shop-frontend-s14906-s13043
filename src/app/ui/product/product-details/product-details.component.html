@@ -1,20 +1,20 @@
 <div class="container">
   <div class="element">
-    <h1>Product name here</h1>
-    <img [src]="product?.imageUrl" [alt]="product?.name">
+    <h1>{{item?.title}}</h1>
+    <img [src]="getImage()" [alt]="item?.title">
   </div>
   <div>
     <div class="element">
       <h1>Details</h1>
       <mat-grid-list cols="4" rowHeight="1.5:1" [gutterSize]="'2px'">
         <mat-grid-tile><p>Price:</p></mat-grid-tile>
-        <mat-grid-tile><p>price-placeholder</p></mat-grid-tile>
+        <mat-grid-tile><p>{{item?.price}}</p></mat-grid-tile>
         <mat-grid-tile><p>Size:</p></mat-grid-tile>
         <mat-grid-tile>
           <mat-form-field appearance="outline" class="option-form-field">
-            <mat-select [(ngModel)]="size">
-              <mat-option *ngFor="let size of sizes" [value]="size">
-                {{size}}
+            <mat-select [(ngModel)]="selectedItemSize">
+              <mat-option *ngFor="let itemSize of itemSizes" [value]="selectedItemSize">
+                {{itemSize.size}}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -35,16 +35,16 @@
         <mat-grid-tile><p>Color:</p></mat-grid-tile>
         <mat-grid-tile>
           <mat-form-field appearance="outline" class="option-form-field">
-            <mat-select [(ngModel)]="color">
-              <mat-option *ngFor="let color of colors" [value]="color">
-                {{color}}
+            <mat-select [(ngModel)]="selectedItemColor">
+              <mat-option *ngFor="let itemColor of itemColors" [value]="selectedItemColor">
+                {{itemColor.color}}
               </mat-option>
             </mat-select>
           </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="2">
-          <a class="button" mat-stroked-button>Add to basket</a>
+          <a class="button" mat-stroked-button (click)="printSelections()">Add to basket</a>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="2">
@@ -54,20 +54,9 @@
 
     </div>
     <div class="element">
-      <!--      <img [src]="product?.imageUrl" [alt]="product?.name">-->
       <h1>Description</h1>
-      <p>lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum
-        cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam
-        lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum cos tam lorem ipsum
-        cos tam lorem ipsum cos tam </p>
-
+      <p>{{item?.description}}</p>
 
     </div>
-    <!--    <div class="image-box">-->
-    <!--      <img [src]="product?.imageUrl" [alt]="product?.name">-->
-    <!--    </div>-->
-    <!--    <div class="image-box">-->
-    <!--      <img [src]="product?.imageUrl" [alt]="product?.name">-->
-    <!--    </div>-->
   </div>
 </div>

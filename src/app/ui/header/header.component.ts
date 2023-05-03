@@ -21,7 +21,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription = this.headerRefreshService.getUpdate().subscribe
     ((message) => {
       this.ngOnInit();
-      this.username = message.text;
+      if(!this.username) {
+        this.username = message.text;
+      }
     });
   }
 
