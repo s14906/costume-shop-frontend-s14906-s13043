@@ -21,6 +21,12 @@ body {
   text-decoration: none;
 }
 
+.button:disabled {
+  background-color: #6b6b6b !important;
+  color: white !important;
+  text-decoration: none;
+}
+
 .button:hover {
   background-color: #004ca4 !important;
   transition: 300ms;

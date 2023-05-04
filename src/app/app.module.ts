@@ -17,7 +17,7 @@ import { ProductListComponent } from './ui/product/product-list/product-list.com
 import { ProductDetailsComponent } from './ui/product/product-details/product-details.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LoginComponent } from './ui/login/login.component';
 import {MatCardModule} from "@angular/material/card";
 import { RegistrationComponent } from './ui/registration/registration.component';
@@ -52,7 +52,8 @@ import {SnackbarService} from "./core/service/snackbar.service";
     MatSelectModule,
     FormsModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' }, },

@@ -1,8 +1,9 @@
 export interface RegistrationModel {
-  email: string;
-  name: string;
-  surname: string;
-  password: string;
+  email?: string;
+  username?: string;
+  name?: string;
+  surname?: string;
+  password?: string;
 }
 
 export interface LoginModel {

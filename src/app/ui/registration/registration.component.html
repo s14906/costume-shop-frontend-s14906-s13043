@@ -1,52 +1,50 @@
 <mat-card>
   <mat-card-content>
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
       <h2>Sign up</h2>
       <div class="form-container">
         <div class="column">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="User name" [(ngModel)]="nick" name="username" required>
+            <input matInput placeholder="User name" formControlName="username" required>
             <mat-error>
               Please provide a valid user name
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Address" [(ngModel)]="address" name="address" required>
+            <input matInput placeholder="First name" formControlName="firstname" required>
             <mat-error>
-              Please provide a valid address
+              Please provide a valid first name
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+            <input matInput type="password" placeholder="Password" formControlName="password" >
             <mat-error>
-              Please provide a valid password
+              Passwords don't match
             </mat-error>
           </mat-form-field>
         </div>
         <div class="column">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>
+            <input matInput placeholder="Email" formControlName="email" required>
             <mat-error>
               Please provide a valid email address
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Phone number" [(ngModel)]="phoneNumber" name="phoneNumber" required>
+            <input matInput placeholder="Surname" formControlName="surname" required>
             <mat-error>
-              Please provide a valid phone number
+              Please provide a valid surname
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <input matInput type="password" placeholder="Confirm password" [(ngModel)]="password" name="password" required>
-            <mat-error>
-              Please confirm your password
-            </mat-error>
+            <input matInput placeholder="Confirm Password" formControlName="confirmPassword"  type="password">
+            <mat-error>Passwords don't match</mat-error>
           </mat-form-field>
         </div>
       </div>
 
       <div class="login-and-sign-up">
-        <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.form.valid" class="button">Sign up</button>
+        <button mat-raised-button type="submit" color="primary"  class="button">Sign up</button>
       </div>
     </form>
   </mat-card-content>
