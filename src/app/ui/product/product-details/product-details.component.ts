@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ItemColorModel, ItemModel, ItemSizeModel} from "../../../shared/models/data.models";
 import {HttpService} from "../../../core/service/http.service";
-import {combineLatestWith, forkJoin, map, Subscription} from "rxjs";
+import {combineLatestWith, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-product-details',

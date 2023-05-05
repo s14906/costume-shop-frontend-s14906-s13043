@@ -1,8 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/service/auth.service";
-import {MessageService} from "../../core/service/message.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
 
 @Component({
@@ -17,7 +15,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private snackbarService: SnackbarService,
-              private http: HttpClient,
               private router: Router) {
   }
 

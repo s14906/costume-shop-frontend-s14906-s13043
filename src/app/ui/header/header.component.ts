@@ -1,7 +1,6 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {finalize, Subscription} from "rxjs";
+import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import { Subscription} from "rxjs";
 import {AuthService} from "../../core/service/auth.service";
-import {MessageService} from "../../core/service/message.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
 
 @Component({

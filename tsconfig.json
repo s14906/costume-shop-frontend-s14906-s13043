@@ -23,7 +23,9 @@
       "ES2022",
       "dom"
     ],
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -1,9 +1,9 @@
 import {Component, OnDestroy} from '@angular/core';
 import {HttpService} from "../../core/service/http.service";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {SnackbarService} from "../../core/service/snackbar.service";
 import {Router} from "@angular/router";
-import {Subscription} from "rxjs";
+import {Observable, of, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-registration',
@@ -22,12 +22,17 @@ export class RegistrationComponent implements OnDestroy {
     this.registrationForm = this.formBuilder.group({
       password: ['', Validators.required],
       confirmPassword :['', Validators.required],
-      email: ['', Validators.required],
-      username: ['', Validators.required],
-      firstname: ['', Validators.required],
-      surname: ['', Validators.required]
+      email: ['', Validators.required, this.validateField],
+      username: ['', Validators.required, this.validateField],
+      firstname: ['', Validators.required, this.validateField],
+      surname: ['', Validators.required, this.validateField],
+      street: ['', Validators.required, this.validateField],
+      flatNumber: ['', Validators.required, this.validateField],
+      postalCode: ['', Validators.required, this.validateField],
+      phone: ['', Validators.required, this.validateField],
+
     },
-      { validators: [this.validateForm], updateOn: "submit" }
+      { validators: [this.validatePasswords], updateOn: "submit" }
     );
   }
 
@@ -35,55 +40,32 @@ export class RegistrationComponent implements OnDestroy {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-  validateForm(control: AbstractControl) {
-    const passwordControl = control.get('password');
-    const confirmPasswordControl = control.get('confirmPassword');
+  validatePasswords(formGroup: FormGroup): void {
+    const passwordControl: AbstractControl<any, any> | null = formGroup.get('password');
+    const confirmPasswordControl: AbstractControl<any, any> | null = formGroup.get('confirmPassword');
 
     if ((passwordControl?.value !== confirmPasswordControl?.value) ||
       (passwordControl?.value === '' || confirmPasswordControl?.value === '')) {
-      passwordControl?.setErrors( {invalid: true});
-      confirmPasswordControl?.setErrors( {invalid: true});
+      passwordControl?.setErrors({invalid: true});
+      confirmPasswordControl?.setErrors({invalid: true});
     } else {
       passwordControl?.setErrors(null);
       confirmPasswordControl?.setErrors(null);
     }
-
-    const emailControl = control.get('email');
-    if (emailControl?.value === '') {
-      emailControl?.setErrors({invalid: true});
-    } else {
-      emailControl?.setErrors(null);
-    }
-
-    const usernameControl = control.get('username');
-    if (usernameControl?.value === '') {
-      usernameControl?.setErrors({invalid: true});
-    } else {
-      usernameControl?.setErrors(null);
-    }
-
-    const firstnameControl = control.get('firstname');
-    if (firstnameControl?.value === '') {
-      firstnameControl?.setErrors({invalid: true});
-    } else {
-      firstnameControl?.setErrors(null);
-    }
-
-    const surnameControl = control.get('surname');
-    if (surnameControl?.value === '') {
-      surnameControl?.setErrors({invalid: true});
-    } else {
-      surnameControl?.setErrors(null);
-    }
-
-    return null;
   }
 
+  validateField(control: AbstractControl): Observable<ValidationErrors | null> {
+        if (control?.value === '') {
+          return of({invalid: true})
+        } else {
+          return of(null);
+        }
+  }
 
   onSubmit() {
     let formValid: boolean = true;
     Object.keys(this.registrationForm.controls).forEach(key => {
-      if(this.registrationForm.get(key)?.errors) {
+      if (this.registrationForm.get(key)?.errors) {
         formValid = false;
         return;
       }

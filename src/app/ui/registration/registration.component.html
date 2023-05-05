@@ -41,6 +41,32 @@
             <mat-error>Passwords don't match</mat-error>
           </mat-form-field>
         </div>
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Street" formControlName="street" required>
+            <mat-error>
+              Please provide a valid street
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Apartment/flat number" formControlName="flatNumber" required>
+            <mat-error>
+              Please provide a valid apartment/flat number
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Postal code" formControlName="postalCode" required>
+            <mat-error>
+              Please provide a valid postal code
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Phone" formControlName="phone" required>
+            <mat-error>
+              Please provide a valid phone number
+            </mat-error>
+          </mat-form-field>
+        </div>
       </div>
 
       <div class="login-and-sign-up">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {map, Observable, ReplaySubject, Subject} from "rxjs";
+import {map, Observable, ReplaySubject} from "rxjs";
 import {HttpService} from "./http.service";
 
 @Injectable({
