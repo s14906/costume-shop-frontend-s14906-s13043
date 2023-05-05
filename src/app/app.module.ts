@@ -26,6 +26,7 @@ import {AuthService} from "./core/service/auth.service";
 import {MessageService} from "./core/service/message.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarService} from "./core/service/snackbar.service";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {SnackbarService} from "./core/service/snackbar.service";
     FormsModule,
     MatCardModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatMenuModule
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' }, },

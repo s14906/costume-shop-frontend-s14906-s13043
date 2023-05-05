@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import {map, Observable} from "rxjs";
+import {map, Observable, ReplaySubject, Subject} from "rxjs";
 import {HttpService} from "./http.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
-  public username: string;
-  public password: string;
+  USER_NAME_SESSION_ATTRIBUTE_NAME: string = 'authenticatedUser';
+
+  public loggedIn: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private httpService: HttpService) { }
 
@@ -16,23 +16,24 @@ export class AuthService {
     return this.httpService.postLogin(
       { email: username, password: password },
       ).pipe(map((res) => {
-      this.username = username;
-      this.password = password;
       sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+      this.loggedIn.next(res.success);
       return res;
     }));
   }
 
   logout(): void {
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
-    this.username = '';
-    this.password = '';
-
+    this.loggedIn.next(false);
   }
 
-  isUserLoggedIn() {
+  getIsLoggedIn(): Observable<boolean> {
     let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
-    return user !== null;
-
+    if (user !== null) {
+      this.loggedIn.next(true);
+    } else {
+      this.loggedIn.next(false);
+    }
+    return this.loggedIn.asObservable();
   }
 }

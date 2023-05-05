@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewEncap
 import {finalize, Subscription} from "rxjs";
 import {AuthService} from "../../core/service/auth.service";
 import {MessageService} from "../../core/service/message.service";
+import {SnackbarService} from "../../core/service/snackbar.service";
 
 @Component({
   selector: 'app-header',
@@ -10,30 +11,22 @@ import {MessageService} from "../../core/service/message.service";
   encapsulation: ViewEncapsulation.None
 
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  isLoggedIn: boolean = false;
+export class HeaderComponent implements OnDestroy {
+  loggedIn: boolean = false;
 
   username: string;
 
   private subscription: Subscription;
 
-  constructor(public authService: AuthService, private headerRefreshService: MessageService) {
-    this.subscription = this.headerRefreshService.getUpdate().subscribe
-    ((message) => {
-      this.ngOnInit();
-      if(!this.username) {
-        this.username = message.text;
-      }
+  constructor(public authService: AuthService, private snackbarService: SnackbarService) {
+    this.subscription = this.authService.getIsLoggedIn().subscribe(loggedIn => {
+      this.loggedIn = loggedIn;
     });
-  }
-
-  ngOnInit(): void {
-    this.isLoggedIn = this.authService.isUserLoggedIn();
   }
 
   logout() {
     this.authService.logout();
-    this.ngOnInit();
+    this.snackbarService.openSnackBar('Logged out!');
   }
 
   ngOnDestroy(): void {

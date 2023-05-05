@@ -2,8 +2,14 @@
   <mat-toolbar-row>
     <div class="header-items-left">
       <img src="../../../assets/logo.png" alt="Internet Shop Logo" class="logo" [routerLink]="'/'">
-      <div *ngIf="isLoggedIn; else elseBlock">
-        <a class="button" mat-stroked-button (click)="logout()">{{this.username}}</a>
+      <div *ngIf="loggedIn; else elseBlock">
+        <button class="button" mat-stroked-button [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+          <button mat-menu-item>Account information</button>
+          <button mat-menu-item>Your orders</button>
+          <button mat-menu-item (click)="logout()">Log out</button>
+
+        </mat-menu>
       </div>
       <ng-template #elseBlock>
         <a class="button" mat-stroked-button [routerLink]="'/login'">Log in</a>
