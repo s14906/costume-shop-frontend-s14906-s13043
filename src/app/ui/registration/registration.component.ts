@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnDestroy {
       flatNumber: ['', Validators.required, this.validateField],
       postalCode: ['', Validators.required, this.validateField],
       phone: ['', Validators.required, this.validateField],
-
+      city: ['', Validators.required, this.validateField]
     },
       { validators: [this.validatePasswords], updateOn: "submit" }
     );
@@ -40,7 +40,7 @@ export class RegistrationComponent implements OnDestroy {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-  validatePasswords(formGroup: FormGroup): void {
+  validatePasswords(formGroup: FormGroup) {
     const passwordControl: AbstractControl<any, any> | null = formGroup.get('password');
     const confirmPasswordControl: AbstractControl<any, any> | null = formGroup.get('confirmPassword');
 
@@ -52,6 +52,7 @@ export class RegistrationComponent implements OnDestroy {
       passwordControl?.setErrors(null);
       confirmPasswordControl?.setErrors(null);
     }
+    return null;
   }
 
   validateField(control: AbstractControl): Observable<ValidationErrors | null> {
@@ -73,11 +74,16 @@ export class RegistrationComponent implements OnDestroy {
     if (formValid) {
       this.allSubscriptions.push(
         this.httpService.postRegistration({
-          username: this.registrationForm.get('username')?.value,
-          email: this.registrationForm.get('email')?.value,
-          name: this.registrationForm.get('name')?.value,
-          surname: this.registrationForm.get('surname')?.value,
-          password: this.registrationForm.get('password')?.value
+          username: this.getFieldValue('username'),
+          email: this.getFieldValue('email'),
+          name: this.getFieldValue('name'),
+          surname: this.getFieldValue('surname'),
+          password: this.getFieldValue('password'),
+          street: this.getFieldValue('street'),
+          flatNumber: this.getFieldValue('flatNumber'),
+          postalCode: this.getFieldValue('postalCode'),
+          city: this.getFieldValue('city'),
+          phone: this.getFieldValue('phone')
         }).subscribe({
           next: next => {
             this.snackbarService.openSnackBar(next.message);
@@ -88,5 +94,9 @@ export class RegistrationComponent implements OnDestroy {
           }
         }));
     }
+  }
+
+  private getFieldValue(fieldName: string) {
+    return this.registrationForm.get(fieldName)?.value;
   }
 }

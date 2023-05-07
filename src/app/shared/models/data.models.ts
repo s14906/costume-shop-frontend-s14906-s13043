@@ -4,6 +4,11 @@ export interface RegistrationModel {
   name?: string;
   surname?: string;
   password?: string;
+  street?: string;
+  flatNumber?: string;
+  postalCode?: string;
+  city?: string;
+  phone?: string;
 }
 
 export interface LoginModel {

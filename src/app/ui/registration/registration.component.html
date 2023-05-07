@@ -5,29 +5,9 @@
       <div class="form-container">
         <div class="column">
           <mat-form-field appearance="outline">
-            <input matInput placeholder="User name" formControlName="username" required>
-            <mat-error>
-              Please provide a valid user name
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
             <input matInput placeholder="First name" formControlName="firstname" required>
             <mat-error>
               Please provide a valid first name
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input matInput type="password" placeholder="Password" formControlName="password" >
-            <mat-error>
-              Passwords don't match
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="column">
-          <mat-form-field appearance="outline">
-            <input matInput placeholder="Email" formControlName="email" required>
-            <mat-error>
-              Please provide a valid email address
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
@@ -37,8 +17,35 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
+            <input matInput type="password" placeholder="Password" formControlName="password" >
+            <mat-error>
+              Passwords don't match
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
             <input matInput placeholder="Confirm Password" formControlName="confirmPassword"  type="password">
             <mat-error>Passwords don't match</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="column">
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="User name" formControlName="username" required>
+            <mat-error>
+              Please provide a valid user name
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Email" formControlName="email" required>
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Phone" formControlName="phone" required>
+            <mat-error>
+              Please provide a valid phone number
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="column">
@@ -61,14 +68,13 @@
             </mat-error>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Phone" formControlName="phone" required>
+            <input matInput placeholder="City" formControlName="city" required>
             <mat-error>
-              Please provide a valid phone number
+              Please provide a valid city name
             </mat-error>
           </mat-form-field>
         </div>
       </div>
-
       <div class="login-and-sign-up">
         <button mat-raised-button type="submit" color="primary"  class="button">Sign up</button>
       </div>
