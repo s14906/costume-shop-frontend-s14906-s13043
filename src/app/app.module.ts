@@ -27,6 +27,8 @@ import {MessageService} from "./core/service/message.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarService} from "./core/service/snackbar.service";
 import {MatMenuModule} from "@angular/material/menu";
+import {TokenStorageService} from "./core/service/token-storage.service";
+import {authInterceptorProviders} from "./core/service/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import {MatMenuModule} from "@angular/material/menu";
     AuthService,
     MessageService,
     SnackbarService,
-    MatSnackBar
+    MatSnackBar,
+    TokenStorageService,
+    authInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

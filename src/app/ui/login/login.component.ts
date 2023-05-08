@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../core/service/auth.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
+import {TokenStorageService} from "../../core/service/token-storage.service";
 
 @Component({
   selector: 'app-login',
@@ -15,17 +16,26 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private snackbarService: SnackbarService,
+              private tokenStorageService: TokenStorageService,
               private router: Router) {
   }
 
+  roles: string[] = [];
+
   ngOnInit(): void {
-    sessionStorage.setItem('token', '');
+    if (this.tokenStorageService.getToken()) {
+      this.roles = this.tokenStorageService.getUser().roles;
+    }
   }
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
       next: next => {
-        this.snackbarService.openSnackBar(next.message);
+        this.tokenStorageService.saveToken(next.accessToken);
+        this.tokenStorageService.saveUser(next);
+
+        this.roles = this.tokenStorageService.getUser().roles;
+        this.snackbarService.openSnackBar("Log in success!");
         this.router.navigate(['/']);
       },
       error: err => {

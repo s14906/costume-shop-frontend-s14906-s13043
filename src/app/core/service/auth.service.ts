@@ -14,15 +14,15 @@ export class AuthService {
 
   login(username: string, password: string): Observable<any>{
     return this.httpService.postLogin(
-      { email: username, password: password },
+      { email: username, password: password }
       ).pipe(map((res) => {
       sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-      this.loggedIn.next(res.success);
+      this.loggedIn.next(true);
       return res;
     }));
   }
 
-  logout(): void {
+  announceLogout(): void {
     sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.loggedIn.next(false);
   }
