@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         this.tokenStorageService.saveUser(next);
 
         this.roles = this.tokenStorageService.getUser().roles;
-        this.snackbarService.openSnackBar("Log in success!");
+        this.snackbarService.openSnackBar(next.message);
         this.router.navigate(['/']);
       },
       error: err => {
