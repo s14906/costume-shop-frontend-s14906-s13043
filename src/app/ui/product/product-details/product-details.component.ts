@@ -1,8 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ItemColorModel, ItemModel, ItemSizeModel} from "../../../shared/models/data.models";
 import {HttpService} from "../../../core/service/http.service";
 import {combineLatestWith, Subscription} from "rxjs";
+import {SnackbarService} from "../../../core/service/snackbar.service";
+import {AuthService} from "../../../core/service/auth.service";
+import {TokenStorageService} from "../../../core/service/token-storage.service";
 
 @Component({
   selector: 'app-product-details',
@@ -18,22 +21,40 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   selectedItemColor: string = '';
   private allSubscriptions: Subscription[] = [];
 
-  constructor(private route: ActivatedRoute, private httpService: HttpService) {
-
-  }
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private httpService: HttpService,
+              private snackbarService: SnackbarService,
+              private authService: AuthService,
+              private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.allSubscriptions.push(
       this.route.queryParams.pipe(
-      combineLatestWith(this.httpService.getAllItems()))
-      .subscribe(([params, items]) => {
-        this.item = items.find((item: ItemModel) => item.id.toString() === params['id']);
-      }));
+        combineLatestWith(this.httpService.getAllItems()))
+        .subscribe(({
+            next: next => {
+              console.log(next);
+              const params = next[0];
+              const items = next[1];
+              this.item = items.find((item: ItemModel) => item.id.toString() === params['id'])
+            },
+            error: err => {
+              this.authService.announceLogout();
+              this.tokenStorageService.signOut();
+              if (err.status === 403) {
+                this.snackbarService.openSnackBar("There was a problem with your JWT token or the token has expired. Please log in again.");
+              } else {
+                this.snackbarService.openSnackBar("An authentication problem has occurred. Please log in again.");
+              }
+              this.router.navigate(['/']);
+            }
+          })));
     this.allSubscriptions.push(
       this.httpService.getAllItemSizes()
         .subscribe(itemSizes => {
-            itemSizes.forEach(itemSize => this.itemSizes.push(itemSize));
-            this.selectedItemSize = itemSizes[0].size;
+          itemSizes.forEach(itemSize => this.itemSizes.push(itemSize));
+          this.selectedItemSize = itemSizes[0].size;
         })
     );
     this.allSubscriptions.push(
@@ -50,7 +71,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   }
 
   getImage() {
-    if(this.item?.itemImages) {
+    if (this.item?.itemImages) {
       return this.item.itemImages[0].imageBase64;
     }
     return '';
