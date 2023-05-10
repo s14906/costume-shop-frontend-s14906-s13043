@@ -32,12 +32,16 @@ body {
   transition: 300ms;
 }
 
-.page-title {
+.h3-center {
   text-align: center;
   margin: 16px;
 }
 
 .mat-form-field-label-wrapper {
   top: -1.5em;
+}
+
+.spacer-vertical {
+  height: 500px;
 }
 

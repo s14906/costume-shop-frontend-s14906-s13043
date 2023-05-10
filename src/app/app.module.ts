@@ -29,6 +29,8 @@ import {SnackbarService} from "./core/service/snackbar.service";
 import {MatMenuModule} from "@angular/material/menu";
 import {TokenStorageService} from "./core/service/token-storage.service";
 import {authInterceptorProviders} from "./core/service/auth.interceptor";
+import { RegistrationSuccessComponent } from './ui/registration/registration-success/registration-success.component';
+import { RegistrationVerificationComponent } from './ui/registration/registration-verification/registration-verification.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import {authInterceptorProviders} from "./core/service/auth.interceptor";
     ProductDetailsComponent,
     LoginComponent,
     RegistrationComponent,
+    RegistrationSuccessComponent,
+    RegistrationVerificationComponent,
   ],
   imports: [
     BrowserModule,

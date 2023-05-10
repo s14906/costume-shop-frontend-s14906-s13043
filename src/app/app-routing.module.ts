@@ -4,13 +4,19 @@ import {ProductDetailsComponent} from "./ui/product/product-details/product-deta
 import {ProductListComponent} from "./ui/product/product-list/product-list.component";
 import {LoginComponent} from "./ui/login/login.component";
 import {RegistrationComponent} from "./ui/registration/registration.component";
+import {RegistrationSuccessComponent} from "./ui/registration/registration-success/registration-success.component";
+import {
+  RegistrationVerificationComponent
+} from "./ui/registration/registration-verification/registration-verification.component";
 
 
 const routes: Routes = [
   { path: '', component: ProductListComponent },
   { path: 'product', component: ProductDetailsComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegistrationComponent}
+  { path: 'registration', component: RegistrationComponent},
+  { path: 'registration-success', component: RegistrationSuccessComponent},
+  { path: 'registration-verification', component: RegistrationVerificationComponent}
 
 
 ];

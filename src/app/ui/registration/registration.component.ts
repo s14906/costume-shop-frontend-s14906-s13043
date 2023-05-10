@@ -87,7 +87,7 @@ export class RegistrationComponent implements OnDestroy {
         }).subscribe({
           next: next => {
             this.snackbarService.openSnackBar(next.message);
-            this.router.navigate(['/']);
+            this.router.navigate(['/registration-success']);
           },
           error: err => {
             this.snackbarService.openSnackBar(err.error.message);

@@ -1,0 +1,9 @@
+<div *ngIf="this.userVerified; else elseBlock">
+    <h3 class="h3-center">Account verified successfully!</h3>
+    <div class="spacer-vertical"></div>
+</div>
+<ng-template #elseBlock>
+    <h3 class="h3-center">Failed to verify the account using the provided token.</h3>
+    <h3 class="h3-center">Is the token valid?</h3>
+    <div class="spacer-vertical"></div>
+</ng-template>

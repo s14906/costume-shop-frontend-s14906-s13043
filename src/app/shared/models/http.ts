@@ -5,4 +5,6 @@ export enum UrlPart {
   ITEMS = 'items',
   ITEM_SIZES = 'items/sizes',
   ITEM_COLORS = 'items/colors',
+  USERS = 'users',
+  VERIFICATION = 'verification',
 }

@@ -1,7 +1,13 @@
 import { HttpClient } from  '@angular/common/http';
 import { Injectable } from  '@angular/core';
 import {UrlPart} from "../../shared/models/http";
-import {ItemColorModel, ItemModel, ItemSizeModel, LoginModel, RegistrationModel} from "../../shared/models/data.models";
+import {
+  ItemColorModel,
+  ItemModel,
+  ItemSizeModel,
+  LoginModel,
+  RegistrationModel,
+} from "../../shared/models/data.models";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -29,5 +35,17 @@ export class HttpService {
 
   public getAllItemColors(): Observable<ItemColorModel[]> {
     return this.http.get<ItemColorModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_COLORS);
+  }
+
+  public getUserByVerificationToken(verificationToken: string): Observable<any> {
+    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.USERS, {params: {
+      verificationToken: verificationToken
+      }});
+  }
+
+  public postUserVerification(userId: number): Observable<any> {
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {},{params: {
+      userId: userId
+      }});
   }
 }
