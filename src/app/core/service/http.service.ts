@@ -9,6 +9,7 @@ import {
   RegistrationModel,
 } from "../../shared/models/data.models";
 import {Observable} from "rxjs";
+import {UserLoginResponse} from "../../shared/models/response.models";
 
 @Injectable({
   providedIn:  'root'
@@ -21,8 +22,8 @@ export class HttpService {
     return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, registrationModel);
   }
 
-  public postLogin(loginModel: LoginModel): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginModel);
+  public postLogin(loginModel: LoginModel): Observable<UserLoginResponse> {
+    return this.http.post<UserLoginResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginModel);
   }
 
   public getAllItems(): Observable<ItemModel[]> {

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {map, Observable, ReplaySubject} from "rxjs";
 import {HttpService} from "./http.service";
+import {UserLoginResponse} from "../../shared/models/response.models";
+import {TokenStorageService} from "./token-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +12,17 @@ export class AuthService {
 
   public loggedIn: ReplaySubject<boolean> = new ReplaySubject(1);
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService,
+              private tokenStorageService: TokenStorageService) { }
 
   login(username: string, password: string): Observable<any>{
     return this.httpService.postLogin(
       { email: username, password: password }
-      ).pipe(map((res) => {
+      ).pipe(map((response: UserLoginResponse) => {
       sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
       this.loggedIn.next(true);
-      return res;
+      this.tokenStorageService.userRoleSubject.next(response.roles);
+      return response;
     }));
   }
 
@@ -28,7 +32,7 @@ export class AuthService {
   }
 
   getIsLoggedIn(): Observable<boolean> {
-    let user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    const user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
     if (user !== null) {
       this.loggedIn.next(true);
     } else {

@@ -3,13 +3,24 @@
     <div class="header-items-left">
       <img src="../../../assets/logo.png" alt="Internet Shop Logo" class="logo" [routerLink]="'/'">
       <div *ngIf="loggedIn; else elseBlock">
-        <button class="button" mat-stroked-button [matMenuTriggerFor]="menu">Menu</button>
-        <mat-menu #menu="matMenu" [overlapTrigger]="false">
-          <button mat-menu-item>Account information</button>
-          <button mat-menu-item>Your orders</button>
-          <button mat-menu-item (click)="logout()">Log out</button>
-
-        </mat-menu>
+        <ng-template [ngIf]="!userRoles?.includes('EMPLOYEE')" [ngIfElse]="elseBlock">
+          <button class="button" mat-stroked-button [matMenuTriggerFor]="menu">Menu</button>
+          <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item>Account information</button>
+            <button mat-menu-item>Order history</button>
+            <button mat-menu-item (click)="logout()">Log out</button>
+          </mat-menu>
+        </ng-template>
+        <ng-template #elseBlock>
+          <button class="button" mat-stroked-button [matMenuTriggerFor]="menu">Menu</button>
+          <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item>Account information</button>
+            <button mat-menu-item>List of complaints</button>
+            <button mat-menu-item>Category list</button>
+            <button mat-menu-item>Item list</button>
+            <button mat-menu-item (click)="logout()">Log out</button>
+          </mat-menu>
+        </ng-template>
       </div>
       <ng-template #elseBlock>
         <a class="button" mat-stroked-button [routerLink]="'/login'">Log in</a>

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
-import { Subscription} from "rxjs";
+import {combineLatest, Subscription} from "rxjs";
 import {AuthService} from "../../core/service/auth.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
 import {TokenStorageService} from "../../core/service/token-storage.service";
@@ -14,15 +14,20 @@ import {TokenStorageService} from "../../core/service/token-storage.service";
 export class HeaderComponent implements OnDestroy {
   loggedIn: boolean = false;
 
-  username: string;
+  userRoles?: string[];
 
-  private subscription: Subscription;
+  private allSubscriptions: Subscription[] = [];
 
-  constructor(public authService: AuthService, private snackbarService: SnackbarService,
-              private tokenStorageService: TokenStorageService) {
-    this.subscription = this.authService.getIsLoggedIn().subscribe(loggedIn => {
-      this.loggedIn = loggedIn;
-    });
+  constructor(public authService: AuthService,
+              private snackbarService: SnackbarService,
+              private tokenStorageService: TokenStorageService,
+  ) {
+    this.allSubscriptions.push(
+      combineLatest([this.authService.getIsLoggedIn(), this.tokenStorageService.getUserRoles()])
+      .subscribe(userData => {
+        this.loggedIn = userData[0];
+        this.userRoles = userData[1];
+      }));
   }
 
   logout() {
@@ -32,6 +37,6 @@ export class HeaderComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
