@@ -13,7 +13,7 @@
         <mat-grid-tile>
           <mat-form-field appearance="outline" class="option-form-field">
             <mat-select [(ngModel)]="selectedItemSize">
-              <mat-option *ngFor="let itemSize of itemSizes" [value]="selectedItemSize">
+              <mat-option *ngFor="let itemSize of itemSizes" [value]="itemSize.size">
                 {{itemSize.size}}
               </mat-option>
             </mat-select>
