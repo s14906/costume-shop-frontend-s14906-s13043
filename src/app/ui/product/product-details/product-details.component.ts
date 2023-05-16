@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {ItemColorModel, ItemModel, ItemSizeModel} from "../../../shared/models/data.models";
 import {HttpService} from "../../../core/service/http.service";
 import {combineLatestWith, Subscription} from "rxjs";
 import {SnackbarService} from "../../../core/service/snackbar.service";
-import {AuthService} from "../../../core/service/auth.service";
 import {TokenStorageService} from "../../../core/service/token-storage.service";
+import {HttpErrorService} from "../../../core/service/http-error.service";
 
 @Component({
     selector: 'app-product-details',
@@ -23,11 +23,10 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     itemAmount: number = 1;
 
     constructor(private route: ActivatedRoute,
-                private router: Router,
                 private httpService: HttpService,
                 private snackbarService: SnackbarService,
-                private authService: AuthService,
-                private tokenStorageService: TokenStorageService) {
+                private tokenStorageService: TokenStorageService,
+                private httpErrorService: HttpErrorService) {
     }
 
     ngOnInit(): void {
@@ -41,14 +40,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
                         this.item = items.find((item: ItemModel) => item.id.toString() === params['id'])
                     },
                     error: err => {
-                        this.authService.announceLogout();
-                        this.tokenStorageService.signOut();
-                        if (err.status === 403) {
-                            this.snackbarService.openSnackBar("There was a problem with your JWT token or the token has expired. Please log in again.");
-                        } else {
-                            this.snackbarService.openSnackBar("An authentication problem has occurred. Please log in again.");
-                        }
-                        this.router.navigate(['/']);
+                        this.httpErrorService.handleError(err);
                     }
                 })));
         this.allSubscriptions.push(
@@ -95,6 +87,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
             error: err => {
                 this.snackbarService.openSnackBar(err.error.message);
             }
-        })
+        });
     }
 }

@@ -3,6 +3,7 @@ import {HttpService} from "../../core/service/http.service";
 import {Subscription} from "rxjs";
 import {TokenStorageService} from "../../core/service/token-storage.service";
 import {ItemCartModel} from "../../shared/models/data.models";
+import {HttpErrorService} from "../../core/service/http-error.service";
 
 @Component({
     selector: 'app-cart',
@@ -16,15 +17,20 @@ export class CartComponent implements OnDestroy {
     priceTimesItemCount: number[] = [];
 
     constructor(private httpService: HttpService,
-                private tokenStorageService: TokenStorageService) {
+                private tokenStorageService: TokenStorageService,
+                private httpErrorService: HttpErrorService) {
         this.allSubscriptions.push(
             this.httpService.getCartItemsByUserId(this.tokenStorageService.getUser().id)
-                .subscribe(response => {
-                    this.cartItems = response.cartItems
-                    this.cartItems.forEach((cartItem) => {
-                        this.totalPrice = this.totalPrice + (cartItem.item.price * cartItem.itemAmount);
-                        this.priceTimesItemCount.push(cartItem.item.price * cartItem.itemAmount);
-                    });
+                .subscribe({
+                    next: next => {
+                        this.cartItems = next.cartItems
+                        this.cartItems.forEach((cartItem) => {
+                            this.totalPrice = this.totalPrice + (cartItem.item.price * cartItem.itemAmount);
+                            this.priceTimesItemCount.push(cartItem.item.price * cartItem.itemAmount);
+                        });
+                    }, error: err => {
+                        this.httpErrorService.handleError(err);
+                    }
                 })
         );
     }
