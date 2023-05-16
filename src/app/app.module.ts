@@ -31,6 +31,8 @@ import {TokenStorageService} from "./core/service/token-storage.service";
 import {authInterceptorProviders} from "./core/service/auth.interceptor";
 import { RegistrationSuccessComponent } from './ui/registration/registration-success/registration-success.component';
 import { RegistrationVerificationComponent } from './ui/registration/registration-verification/registration-verification.component';
+import { CartComponent } from './ui/cart/cart.component';
+import {CdkListbox, CdkOption} from "@angular/cdk/listbox";
 
 @NgModule({
   declarations: [
@@ -43,26 +45,29 @@ import { RegistrationVerificationComponent } from './ui/registration/registratio
     RegistrationComponent,
     RegistrationSuccessComponent,
     RegistrationVerificationComponent,
+    CartComponent,
   ],
-  imports: [
-    BrowserModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    RouterLinkActive,
-    MatTabsModule,
-    MatButtonModule,
-    RouterLink,
-    AppRoutingModule,
-    MatInputModule,
-    MatGridListModule,
-    MatSelectModule,
-    FormsModule,
-    MatCardModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatMenuModule
-  ],
+    imports: [
+        BrowserModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        RouterLinkActive,
+        MatTabsModule,
+        MatButtonModule,
+        RouterLink,
+        AppRoutingModule,
+        MatInputModule,
+        MatGridListModule,
+        MatSelectModule,
+        FormsModule,
+        MatCardModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        CdkOption,
+        CdkListbox
+    ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { subscriptSizing: 'dynamic' }, },
     AuthService,

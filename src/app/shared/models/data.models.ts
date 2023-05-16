@@ -1,21 +1,3 @@
-export interface RegistrationModel {
-  email?: string;
-  username?: string;
-  name?: string;
-  surname?: string;
-  password?: string;
-  street?: string;
-  flatNumber?: string;
-  postalCode?: string;
-  city?: string;
-  phone?: string;
-}
-
-export interface LoginModel {
-  email: string;
-  password: string;
-}
-
 export interface ItemModel {
   id: number;
   idCategory: number
@@ -41,4 +23,10 @@ export interface ItemSizeModel {
 export interface ItemColorModel {
   id: number;
   color: string;
+}
+
+export interface ItemCartModel {
+  item: ItemModel;
+  itemSize: ItemSizeModel;
+  itemCount: number;
 }

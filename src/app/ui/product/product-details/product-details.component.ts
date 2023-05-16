@@ -34,7 +34,6 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         combineLatestWith(this.httpService.getAllItems()))
         .subscribe(({
             next: next => {
-              console.log(next);
               const params = next[0];
               const items = next[1];
               this.item = items.find((item: ItemModel) => item.id.toString() === params['id'])
@@ -81,8 +80,22 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  printSelections() {
-    console.log(this.selectedItemColor);
-    console.log(this.selectedItemSize);
+  addToCart() {
+    this.httpService.postAddToCart({
+      userId: this.tokenStorageService.getUser().id,
+      itemId: this.item?.id,
+      itemSizeId: this.itemSizes.find(itemSize => itemSize.size === this.selectedItemSize)?.id
+    }).subscribe({
+      next: next => {
+        this.snackbarService.openSnackBar(next.message);
+    },
+      error: err => {
+        this.snackbarService.openSnackBar(err.error.message);
+      }
+    })
+
+
+
+
   }
 }

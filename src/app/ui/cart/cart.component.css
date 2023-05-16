@@ -1,0 +1,53 @@
+.cart-container {
+    width: 90%;
+    border: 4px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.summary-bar {
+    display: flex;
+    width: 90%;
+    border: 4px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+}
+
+.cart-listbox {
+    display: grid;
+    column-gap: 10px;
+
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+    padding: 10px;
+}
+
+
+.summary-text {
+    margin-left: 10px;
+    margin-right: auto;
+    font-weight: bold;
+}
+
+.price-sum-text {
+    margin-right: 10px;
+    margin-left: auto;
+    font-weight: bold;
+}
+
+.cart-listbox:focus .cdk-option-active {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.continue-button {
+    display: block;
+    margin-left: auto;
+    margin-right: 4.7%
+}

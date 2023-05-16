@@ -7,4 +7,5 @@ export enum UrlPart {
   ITEM_COLORS = 'items/colors',
   USERS = 'users',
   VERIFICATION = 'verification',
+  CART = 'cart',
 }

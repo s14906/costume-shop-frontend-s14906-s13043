@@ -34,7 +34,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
           } else {
             this.snackbarService.openSnackBar("An authentication problem has occurred. Please log in again.");
           }
-          window.location.reload();
+          // window.location.reload();
         }
   }));
   }

@@ -4,12 +4,10 @@ import {UrlPart} from "../../shared/models/http";
 import {
   ItemColorModel,
   ItemModel,
-  ItemSizeModel,
-  LoginModel,
-  RegistrationModel,
+  ItemSizeModel
 } from "../../shared/models/data.models";
 import {Observable} from "rxjs";
-import {UserLoginResponse} from "../../shared/models/response.models";
+import {AddToCartRequest, LoginRequest, LoginResponse, RegistrationRequest} from "../../shared/models/rest.models";
 
 @Injectable({
   providedIn:  'root'
@@ -18,12 +16,12 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  public postRegistration(registrationModel: RegistrationModel): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, registrationModel);
+  public postRegistration(registrationRequest: RegistrationRequest): Observable<any> {
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, registrationRequest);
   }
 
-  public postLogin(loginModel: LoginModel): Observable<UserLoginResponse> {
-    return this.http.post<UserLoginResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginModel);
+  public postLogin(loginRequest: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginRequest);
   }
 
   public getAllItems(): Observable<ItemModel[]> {
@@ -48,5 +46,15 @@ export class HttpService {
     return this.http.post(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {},{params: {
       userId: userId
       }});
+  }
+
+  public postAddToCart(addToCartRequest: AddToCartRequest): Observable<any> {
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.CART, addToCartRequest);
+  }
+
+  public getCartItemsByUserId(userId: number): Observable<any> {
+    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.CART, {params: {
+        userId: userId
+      }})
   }
 }
