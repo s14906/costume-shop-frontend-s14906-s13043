@@ -36,6 +36,7 @@ export class HeaderComponent implements OnDestroy {
     this.tokenStorageService.signOut();
     this.authService.announceLogout();
     this.snackbarService.openSnackBar('Logged out!');
+    this.router.navigate(['/']);
   }
 
   ngOnDestroy(): void {
