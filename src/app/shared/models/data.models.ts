@@ -28,5 +28,5 @@ export interface ItemColorModel {
 export interface ItemCartModel {
   item: ItemModel;
   itemSize: ItemSizeModel;
-  itemCount: number;
+  itemAmount: number;
 }

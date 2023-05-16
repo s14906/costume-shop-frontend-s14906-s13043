@@ -1,23 +1,28 @@
-<h1 class="text-center-with-margin">Your cart</h1>
-<div class="spacer-vertical-250">
-    <div class="cart-container">
-        <ul cdkListbox
-            cdkListboxUseActiveDescendant
-            class="cart-listbox">
-            <li *ngFor="let cartItem of cartItems"
-                [cdkOption]="cartItem.item.title"
-                class="cart-item">
+<ng-template [ngIf]="cartItems.length !== 0" [ngIfElse]="elseBlock">
+    <h1 class="text-center-with-margin">Your cart</h1>
+    <div class="spacer-vertical-250">
+        <div class="cart-container">
+            <ul cdkListbox
+                cdkListboxUseActiveDescendant
+                class="cart-listbox">
+                <li *ngFor="let cartItem of cartItems"
+                    class="cart-item">
                     <a>{{cartItem.item.title}}</a>
-                    <a>{{cartItem.itemCount}}x {{cartItem.item.price}}zł</a>
+                    <a>{{cartItem.itemAmount}}x {{cartItem.item.price}}zł</a>
                     <a>Size: {{cartItem.itemSize.size}}</a>
-                    <a>{{cartItem.itemCount * cartItem.item.price}}zł</a>
-            </li>
-        </ul>
+                    <a>{{cartItem.itemAmount * cartItem.item.price}}zł</a>
+                </li>
+            </ul>
+        </div>
+        <div class="summary-bar">
+            <a class="summary-text">SUMMARY</a>
+            <a class="price-sum-text">{{totalPrice}}zł</a>
+        </div>
+        <button class="button continue-button" mat-stroked-button>Continue</button>
     </div>
-    <div class="summary-bar">
-        <a class="summary-text">SUMMARY</a>
-        <a class="price-sum-text">{{totalPrice}}zł</a>
-    </div>
-    <button class="button continue-button" mat-stroked-button>Continue</button>
-</div>
+</ng-template>
+<ng-template #elseBlock>
+    <h1 class="text-center-with-margin">Your cart is empty! Add some products first.</h1>
+</ng-template>
+
 

@@ -22,8 +22,8 @@ export class CartComponent implements OnDestroy {
                 .subscribe(response => {
                     this.cartItems = response.cartItems
                     this.cartItems.forEach((cartItem) => {
-                        this.totalPrice = this.totalPrice + (cartItem.item.price * cartItem.itemCount);
-                        this.priceTimesItemCount.push(cartItem.item.price * cartItem.itemCount);
+                        this.totalPrice = this.totalPrice + (cartItem.item.price * cartItem.itemAmount);
+                        this.priceTimesItemCount.push(cartItem.item.price * cartItem.itemAmount);
                     });
                 })
         );

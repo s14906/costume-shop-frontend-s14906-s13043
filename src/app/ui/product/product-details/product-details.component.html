@@ -23,12 +23,12 @@
         <mat-grid-tile><p>Amount:</p></mat-grid-tile>
         <mat-grid-tile>
           <mat-form-field appearance="outline" class="option-form-field">
-            <input #amountInput
+            <input [(ngModel)]="itemAmount"
                    type="number"
                    matInput
                    [min]="1"
                    [max]="10"
-                   (keydown)="clearInput(amountInput)"
+                   (keydown)="clearInput()"
                    value="1">
           </mat-form-field>
         </mat-grid-tile>

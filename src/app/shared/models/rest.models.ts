@@ -30,4 +30,5 @@ export interface AddToCartRequest {
   itemId?: number;
   itemSizeId?: number;
   userId?: number;
+  itemAmount?: number;
 }
