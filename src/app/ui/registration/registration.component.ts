@@ -24,7 +24,7 @@ export class RegistrationComponent implements OnDestroy {
       confirmPassword :['', Validators.required],
       email: ['', Validators.required, this.validateField],
       username: ['', Validators.required, this.validateField],
-      firstname: ['', Validators.required, this.validateField],
+      name: ['', Validators.required, this.validateField],
       surname: ['', Validators.required, this.validateField],
       street: ['', Validators.required, this.validateField],
       flatNumber: ['', Validators.required, this.validateField],

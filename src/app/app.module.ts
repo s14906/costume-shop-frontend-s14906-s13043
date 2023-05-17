@@ -36,6 +36,7 @@ import {
 import {CartComponent} from './ui/cart/cart.component';
 import {CdkListbox, CdkOption} from "@angular/cdk/listbox";
 import {HttpErrorService} from "./core/service/http-error.service";
+import {AccountInformationComponent} from "./ui/account/account-information/account-information.component";
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import {HttpErrorService} from "./core/service/http-error.service";
         RegistrationSuccessComponent,
         RegistrationVerificationComponent,
         CartComponent,
+        AccountInformationComponent
     ],
     imports: [
         BrowserModule,
@@ -69,7 +71,7 @@ import {HttpErrorService} from "./core/service/http-error.service";
         ReactiveFormsModule,
         MatMenuModule,
         CdkOption,
-        CdkListbox
+        CdkListbox,
     ],
     providers: [
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'},},

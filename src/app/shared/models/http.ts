@@ -8,4 +8,6 @@ export enum UrlPart {
   USERS = 'users',
   VERIFICATION = 'verification',
   CART = 'cart',
+  ADD_ADDRESS = 'add-address',
+  GET_ADDRESSES = 'get-addresses'
 }

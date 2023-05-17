@@ -1,0 +1,104 @@
+.main-grid-list {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.main-grid-tile {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+.sub-grid-list {
+  width: 100%;
+  margin: auto;
+}
+
+.mat-card-content-height {
+  /*height: 100px;*/
+}
+
+mat-card {
+  width: 80%;
+  text-align: center;
+}
+
+.mat-mdc-card {
+  box-shadow: none !important;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+}
+
+.address-form-field {
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+}
+
+/*mat-error {*/
+/*    margin-bottom: -5em;*/
+/*}*/
+
+.add-button {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-listbox-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 90%;
+}
+
+.listbox-list-container {
+  display: block;
+  border: 1px solid black;
+  background-color: #dedede;
+}
+
+
+.address-listbox {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 200px;
+  overflow: auto;
+  justify-content: space-between;
+}
+
+.list-item-container {
+  display: flex;
+  height: fit-content;
+  align-items: center;
+}
+
+.address-text {
+  margin-right: auto;
+}
+
+.address-list-option {
+  position: relative;
+  padding: 5px 5px 5px 25px;
+}
+
+.delete-button {
+  height: 32px;
+}
+
+.address-listbox:focus .cdk-option-active {
+  background: rgba(0, 0, 0, 0.2);
+}

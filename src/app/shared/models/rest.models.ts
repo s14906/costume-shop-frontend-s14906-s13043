@@ -11,6 +11,16 @@ export interface RegistrationRequest {
   phone?: string;
 }
 
+//TODO: mayube merge this stuff with RegistrationRequest
+export interface AddAddressRequest {
+  userId: number;
+  street?: string;
+  flatNumber?: string;
+  postalCode?: string;
+  city?: string;
+  phone?: string;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;

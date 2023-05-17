@@ -46,4 +46,8 @@ export class HeaderComponent implements OnDestroy {
   navigateToCart() {
     this.router.navigate(['/cart']);
   }
+
+  navigateToAccountInformation() {
+    this.router.navigate(['/account']);
+  }
 }

@@ -7,12 +7,19 @@ import {
   ItemSizeModel
 } from "../../shared/models/data.models";
 import {Observable} from "rxjs";
-import {AddToCartRequest, LoginRequest, LoginResponse, RegistrationRequest} from "../../shared/models/rest.models";
+import {
+  AddAddressRequest,
+  AddToCartRequest,
+  LoginRequest,
+  LoginResponse,
+  RegistrationRequest
+} from "../../shared/models/rest.models";
 
 @Injectable({
   providedIn:  'root'
 })
 export class HttpService {
+  //TODO: observable types
 
   constructor(private http: HttpClient) { }
 
@@ -22,6 +29,10 @@ export class HttpService {
 
   public postLogin(loginRequest: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginRequest);
+  }
+
+  public postAddAddress(addAddressRequest: AddAddressRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, addAddressRequest);
   }
 
   public getAllItems(): Observable<ItemModel[]> {
@@ -39,6 +50,12 @@ export class HttpService {
   public getUserByVerificationToken(verificationToken: string): Observable<any> {
     return this.http.get(UrlPart.BACKEND_LINK + UrlPart.USERS, {params: {
       verificationToken: verificationToken
+      }});
+  }
+
+  public getAddressesForUser(userId: number): Observable<any> {
+    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.GET_ADDRESSES, {params: {
+        userId: userId
       }});
   }
 

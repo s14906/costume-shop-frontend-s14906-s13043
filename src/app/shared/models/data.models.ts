@@ -30,3 +30,10 @@ export interface ItemCartModel {
   itemSize: ItemSizeModel;
   itemAmount: number;
 }
+
+export interface AddressModel {
+  street?: string;
+  flatNumber?: string;
+  postalCode?: string;
+  city?: string;
+}

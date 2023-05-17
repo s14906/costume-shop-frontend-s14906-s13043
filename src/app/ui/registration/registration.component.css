@@ -16,7 +16,7 @@ mat-error {
   max-width: 150px;
 }
 
-.login-and-sign-up {
+.add-button {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -9,6 +9,7 @@ import {
   RegistrationVerificationComponent
 } from "./ui/registration/registration-verification/registration-verification.component";
 import {CartComponent} from "./ui/cart/cart.component";
+import {AccountInformationComponent} from "./ui/account/account-information/account-information.component";
 
 
 const routes: Routes = [
@@ -18,7 +19,9 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent},
   { path: 'registration-success', component: RegistrationSuccessComponent},
   { path: 'registration-verification', component: RegistrationVerificationComponent},
-  { path: 'cart', component: CartComponent}
+  { path: 'cart', component: CartComponent},
+  { path: 'account', component: AccountInformationComponent}
+
 
 ];
 @NgModule({
