@@ -4,6 +4,7 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} f
 import {SnackbarService} from "../../core/service/snackbar.service";
 import {Router} from "@angular/router";
 import {Observable, of, Subscription} from "rxjs";
+import {FormValidationService} from "../../core/service/form-validation.service";
 
 @Component({
   selector: 'app-registration',
@@ -18,60 +19,39 @@ export class RegistrationComponent implements OnDestroy {
   constructor(private httpService: HttpService,
               private snackbarService: SnackbarService,
               private formBuilder: FormBuilder,
+              private formValidationService: FormValidationService,
               private router: Router) {
     this.registrationForm = this.formBuilder.group({
-      password: ['', Validators.required],
-      confirmPassword :['', Validators.required],
-      email: ['', Validators.required, this.validateField],
-      username: ['', Validators.required, this.validateField],
-      name: ['', Validators.required, this.validateField],
-      surname: ['', Validators.required, this.validateField],
-      street: ['', Validators.required, this.validateField],
-      flatNumber: ['', Validators.required, this.validateField],
-      postalCode: ['', Validators.required, this.validateField],
-      phone: ['', Validators.required, this.validateField],
-      city: ['', Validators.required, this.validateField]
-    },
-      { validators: [this.validatePasswords], updateOn: "submit" }
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required],
+        email: ['', Validators.required, this.validateField],
+        username: ['', Validators.required, this.validateField],
+        name: ['', Validators.required, this.validateField],
+        surname: ['', Validators.required, this.validateField],
+        street: ['', Validators.required, this.validateField],
+        flatNumber: ['', Validators.required, this.validateField],
+        postalCode: ['', Validators.required, this.validateField],
+        phone: ['', Validators.required, this.validateField],
+        city: ['', Validators.required, this.validateField]
+      },
+      {validators: [this.formValidationService.validatePasswords], updateOn: "submit"}
     );
   }
 
   ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
-    }
-
-  validatePasswords(formGroup: FormGroup) {
-    const passwordControl: AbstractControl<any, any> | null = formGroup.get('password');
-    const confirmPasswordControl: AbstractControl<any, any> | null = formGroup.get('confirmPassword');
-
-    if ((passwordControl?.value !== confirmPasswordControl?.value) ||
-      (passwordControl?.value === '' || confirmPasswordControl?.value === '')) {
-      passwordControl?.setErrors({invalid: true});
-      confirmPasswordControl?.setErrors({invalid: true});
-    } else {
-      passwordControl?.setErrors(null);
-      confirmPasswordControl?.setErrors(null);
-    }
-    return null;
+    this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   validateField(control: AbstractControl): Observable<ValidationErrors | null> {
-        if (control?.value === '') {
-          return of({invalid: true})
-        } else {
-          return of(null);
-        }
+    if (control?.value === '') {
+      return of({invalid: true})
+    } else {
+      return of(null);
+    }
   }
 
-  onSubmit() {
-    let formValid: boolean = true;
-    Object.keys(this.registrationForm.controls).forEach(key => {
-      if (this.registrationForm.get(key)?.errors) {
-        formValid = false;
-        return;
-      }
-    });
-    if (formValid) {
+  onSubmitRegistrationForm() {
+    if (this.formValidationService.isFormValid(this.registrationForm)) {
       this.allSubscriptions.push(
         this.httpService.postRegistration({
           username: this.getFieldValue('username'),

@@ -5,6 +5,7 @@ import {Observable, of, Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import {AddressModel} from "../../../shared/models/data.models";
+import {FormValidationService} from "../../../core/service/form-validation.service";
 
 @Component({
   selector: 'app-account-information',
@@ -16,12 +17,9 @@ export class AccountInformationComponent implements OnDestroy {
   changePasswordForm: FormGroup;
   allSubscriptions: Subscription[] = [];
   columnNumber: number = 0;
-  email: any;
-  password: any;
-
+  password: string;
+  //TODO: user model
   user: any;
-
-  features = ['Address1', 'Address2', 'Address3', 'Address4', 'Address1', 'Address2', 'Address3', 'Address4',];
   addresses: AddressModel[] = [];
 
   @HostListener('window:resize', ['$event'])
@@ -33,7 +31,8 @@ export class AccountInformationComponent implements OnDestroy {
   constructor(private tokenStorageService: TokenStorageService,
               private formBuilder: FormBuilder,
               private httpService: HttpService,
-              private snackbarService: SnackbarService) {
+              private snackbarService: SnackbarService,
+              private formValidationService: FormValidationService) {
     this.setGridColumnNumber();
     this.user = this.tokenStorageService.getUser();
 
@@ -43,14 +42,14 @@ export class AccountInformationComponent implements OnDestroy {
         postalCode: ['', Validators.required, this.validateField],
         city: ['', Validators.required, this.validateField]
       },
-      { validators: [this.validatePasswords], updateOn: "submit" }
+      {validators: [this.formValidationService.validatePasswords], updateOn: "submit"}
     );
 
     this.changePasswordForm = this.formBuilder.group({
         password: ['', Validators.required],
-        confirmPassword :['', Validators.required]
+        confirmPassword: ['', Validators.required]
       },
-      { updateOn: "submit"}
+      {updateOn: "submit"}
     );
 
     this.allSubscriptions.push(
@@ -74,15 +73,8 @@ export class AccountInformationComponent implements OnDestroy {
     }
   }
 
-  onSubmit() {
-    let formValid: boolean = true;
-    Object.keys(this.addAddressForm.controls).forEach(key => {
-      if (this.addAddressForm.get(key)?.errors) {
-        formValid = false;
-        return;
-      }
-    });
-    if (formValid) {
+  onSubmitAddAddress() {
+    if (this.formValidationService.isFormValid(this.addAddressForm)) {
       this.allSubscriptions.push(
         this.httpService.postAddAddress({
           userId: this.user.id,
@@ -100,28 +92,15 @@ export class AccountInformationComponent implements OnDestroy {
         }));
     }
   }
+
   private getFieldValue(fieldName: string) {
     return this.addAddressForm.get(fieldName)?.value;
   }
 
+  //TODO: password change handling
   onSubmitChangePassword() {
 
 
-  }
-
-  validatePasswords(formGroup: FormGroup) {
-    const passwordControl: AbstractControl<any, any> | null = formGroup.get('password');
-    const confirmPasswordControl: AbstractControl<any, any> | null = formGroup.get('confirmPassword');
-
-    if ((passwordControl?.value !== confirmPasswordControl?.value) ||
-      (passwordControl?.value === '' || confirmPasswordControl?.value === '')) {
-      passwordControl?.setErrors({invalid: true});
-      confirmPasswordControl?.setErrors({invalid: true});
-    } else {
-      passwordControl?.setErrors(null);
-      confirmPasswordControl?.setErrors(null);
-    }
-    return null;
   }
 
   ngOnDestroy(): void {
