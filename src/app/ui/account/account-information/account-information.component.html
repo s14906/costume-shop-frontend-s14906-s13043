@@ -66,6 +66,7 @@
           <div class="listbox-list-container">
             <ul cdk-scrollable
                 cdkListbox
+                cdkListboxUseActiveDescendant
                 aria-labelledby="example-spatula-label"
                 class="address-listbox">
               <li *ngFor="let address of addresses"
@@ -74,7 +75,7 @@
                 <div class="list-item-container">
                   <span class="address-text">{{address.flatNumber + ', ' +
                   address.street + ', ' + address.postalCode + ', ' + address.city}}</span>
-                  <img class="delete-button" src="../../../../assets/trash.png">
+                  <img class="delete-button" src="../../../../assets/trash.png" (click)="removeAddress(address)">
                 </div>
               </li>
             </ul>

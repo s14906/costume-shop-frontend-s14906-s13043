@@ -6,6 +6,7 @@ import {HttpService} from "../../../core/service/http.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import {AddressModel} from "../../../shared/models/data.models";
 import {FormValidationService} from "../../../core/service/form-validation.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-account-information',
@@ -32,7 +33,8 @@ export class AccountInformationComponent implements OnDestroy {
               private formBuilder: FormBuilder,
               private httpService: HttpService,
               private snackbarService: SnackbarService,
-              private formValidationService: FormValidationService) {
+              private formValidationService: FormValidationService,
+              private router: Router) {
     this.setGridColumnNumber();
     this.user = this.tokenStorageService.getUser();
 
@@ -51,6 +53,7 @@ export class AccountInformationComponent implements OnDestroy {
       },
       {updateOn: "submit"}
     );
+
 
     this.allSubscriptions.push(
       this.httpService.getAddressesForUser(this.user.id)
@@ -85,11 +88,15 @@ export class AccountInformationComponent implements OnDestroy {
         }).subscribe({
           next: next => {
             this.snackbarService.openSnackBar(next.message);
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+              this.router.navigate(['account']);
+            });
           },
           error: err => {
             this.snackbarService.openSnackBar(err.error.message);
           }
         }));
+
     }
   }
 
@@ -106,4 +113,20 @@ export class AccountInformationComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
+  removeAddress(address: AddressModel) {
+    this.allSubscriptions.push(
+      this.httpService.postRemoveAddress(address.id).subscribe({
+        next: next => {
+          this.snackbarService.openSnackBar(next.message);
+          this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigate(['account']);
+          });
+        },
+        error: err => {
+          this.snackbarService.openSnackBar(err.error.message);
+        }
+      }));
+  }
+
 }

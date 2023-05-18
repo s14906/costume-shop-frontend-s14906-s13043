@@ -1,5 +1,5 @@
-import { HttpClient } from  '@angular/common/http';
-import { Injectable } from  '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {UrlPart} from "../../shared/models/http";
 import {
   ItemColorModel,
@@ -16,12 +16,13 @@ import {
 } from "../../shared/models/rest.models";
 
 @Injectable({
-  providedIn:  'root'
+  providedIn: 'root'
 })
 export class HttpService {
   //TODO: observable types
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   public postRegistration(registrationRequest: RegistrationRequest): Observable<any> {
     return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, registrationRequest);
@@ -48,21 +49,27 @@ export class HttpService {
   }
 
   public getUserByVerificationToken(verificationToken: string): Observable<any> {
-    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.USERS, {params: {
-      verificationToken: verificationToken
-      }});
+    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.USERS, {
+      params: {
+        verificationToken: verificationToken
+      }
+    });
   }
 
   public getAddressesForUser(userId: number): Observable<any> {
-    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.GET_ADDRESSES, {params: {
+    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.GET_ADDRESSES, {
+      params: {
         userId: userId
-      }});
+      }
+    });
   }
 
   public postUserVerification(userId: number): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {},{params: {
-      userId: userId
-      }});
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {}, {
+      params: {
+        userId: userId
+      }
+    });
   }
 
   public postAddToCart(addToCartRequest: AddToCartRequest): Observable<any> {
@@ -70,8 +77,19 @@ export class HttpService {
   }
 
   public getCartItemsByUserId(userId: number): Observable<any> {
-    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.CART, {params: {
+    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.CART, {
+      params: {
         userId: userId
-      }})
+      }
+    })
   }
+
+  postRemoveAddress(addressId: number): Observable<any> {
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REMOVE_ADDRESS, {}, {
+      params: {
+        addressId: addressId
+      }
+    })
+  }
+
 }

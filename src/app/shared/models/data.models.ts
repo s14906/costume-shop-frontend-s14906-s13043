@@ -32,6 +32,7 @@ export interface ItemCartModel {
 }
 
 export interface AddressModel {
+  id: number;
   street?: string;
   flatNumber?: string;
   postalCode?: string;
