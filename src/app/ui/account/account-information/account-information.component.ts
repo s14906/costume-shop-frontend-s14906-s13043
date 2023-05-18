@@ -7,6 +7,7 @@ import {SnackbarService} from "../../../core/service/snackbar.service";
 import {AddressModel} from "../../../shared/models/data.models";
 import {FormValidationService} from "../../../core/service/form-validation.service";
 import {Router} from "@angular/router";
+import {HttpErrorService} from "../../../core/service/http-error.service";
 
 @Component({
   selector: 'app-account-information',
@@ -23,18 +24,13 @@ export class AccountInformationComponent implements OnDestroy {
   user: any;
   addresses: AddressModel[] = [];
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.setGridColumnNumber()
-  }
-
-
   constructor(private tokenStorageService: TokenStorageService,
               private formBuilder: FormBuilder,
               private httpService: HttpService,
               private snackbarService: SnackbarService,
               private formValidationService: FormValidationService,
-              private router: Router) {
+              private router: Router,
+              private httpErrorService: HttpErrorService) {
     this.setGridColumnNumber();
     this.user = this.tokenStorageService.getUser();
 
@@ -44,28 +40,24 @@ export class AccountInformationComponent implements OnDestroy {
         postalCode: ['', Validators.required, this.validateField],
         city: ['', Validators.required, this.validateField]
       },
-      {validators: [this.formValidationService.validatePasswords], updateOn: "submit"}
+      {updateOn: "submit"}
     );
 
     this.changePasswordForm = this.formBuilder.group({
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required]
       },
-      {updateOn: "submit"}
+      {validators: [this.formValidationService.validatePasswords], updateOn: "submit"}
     );
-
 
     this.allSubscriptions.push(
       this.httpService.getAddressesForUser(this.user.id)
         .subscribe(response => this.addresses = response.addresses));
   }
 
-  private setGridColumnNumber() {
-    if (window.innerWidth < 960) {
-      this.columnNumber = 1;
-    } else {
-      this.columnNumber = 2;
-    }
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.setGridColumnNumber()
   }
 
   validateField(control: AbstractControl): Observable<ValidationErrors | null> {
@@ -81,10 +73,10 @@ export class AccountInformationComponent implements OnDestroy {
       this.allSubscriptions.push(
         this.httpService.postAddAddress({
           userId: this.user.id,
-          street: this.getFieldValue('street'),
-          flatNumber: this.getFieldValue('flatNumber'),
-          postalCode: this.getFieldValue('postalCode'),
-          city: this.getFieldValue('city'),
+          street: this.getFieldValue(this.addAddressForm, 'street'),
+          flatNumber: this.getFieldValue(this.addAddressForm, 'flatNumber'),
+          postalCode: this.getFieldValue(this.addAddressForm, 'postalCode'),
+          city: this.getFieldValue(this.addAddressForm, 'city'),
         }).subscribe({
           next: next => {
             this.snackbarService.openSnackBar(next.message);
@@ -93,21 +85,24 @@ export class AccountInformationComponent implements OnDestroy {
             });
           },
           error: err => {
-            this.snackbarService.openSnackBar(err.error.message);
+            this.httpErrorService.handleError(err);
           }
         }));
-
     }
   }
 
-  private getFieldValue(fieldName: string) {
-    return this.addAddressForm.get(fieldName)?.value;
-  }
-
-  //TODO: password change handling
   onSubmitChangePassword() {
-
-
+    if (this.formValidationService.isFormValid(this.changePasswordForm)) {
+      this.httpService.postChangePassword(this.user.id, this.getFieldValue(this.changePasswordForm, 'password'))
+        .subscribe({
+          next: next => {
+            this.snackbarService.openSnackBar(next.message)
+          },
+          error: err => {
+            this.httpErrorService.handleError(err);
+          }
+        })
+    }
   }
 
   ngOnDestroy(): void {
@@ -124,9 +119,20 @@ export class AccountInformationComponent implements OnDestroy {
           });
         },
         error: err => {
-          this.snackbarService.openSnackBar(err.error.message);
+          this.httpErrorService.handleError(err);
         }
       }));
   }
 
+  private setGridColumnNumber() {
+    if (window.innerWidth < 960) {
+      this.columnNumber = 1;
+    } else {
+      this.columnNumber = 2;
+    }
+  }
+
+  private getFieldValue(form: FormGroup, fieldName: string) {
+    return form.get(fieldName)?.value;
+  }
 }

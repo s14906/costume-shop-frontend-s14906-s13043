@@ -89,7 +89,16 @@ export class HttpService {
       params: {
         addressId: addressId
       }
-    })
+    });
+  }
+
+  postChangePassword(userId: number, newPassword: string): Observable<any> {
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.CHANGE_PASSWORD, {}, {
+      params: {
+        userId: userId,
+        newPassword: newPassword
+      }
+    });
   }
 
 }
