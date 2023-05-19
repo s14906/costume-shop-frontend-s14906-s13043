@@ -23,10 +23,12 @@ export class FormValidationService {
 
 
   public isFormValid(form: FormGroup): boolean {
+    let errorCount: number = 0;
     Object.keys(form.controls).forEach(key => {
-      return !form.get(key)?.errors;
-
+      if (form.get(key)?.errors) {
+        errorCount++;
+      }
     });
-    return true;
+    return errorCount === 0;
   }
 }
