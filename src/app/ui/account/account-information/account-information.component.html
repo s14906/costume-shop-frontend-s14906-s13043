@@ -1,106 +1,53 @@
-<mat-grid-list class="main-grid-list" [gutterSize]="'10'" cols="{{columnNumber}}" rowHeight="2:1">
-  <mat-grid-tile class="main-grid-tile">
-    <mat-grid-list class="sub-grid-list" [gutterSize]="'10'" cols="2" rowHeight="7:1">
-      <h2 style="text-align: center">User information</h2>
-      <mat-grid-tile>
-        Username: {{user.username}}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        Name: {{user.name}}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        Surname: {{user.surname}}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        Email: {{user.email}}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        Phone: {{user.phone}}
-      </mat-grid-tile>
-      <mat-grid-tile>
-        Roles: placeholder
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-grid-tile>
-  <mat-grid-tile class="main-grid-tile" rowspan="2">
-    <mat-grid-list class="sub-grid-list" cols="1" rowHeight="2:1">
-      <mat-grid-tile>
-        <mat-card>
-          <mat-card-content>
-            <form [formGroup]="addAddressForm" (ngSubmit)="onSubmitAddAddress()">
-              <h2>Add new address</h2>
-              <mat-grid-list class="sub-grid-list" cols="2" rowHeight="4:1">
-                <mat-grid-tile>
-                  <mat-form-field class="address-form-field" appearance="outline">
-                    <input matInput placeholder="Street" formControlName="street" required>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field class="address-form-field" appearance="outline">
-                    <input matInput placeholder="Apartment/flat number" formControlName="flatNumber" required>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field class="address-form-field" appearance="outline">
-                    <input matInput placeholder="Postal code" formControlName="postalCode" required>
-                  </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-                  <mat-form-field class="address-form-field" appearance="outline">
-                    <input matInput placeholder="City" formControlName="city" required>
-                  </mat-form-field>
-                </mat-grid-tile>
-              </mat-grid-list>
-              <div class="add-button">
-                <button mat-raised-button type="submit" class="button">Add new
-                  address
-                </button>
-              </div>
-            </form>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="address-listbox-container">
-          <h2>Your addresses</h2>
-          <div class="listbox-list-container">
-            <ul cdk-scrollable
-                cdkListbox
-                aria-labelledby="example-spatula-label"
-                class="address-listbox">
-              <li *ngFor="let address of addresses"
-                  [cdkOption]="address"
-                  class="address-list-option">
-                <div class="list-item-container">
-                  <span class="address-text">{{address.flatNumber + ', ' +
-                  address.street + ', ' + address.postalCode + ', ' + address.city}}</span>
-                  <img class="delete-button" src="../../../../assets/trash.png">
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </mat-grid-tile>
-  <mat-grid-tile class="main-grid-tile">
-    <mat-card>
-      <mat-card-content>
-        <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePassword()">
-          <h2>Change password</h2>
-          <mat-form-field appearance="outline">
-            <input matInput type="password" placeholder="Password" formControlName="password" required>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword"
-                   name="password"
-                   required>
-          </mat-form-field>
-          <div class="add-button">
-            <button mat-raised-button type="submit" class="button">Submit</button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="page-container">
+  <div class="user-info">
+    <h2 class="section-title">User information</h2>
+    <table class="UserInfo">
+      <tr><td><b>Username: </b></td><td>{{user.username}}</td></tr>
+      <tr><td><b>Name: </b></td><td>{{user.name}}</td></tr>
+      <tr><td><b>Surname: </b></td><td>{{user.surname}}</td></tr>
+      <tr><td><b>Email: </b></td><td>{{user.email}}</td></tr>
+      <tr><td><b>Phone: </b></td><td>{{user.phone}}</td></tr>
+      <tr><td><b>Roles: </b></td><td>placeholder</td></tr>
+    </table>
+  </div>
+  <div class="change-password">
+    <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePassword()">
+      <h2 class="section-title">Change password</h2>
+      <table class="UserInfo">
+        <tr><td><b>Password: </b></td><td><input type="password" class="labels" placeholder="Password" formControlName="password" required></td></tr>
+        <tr><td><b>Confirm password: </b></td><td><input type="password" class="labels" placeholder="Confirm password" formControlName="confirmPassword"
+                                                         name="password"
+                                                         required></td></tr>
+      </table>
+      <br>
+      <button type="submit" class="button">Submit</button>
+      <br>
+    </form>
+  </div>
+
+  <div class="add-address">
+    <form [formGroup]="addAddressForm" (ngSubmit)="onSubmitAddAddress()">
+      <h2 class="section-title"> Add new shipping address</h2>
+      <table class="UserInfo">
+        <tr><td><b>Street: </b></td><td><input placeholder="Street" class="labels" formControlName="street" required></td></tr>
+        <tr><td><b>Apartment/flat number: </b></td><td><input placeholder="Apartment/flat number" class="labels" formControlName="flatNumber" required></td></tr>
+        <tr><td><b>Postal code: </b></td><td><input placeholder="Postal code" class="labels" formControlName="postalCode" required></td></tr>
+        <tr><td><b>City: </b></td><td><input placeholder="City" class="labels" formControlName="city" required></td></tr>
+      </table>
+      <br>
+      <button type="submit" class="button">Add new address</button>
+      <br>
+    </form>
+  </div>
+
+  <div class="address-list">
+    <h2 class="section-title">Your shipping addresses</h2>
+    <ul>
+      <li *ngFor="let address of addresses">
+        <span class="address-text">{{address.flatNumber + ', ' +
+        address.street + ', ' + address.postalCode + ', ' + address.city}}</span>
+        <img class="delete-button" src="../../../../assets/trash.png">
+      </li>
+    </ul>
+  </div>
+</div>

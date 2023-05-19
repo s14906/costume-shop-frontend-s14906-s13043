@@ -1,9 +1,26 @@
 /* Footer */
 footer {
-  height: 64px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #333;
-  color: #fff;
+  background: linear-gradient(90deg, #50b3a2 0%, #e8491d 100%);
+  animation: gradient 3s ease-in-out infinite;
+  color: white;
+  text-align: center;
+  padding: 30px;
+  margin-top: 30px;
+  border: medium #50b3a2;
+}
+
+footer p {
+  margin: 0;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

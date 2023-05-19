@@ -1,28 +1,33 @@
-<ng-template [ngIf]="cartItems.length !== 0" [ngIfElse]="elseBlock">
-    <h1 class="text-center-with-margin">Your cart</h1>
-    <div class="spacer-vertical-250">
-        <div class="cart-container">
-            <ul cdkListbox
-                cdkListboxUseActiveDescendant
-                class="cart-listbox">
-                <li *ngFor="let cartItem of cartItems"
-                    class="cart-item">
-                    <a>{{cartItem.item.title}}</a>
-                    <a>{{cartItem.itemAmount}}x {{cartItem.item.price}}zł</a>
-                    <a>Size: {{cartItem.itemSize.size}}</a>
-                    <a>{{cartItem.itemAmount * cartItem.item.price}}zł</a>
-                </li>
-            </ul>
-        </div>
-        <div class="summary-bar">
-            <a class="summary-text">SUMMARY</a>
-            <a class="price-sum-text">{{totalPrice}}zł</a>
-        </div>
-        <button class="button continue-button" mat-stroked-button>Continue</button>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<ng-template [ngIf]="cartItems.length !== 0" [ngIfElse]="emptyCart">
+  <div class="container">
+    <h2 class="text-left"><span><b>YOUR CART</b></span></h2>
+    <div class="products">
+      <ul cdkListbox
+          cdkListboxUseActiveDescendant
+          class="cart-listbox">
+        <li *ngFor="let cartItem of cartItems; index as i"
+            class="card">
+          <div class="item-row">
+            <span class="item-number">{{ i + 1 }}</span>
+            <span class="item-title">{{cartItem.item.title}}</span>
+            <span class="item-details">{{cartItem.itemAmount}} x {{cartItem.item.price}} PLN</span>
+            <span class="item-size">Size: {{cartItem.itemSize.size}}</span>
+            <span class="item-price">{{cartItem.itemAmount * cartItem.item.price}} PLN</span>
+          </div>
+        </li>
+      </ul>
     </div>
+    <div class="checkout">
+      <div class="summary-bar">
+        <span class="summary-text"></span>
+        <span class="price-sum-text"><b>SUMMARY {{totalPrice}} PLN </b></span>
+      </div>
+      <button class="button continue-button">Continue</button>
+    </div>
+  </div>
 </ng-template>
-<ng-template #elseBlock>
-    <h1 class="text-center-with-margin">Your cart is empty! Add some products first.</h1>
+<ng-template #emptyCart>
+  <h1 class="text-center">Your cart is empty! Add some products first.</h1>
 </ng-template>
-
-

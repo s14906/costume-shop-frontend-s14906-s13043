@@ -12,7 +12,9 @@ mat-toolbar {
 }
 
 .mat-toolbar.mat-primary {
-  background: #007bff;
+  background: linear-gradient(270deg, #007bff, #50b3a2);
+  background-size: 200% 200%;
+  animation: gradient 3s ease-in-out infinite;
   color: #fff;
 }
 
@@ -21,23 +23,20 @@ mat-toolbar {
   text-decoration: none;
 }
 
-.header-button:hover {
-  background-color: #004ca4 !important;
-  transition: 300ms;
-}
-
 .logo {
-  height: 48px;
-  margin-right: 16px;
+  height: 50px;
+  width: auto;
+  margin-right: 20px;
 }
 
 .logo:hover {
   transform: scale(110%);
-  transition-duration: 300ms;
+  transition-duration: 500ms;
 }
 
 .search-input {
   color: white !important;
+
 }
 
 .mat-mdc-form-field-infix {
@@ -57,6 +56,7 @@ mat-toolbar {
 }
 
 .search-form-field {
+  width: auto;
   line-height: 32px;
   background: #49a1ff;
 }
@@ -65,6 +65,68 @@ mat-toolbar {
   transform: scale(1.2);
 }
 
+
+.header-items-left {
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  margin: 0 10px;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
+
+}
+
+.button:hover {
+  color: #e8491d;
+}
+
+.button:active {
+  background-color: #50b3a2;
+}
+
+.mat-menu-item {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 1px;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mat-menu-item:hover {
+  background-color: #e8491d;
+  color: #fff;
+}
+
+.search-form-field {
+  width: 400px;
+}
+
+.search-input {
+  text-align: center;
+}
+
+.mat-icon {
+  vertical-align: bottom;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
 
 
 

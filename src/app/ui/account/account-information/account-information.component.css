@@ -1,104 +1,126 @@
-.main-grid-list {
-  width: 90%;
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  font-family: Arial, sans-serif;
+  border-width: 1px;
+  border-radius: 4px; /* Rounded corners */
+  font-size: 20px;
+  background-color: #F2F2F2;
+  color: #333;
+}
+button[type="submit"] {
+  background: linear-gradient(270deg, #007bff, #50b3a2);
+  border: none; /* Remove default borders */
+  color: white; /* White text color */
+  padding: 15px 32px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block;
+  font-size: 16px; /* Increase font size */
+  cursor: pointer; /* Cursor pointer on hover */
+  border-radius: 4px; /* Rounded corners */
+  animation: gradient 3s ease-in-out infinite;
+  opacity: 0.6;
+  margin: 4px auto;
+  width: 40%;
+}
+
+button[type="submit"]:hover {
+  opacity: 1;
+}
+
+.UserInfo{
+  width: 70%;
   margin-left: auto;
   margin-right: auto;
-
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5em;
 }
 
-.main-grid-tile {
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  font-weight: bold;
+.form-grid label {
+  display: flex;
+  flex-direction: column;
 }
 
-.sub-grid-list {
+.form-grid input {
+  margin-top: 0.2em;
+}
+
+.user-info,
+.add-address,
+.address-list,
+.change-password {
   width: 100%;
-  margin: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  max-width: 800px;
+  margin: auto auto 1em;
+  padding: 1em;
+  background-color: #FFF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.mat-card-content-height {
-  /*height: 100px;*/
-}
-
-mat-card {
-  width: 80%;
+.section-title {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1em;
   text-align: center;
+  color: #009688;
 }
 
-.mat-mdc-card {
-  box-shadow: none !important;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.content {
+td {
+  padding: 0.5em 0;
+}
+
+.add-address form,
+.change-password form {
   display: flex;
   flex-direction: column;
 }
 
-mat-form-field {
-  display: flex;
-  flex-direction: column;
-  margin: 10px auto;
+.add-address label,
+.change-password label {
+  margin-bottom: 0.5em;
+}
+.labels {
+  color: #009688;
+  border: 1px solid #009688;
+  padding: 0.5em;
+}
+.button {
+  background-color: #009688;
+  color: #FFF;
+  border: none;
+  padding: 0.5em;
+  cursor: pointer;
 }
 
-.address-form-field {
-  display: flex;
-  flex-direction: column;
-  margin: 10px auto;
-}
-
-/*mat-error {*/
-/*    margin-bottom: -5em;*/
-/*}*/
-
-.add-button {
-  display: flex;
-  flex-direction: column;
-}
-
-.address-listbox-container {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  width: 90%;
-}
-
-.listbox-list-container {
-  display: block;
-  border: 1px solid black;
-  background-color: #dedede;
-}
-
-
-.address-listbox {
+.address-list ul {
   list-style: none;
   padding: 0;
-  margin: 0;
-  height: 200px;
-  overflow: auto;
-  justify-content: space-between;
 }
 
-.list-item-container {
+.address-list li {
   display: flex;
-  height: fit-content;
+  justify-content: space-between;
   align-items: center;
+  padding: 0.5em;
+  border-bottom: 1px solid #DDD;
 }
 
-.address-text {
-  margin-right: auto;
-}
-
-.address-list-option {
-  position: relative;
-  padding: 5px 5px 5px 25px;
-}
-
-.delete-button {
-  height: 32px;
-}
-
-.address-listbox:focus .cdk-option-active {
-  background: rgba(0, 0, 0, 0.2);
+.address-list .delete-button {
+  cursor: pointer;
 }

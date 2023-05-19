@@ -1,14 +1,15 @@
-<div class="container">
-  <div class="element">
-    <h1>{{item?.title}}</h1>
-    <img [src]="getImage()" [alt]="item?.title">
+<div class="container grid-container">
+  <div class="product-details title">
+  <div class="element card">
+    <h1 class="card-title">{{item?.title}}</h1>
+    <img class="card-img" [src]="getImage()" [alt]="item?.title">
   </div>
   <div>
-    <div class="element">
-      <h1>Details</h1>
+    <div class="element card text-left">
+      <h1 class="text-left">Details</h1>
       <mat-grid-list cols="4" rowHeight="1.5:1" [gutterSize]="'2px'">
-        <mat-grid-tile><p>Price:</p></mat-grid-tile>
-        <mat-grid-tile><p>{{item?.price}}</p></mat-grid-tile>
+        <mat-grid-tile><p >Price:</p></mat-grid-tile>
+        <mat-grid-tile><p>{{item?.price}} PLN</p></mat-grid-tile>
         <mat-grid-tile><p>Size:</p></mat-grid-tile>
         <mat-grid-tile>
           <mat-form-field appearance="outline" class="option-form-field">
@@ -51,12 +52,11 @@
           <a class="button" mat-stroked-button>Buy now</a>
         </mat-grid-tile>
       </mat-grid-list>
-
-    </div>
-    <div class="element">
+      </div>
+    <div class="element card">
       <h1>Description</h1>
       <p>{{item?.description}}</p>
-
+    </div>
     </div>
   </div>
 </div>

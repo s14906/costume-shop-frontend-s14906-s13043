@@ -35,11 +35,8 @@
     </mat-form-field>
     <a class="button" mat-stroked-button>Search</a>
 
-
     <span class="spacer"></span>
-    <button *ngIf="loggedIn" mat-button (click)="navigateToCart()">
-      <img src="../../../assets/shopping-cart.png" class="logo" alt="Cart">
-    </button>
+      <img *ngIf="loggedIn" mat-button (click)="navigateToCart()" src="../../../assets/shopping-cart.png" class="logo" alt="Cart">
   </mat-toolbar-row>
 </mat-toolbar>
 

@@ -3,8 +3,13 @@
   justify-content: center;
   align-items: center;
   margin: 16px;
+  background-color: #fffffe;
+  border: 5px solid #cccccc;
+  padding: 20px;
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
 }
-
 
 .product-info {
   display: flex;
@@ -15,7 +20,28 @@
 .option-form-field {
   width: 80px !important;
 }
+.product-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
 
+.card-title {
+  order: 1;
+}
+
+.card-img {
+  order: 2;
+}
+
+.title {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
 
 .element {
   text-align: center;
@@ -30,7 +56,7 @@
 
 
 .element img {
-  max-width: 500px;
+  max-width: 600px;
   max-height: 600px;
 }
 
