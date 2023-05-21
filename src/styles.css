@@ -30,7 +30,7 @@ a:hover {
 
 .container {
   background-color: #fffffe;
-  border: 5px solid #cccccc;
+  border: 4px solid #cccccc;
   padding: 20px;
   width: 80%;
   margin: auto;
@@ -77,18 +77,52 @@ a:hover {
   margin: 20px 0;
 }
 
-.card button {
-  background: #e8491d;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+.section-title {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1em;
+  text-align: center;
+  color: #009688;
+}
+.section-details {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  color: #009688;
 }
 
-.card button:hover {
-  background: #50b3a2;
+.labels {
+  border: 1px solid #009688;
+  padding: 0.5em;
+}
+
+.custom-input {
+  border: 1px solid #009688
+}
+
+.labels-attribute {
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1em;
+}
+.border-top {
+  border-top: 1px solid #ddd;
+  margin-top: 1em;
+}
+
+.button {
+  background-color: #009688;
+  color: #FFF;
+  border: none;
+  padding: 0.5em;
+  cursor: pointer;
+}
+
+.mat-form-field {
+  padding: 0;
+  font-size: 20px;
 }
 
 .card button {
@@ -109,4 +143,48 @@ a:hover {
   background-color: white;
   color: black;
   border: 2px solid #008CBA;
+  width: 110%;
 }
+
+.mat-form-field {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: 60px;
+  width: 500px;
+  marigin-bottom: 20px;
+}
+
+.reg-input {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  position: relative;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Arial', sans-serif;
+  top: 10px;
+  margin-bottom: -10px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  background: linear-gradient(270deg, #007bff, #50b3a2);
+  border: none; /* Remove default borders */
+  color: white; /* White text color */
+  padding: 3px 32px; /* Some padding */
+  text-align: center; /* Centered text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block;
+  font-size: 20px; /* Increase font size */
+  cursor: pointer; /* Cursor pointer on hover */
+  border-radius: 4px; /* Rounded corners */
+  animation: gradient 3s ease-in-out infinite;
+  opacity: 0.6;
+  margin: 4px auto;
+  width: 40%;
+}
+

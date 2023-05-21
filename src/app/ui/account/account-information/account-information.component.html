@@ -1,5 +1,5 @@
 <div class="page-container">
-  <div class="user-info">
+  <div class="user-info labels">
     <h2 class="section-title">User information</h2>
     <table class="UserInfo">
       <tr><td><b>Username: </b></td><td>{{user.username}}</td></tr>
@@ -10,7 +10,7 @@
       <tr><td><b>Roles: </b></td><td>placeholder</td></tr>
     </table>
   </div>
-  <div class="change-password">
+  <div class="change-password labels">
     <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmitChangePassword()">
       <h2 class="section-title">Change password</h2>
       <table class="UserInfo">
@@ -25,7 +25,7 @@
     </form>
   </div>
 
-  <div class="add-address">
+  <div class="add-address labels">
     <form [formGroup]="addAddressForm" (ngSubmit)="onSubmitAddAddress()">
       <h2 class="section-title"> Add new shipping address</h2>
       <table class="UserInfo">
@@ -40,12 +40,11 @@
     </form>
   </div>
 
-  <div class="address-list">
+  <div class="address-list labels">
     <h2 class="section-title">Your shipping addresses</h2>
     <ul>
       <li *ngFor="let address of addresses">
-        <span class="address-text">{{address.flatNumber + ', ' +
-        address.street + ', ' + address.postalCode + ', ' + address.city}}</span>
+        <span class="address-text">{{address.street + ' ' + address.flatNumber + ', ' + address.postalCode + ', ' + address.city}}</span>
         <img class="delete-button" src="../../../../assets/trash.png" (click)="removeAddress(address.addressId)">
       </li>
     </ul>

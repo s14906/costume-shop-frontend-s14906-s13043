@@ -95,11 +95,7 @@ td {
 .change-password label {
   margin-bottom: 0.5em;
 }
-.labels {
-  color: #009688;
-  border: 1px solid #009688;
-  padding: 0.5em;
-}
+
 .button {
   background-color: #009688;
   color: #FFF;

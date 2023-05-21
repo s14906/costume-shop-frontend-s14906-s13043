@@ -4,22 +4,9 @@ mat-card {
   text-align: center;
 }
 
-mat-form-field {
-  display: flex;
-  flex-direction: column;
-  margin: 2em auto;
-  width: 100%;
-}
-
 mat-error {
   margin-bottom: -5em;
-  max-width: 150px;
-}
-
-.add-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 500px;
 }
 
 .sign-up-link {
@@ -28,12 +15,23 @@ mat-error {
 
 .form-container {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  flex-direction: column;
   justify-content: space-evenly;
 }
 
 .column {
   display: flex;
   flex-direction: column;
+}
+
+button[type="submit"] {
+  padding: 4px 32px;
+  font-size: 20px;
+  width: 30%;
+}
+
+.reg-input::placeholder {
+  color: #ccc;
 }
 
