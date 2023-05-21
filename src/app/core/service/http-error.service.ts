@@ -16,7 +16,7 @@ export class HttpErrorService {
   }
 
   handleError(err: any): void {
-    const errorMessage: string = err.error.message;
+    const errorMessage: string = err.error?.message;
     if (err.status === 401) {
       this.reloadOrNavigateToHomeWithSnackbar("Unauthorized access to this resource.");
     } else if (err.status === 403) {

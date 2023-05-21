@@ -16,9 +16,7 @@ import {ComplaintDTO} from "../../shared/models/dto.models";
 export class ComplaintsComponent implements OnDestroy {
     complaints: ComplaintDTO[] = [];
     allSubscriptions: Subscription[] = [];
-
     loggedUser: UserModel;
-
 
     constructor(private httpService: HttpService,
                 private tokenStorageService: TokenStorageService,
@@ -26,10 +24,15 @@ export class ComplaintsComponent implements OnDestroy {
                 private httpErrorService: HttpErrorService,
                 private router: Router) {
         this.loggedUser = this.tokenStorageService.getUser();
-        console.log(this.loggedUser);
         this.allSubscriptions.push(
-            this.httpService.getAllComplaints().subscribe(complaints =>
-                this.complaints = complaints)
+            this.httpService.getAllComplaints().subscribe({
+                next: next => {
+                    this.complaints = next;
+                },
+                error: err => {
+                    this.httpErrorService.handleError(err);
+                }
+            })
         );
     }
 
@@ -53,6 +56,4 @@ export class ComplaintsComponent implements OnDestroy {
                 })
         );
     }
-
-    showAssignButton
 }
