@@ -1,0 +1,25 @@
+.text-left {
+    margin: 20px 0;
+    font-family: 'Courier New', Courier, monospace;
+    color: tomato;
+    font-size: 2em;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+}
+
+.complaint-listbox {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}

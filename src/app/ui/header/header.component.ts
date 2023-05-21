@@ -50,4 +50,8 @@ export class HeaderComponent implements OnDestroy {
   navigateToAccountInformation() {
     this.router.navigate(['/account']);
   }
+
+  navigateToComplaints() {
+    this.router.navigate(['complaints']);
+  }
 }

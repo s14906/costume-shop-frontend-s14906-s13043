@@ -1,0 +1,24 @@
+<div class="container">
+  <h2 class="text-left"><span><b>COMPLAINTS</b></span></h2>
+  <div class="products">
+    <ul cdkListbox
+        cdkListboxUseActiveDescendant
+        class="complaint-listbox">
+      <li *ngFor="let complaint of complaints; index as i"
+          class="card">
+        <div class="item-row">
+          <div class="column">
+            <span>Complaint ID: {{ complaint.complaintId }}</span>
+            <span>User: {{ complaint.buyerName}} {{ complaint.buyerSurname }}</span>
+          </div>
+          <div class="column">
+            <span>Status: {{ complaint.complaintStatus ? complaint.complaintStatus: 'NONE' }}</span>
+            <span>Employee: {{ complaint.employeeName && complaint.employeeSurname ?
+                    complaint.employeeName && complaint.employeeSurname : 'NONE' }}</span>
+          </div>
+        <button *ngIf="this.loggedUser.id !== complaint.employeeId" (click)="assignToEmployee(complaint)">Assign to me</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -12,4 +12,5 @@ export enum UrlPart {
   GET_ADDRESSES = 'get-addresses',
   REMOVE_ADDRESS = 'remove-address',
   CHANGE_PASSWORD = 'change-password',
+  COMPLAINTS = 'complaints',
 }

@@ -123,4 +123,5 @@ td {
 
 .address-list .delete-button {
   cursor: pointer;
+  height: 34px;
 }

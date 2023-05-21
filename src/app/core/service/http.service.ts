@@ -14,6 +14,7 @@ import {
   LoginResponse,
   RegistrationRequest
 } from "../../shared/models/rest.models";
+import {ComplaintDTO} from "../../shared/models/dto.models";
 
 @Injectable({
   providedIn: 'root'
@@ -22,18 +23,6 @@ export class HttpService {
   //TODO: observable types
 
   constructor(private http: HttpClient) {
-  }
-
-  public postRegistration(registrationRequest: RegistrationRequest): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, registrationRequest);
-  }
-
-  public postLogin(loginRequest: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginRequest);
-  }
-
-  public postAddAddress(addAddressRequest: AddAddressRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, addAddressRequest);
   }
 
   public getAllItems(): Observable<ItemModel[]> {
@@ -46,6 +35,11 @@ export class HttpService {
 
   public getAllItemColors(): Observable<ItemColorModel[]> {
     return this.http.get<ItemColorModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_COLORS);
+  }
+
+
+  public getAllComplaints(): Observable<ComplaintDTO[]> {
+    return this.http.get<ComplaintDTO[]>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS);
   }
 
   public getUserByVerificationToken(verificationToken: string): Observable<any> {
@@ -81,10 +75,10 @@ export class HttpService {
       params: {
         userId: userId
       }
-    })
+    });
   }
 
-  postRemoveAddress(addressId: number): Observable<any> {
+  public postRemoveAddress(addressId: number): Observable<any> {
     return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REMOVE_ADDRESS, {}, {
       params: {
         addressId: addressId
@@ -92,7 +86,7 @@ export class HttpService {
     });
   }
 
-  postChangePassword(userId: number, newPassword: string): Observable<any> {
+  public postChangePassword(userId: number, newPassword: string): Observable<any> {
     return this.http.post(UrlPart.BACKEND_LINK + UrlPart.CHANGE_PASSWORD, {}, {
       params: {
         userId: userId,
@@ -100,5 +94,24 @@ export class HttpService {
       }
     });
   }
+  public postRegistration(registrationRequest: RegistrationRequest): Observable<any> {
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, registrationRequest);
+  }
 
+  public postLogin(loginRequest: LoginRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginRequest);
+  }
+
+  public postAddAddress(addAddressRequest: AddAddressRequest): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, addAddressRequest);
+  }
+
+  public postAssignComplaintToEmployee(userId: number, complaintId: number): Observable<any> {
+    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS, {}, {
+      params: {
+        userId: userId,
+        complaintId: complaintId
+      }
+    });
+  }
 }

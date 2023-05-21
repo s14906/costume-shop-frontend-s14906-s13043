@@ -31,61 +31,63 @@ import {TokenStorageService} from "./core/service/token-storage.service";
 import {authInterceptorProviders} from "./core/service/auth.interceptor";
 import {RegistrationSuccessComponent} from './ui/registration/registration-success/registration-success.component';
 import {
-  RegistrationVerificationComponent
+    RegistrationVerificationComponent
 } from './ui/registration/registration-verification/registration-verification.component';
 import {CartComponent} from './ui/cart/cart.component';
 import {CdkListbox, CdkOption} from "@angular/cdk/listbox";
 import {HttpErrorService} from "./core/service/http-error.service";
 import {AccountInformationComponent} from "./ui/account/account-information/account-information.component";
 import {FormValidationService} from "./core/service/form-validation.service";
+import {ComplaintsComponent} from './ui/complaints/complaints.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    ProductListComponent,
-    ProductDetailsComponent,
-    LoginComponent,
-    RegistrationComponent,
-    RegistrationSuccessComponent,
-    RegistrationVerificationComponent,
-    CartComponent,
-    AccountInformationComponent
-  ],
-  imports: [
-    BrowserModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    RouterLinkActive,
-    MatTabsModule,
-    MatButtonModule,
-    RouterLink,
-    AppRoutingModule,
-    MatInputModule,
-    MatGridListModule,
-    MatSelectModule,
-    FormsModule,
-    MatCardModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatMenuModule,
-    CdkOption,
-    CdkListbox,
-  ],
-  providers: [
-    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'},},
-    AuthService,
-    MessageService,
-    SnackbarService,
-    MatSnackBar,
-    TokenStorageService,
-    HttpErrorService,
-    FormValidationService,
-    authInterceptorProviders
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+        ProductListComponent,
+        ProductDetailsComponent,
+        LoginComponent,
+        RegistrationComponent,
+        RegistrationSuccessComponent,
+        RegistrationVerificationComponent,
+        CartComponent,
+        AccountInformationComponent,
+        ComplaintsComponent
+    ],
+    imports: [
+        BrowserModule,
+        MatIconModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        RouterLinkActive,
+        MatTabsModule,
+        MatButtonModule,
+        RouterLink,
+        AppRoutingModule,
+        MatInputModule,
+        MatGridListModule,
+        MatSelectModule,
+        FormsModule,
+        MatCardModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatMenuModule,
+        CdkOption,
+        CdkListbox,
+    ],
+    providers: [
+        {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'},},
+        AuthService,
+        MessageService,
+        SnackbarService,
+        MatSnackBar,
+        TokenStorageService,
+        HttpErrorService,
+        FormValidationService,
+        authInterceptorProviders
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 }
