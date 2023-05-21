@@ -15,14 +15,14 @@ export class AuthService {
   constructor(private httpService: HttpService,
               private tokenStorageService: TokenStorageService) { }
 
-  login(username: string, password: string): Observable<any>{
+  login(username: string, password: string): Observable<UserResponse>{
     return this.httpService.postLogin(
       { email: username, password: password }
       ).pipe(map((response: UserResponse) => {
       sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
       this.loggedIn.next(true);
       this.tokenStorageService.userRoleSubject.next(response.user.roles);
-      return response.user;
+      return response;
     }));
   }
 
