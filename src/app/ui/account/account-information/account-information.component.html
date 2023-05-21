@@ -46,7 +46,7 @@
       <li *ngFor="let address of addresses">
         <span class="address-text">{{address.flatNumber + ', ' +
         address.street + ', ' + address.postalCode + ', ' + address.city}}</span>
-        <img class="delete-button" src="../../../../assets/trash.png" (click)="removeAddress(address)">
+        <img class="delete-button" src="../../../../assets/trash.png" (click)="removeAddress(address.addressId)">
       </li>
     </ul>
   </div>

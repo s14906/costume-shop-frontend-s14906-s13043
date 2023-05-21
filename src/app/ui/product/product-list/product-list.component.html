@@ -1,5 +1,5 @@
 <div class="product-list">
-  <div class="product" *ngFor="let item of items" [routerLink]="'/product'" [queryParams]="{ id: item.id }">
+  <div class="product" *ngFor="let item of items" [routerLink]="'/product'" [queryParams]="{ id: item.itemId }">
     <img [src]="item.itemImages[0].imageBase64" [alt]="item.title">
     <h2>{{ item.title }}</h2>
     <p>{{ item.description }}</p>

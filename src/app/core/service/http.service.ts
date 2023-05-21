@@ -2,116 +2,114 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UrlPart} from "../../shared/models/http";
 import {
-  ItemColorModel,
-  ItemModel,
-  ItemSizeModel
+    ItemColorModel,
+    ItemSizeModel
 } from "../../shared/models/data.models";
 import {Observable} from "rxjs";
 import {
-  AddAddressRequest,
-  AddToCartRequest,
-  LoginRequest,
-  LoginResponse,
-  RegistrationRequest
-} from "../../shared/models/rest.models";
-import {ComplaintDTO} from "../../shared/models/dto.models";
+    AddressDTO,
+    AddToCartDTO,
+    ComplaintDTO,
+    ItemWithImageDTO, UserLoginDTO,
+    UserRegistrationDTO
+} from "../../shared/models/dto.models";
+import {CartResponse, GetAddressesResponse, SimpleResponse, UserResponse} from "../../shared/models/rest.models";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class HttpService {
-  //TODO: observable types
+    constructor(private http: HttpClient) {
+    }
 
-  constructor(private http: HttpClient) {
-  }
+    public getAllItems(): Observable<ItemWithImageDTO[]> {
+        return this.http.get<ItemWithImageDTO[]>(UrlPart.BACKEND_LINK + UrlPart.ITEMS);
+    }
 
-  public getAllItems(): Observable<ItemModel[]> {
-    return this.http.get<ItemModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEMS);
-  }
+    public getAllItemSizes(): Observable<ItemSizeModel[]> {
+        return this.http.get<ItemSizeModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SIZES);
+    }
 
-  public getAllItemSizes(): Observable<ItemSizeModel[]> {
-    return this.http.get<ItemSizeModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SIZES);
-  }
-
-  public getAllItemColors(): Observable<ItemColorModel[]> {
-    return this.http.get<ItemColorModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_COLORS);
-  }
+    public getAllItemColors(): Observable<ItemColorModel[]> {
+        return this.http.get<ItemColorModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_COLORS);
+    }
 
 
-  public getAllComplaints(): Observable<ComplaintDTO[]> {
-    return this.http.get<ComplaintDTO[]>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS);
-  }
+    public getAllComplaints(): Observable<ComplaintDTO[]> {
+        return this.http.get<ComplaintDTO[]>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS);
+    }
 
-  public getUserByVerificationToken(verificationToken: string): Observable<any> {
-    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.USERS, {
-      params: {
-        verificationToken: verificationToken
-      }
-    });
-  }
+    public getUserByVerificationToken(verificationToken: string): Observable<any> {
+        return this.http.get(UrlPart.BACKEND_LINK + UrlPart.USERS, {
+            params: {
+                verificationToken: verificationToken
+            }
+        });
+    }
 
-  public getAddressesForUser(userId: number): Observable<any> {
-    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.GET_ADDRESSES, {
-      params: {
-        userId: userId
-      }
-    });
-  }
+    public getAddressesForUser(userId: number): Observable<GetAddressesResponse> {
+        return this.http.get<GetAddressesResponse>(UrlPart.BACKEND_LINK + UrlPart.GET_ADDRESSES, {
+            params: {
+                userId: userId
+            }
+        });
+    }
 
-  public postUserVerification(userId: number): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {}, {
-      params: {
-        userId: userId
-      }
-    });
-  }
+    public postUserVerification(userId: number): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {}, {
+            params: {
+                userId: userId
+            }
+        });
+    }
 
-  public postAddToCart(addToCartRequest: AddToCartRequest): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.CART, addToCartRequest);
-  }
+    public postAddToCart(dto: AddToCartDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.CART, dto);
+    }
 
-  public getCartItemsByUserId(userId: number): Observable<any> {
-    return this.http.get(UrlPart.BACKEND_LINK + UrlPart.CART, {
-      params: {
-        userId: userId
-      }
-    });
-  }
+    public getCartItemsByUserId(userId: number): Observable<CartResponse> {
+        return this.http.get<CartResponse>(UrlPart.BACKEND_LINK + UrlPart.CART, {
+            params: {
+                userId: userId
+            }
+        });
+    }
 
-  public postRemoveAddress(addressId: number): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REMOVE_ADDRESS, {}, {
-      params: {
-        addressId: addressId
-      }
-    });
-  }
+    public postRemoveAddress(addressId: number): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.REMOVE_ADDRESS, {}, {
+            params: {
+                addressId: addressId
+            }
+        });
+    }
 
-  public postChangePassword(userId: number, newPassword: string): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.CHANGE_PASSWORD, {}, {
-      params: {
-        userId: userId,
-        newPassword: newPassword
-      }
-    });
-  }
-  public postRegistration(registrationRequest: RegistrationRequest): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, registrationRequest);
-  }
+    public postChangePassword(userId: number, newPassword: string): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.CHANGE_PASSWORD, {}, {
+            params: {
+                userId: userId,
+                newPassword: newPassword
+            }
+        });
+    }
 
-  public postLogin(loginRequest: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, loginRequest);
-  }
+    public postRegistration(dto: UserRegistrationDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, dto);
+    }
 
-  public postAddAddress(addAddressRequest: AddAddressRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, addAddressRequest);
-  }
+    public postLogin(dto: UserLoginDTO): Observable<UserResponse> {
+        return this.http.post<UserResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, dto);
+    }
 
-  public postAssignComplaintToEmployee(userId: number, complaintId: number): Observable<any> {
-    return this.http.post(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS, {}, {
-      params: {
-        userId: userId,
-        complaintId: complaintId
-      }
-    });
-  }
+    public postAddAddress(dto: AddressDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, dto);
+    }
+
+    public postAssignComplaintToEmployee(userId: number, complaintId: number): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS, {}, {
+            params: {
+                userId: userId,
+                complaintId: complaintId
+            }
+        });
+    }
 }

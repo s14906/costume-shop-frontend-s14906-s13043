@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {map, Observable, ReplaySubject} from "rxjs";
 import {HttpService} from "./http.service";
-import {LoginResponse} from "../../shared/models/rest.models";
 import {TokenStorageService} from "./token-storage.service";
+import {UserResponse} from "../../shared/models/rest.models";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,11 @@ export class AuthService {
   login(username: string, password: string): Observable<any>{
     return this.httpService.postLogin(
       { email: username, password: password }
-      ).pipe(map((response: LoginResponse) => {
+      ).pipe(map((response: UserResponse) => {
       sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
       this.loggedIn.next(true);
-      this.tokenStorageService.userRoleSubject.next(response.roles);
-      return response;
+      this.tokenStorageService.userRoleSubject.next(response.user.roles);
+      return response.user;
     }));
   }
 

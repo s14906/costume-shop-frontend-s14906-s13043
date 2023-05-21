@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ItemModel} from "../../../shared/models/data.models";
 import {HttpService} from "../../../core/service/http.service";
 import {Subscription} from "rxjs";
 import {HttpErrorService} from "../../../core/service/http-error.service";
+import {ItemWithImageDTO} from "../../../shared/models/dto.models";
 
 @Component({
     selector: 'app-product-list',
@@ -10,7 +10,7 @@ import {HttpErrorService} from "../../../core/service/http-error.service";
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit, OnDestroy {
-    items: ItemModel[] = [];
+    items: ItemWithImageDTO[] = [];
     allSubscriptions: Subscription[] = [];
 
     constructor(private httpService: HttpService,

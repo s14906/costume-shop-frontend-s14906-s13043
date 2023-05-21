@@ -1,44 +1,18 @@
-export interface RegistrationRequest {
-  email?: string;
-  username?: string;
-  name?: string;
-  surname?: string;
-  password?: string;
-  street?: string;
-  flatNumber?: string;
-  postalCode?: string;
-  city?: string;
-  phone?: string;
+import {AddressDTO, CartItemDTO, UserDTO} from "./dto.models";
+
+export interface SimpleResponse {
+    message: string;
+    success: boolean;
 }
 
-//TODO: mayube merge this stuff with RegistrationRequest
-export interface AddAddressRequest {
-  userId: number;
-  street?: string;
-  flatNumber?: string;
-  postalCode?: string;
-  city?: string;
-  phone?: string;
+export interface GetAddressesResponse extends SimpleResponse {
+    addresses: AddressDTO[];
 }
 
-export interface LoginRequest {
-  email: string;
-  password: string;
+export interface CartResponse extends SimpleResponse {
+    cartItems: CartItemDTO[]
 }
 
-export interface LoginResponse {
-  id: number;
-  token: string;
-  username: string;
-  email: string;
-  roles: string[];
-  success: boolean;
-  message: string;
-}
-
-export interface AddToCartRequest {
-  itemId?: number;
-  itemSizeId?: number;
-  userId?: number;
-  itemAmount?: number;
+export interface UserResponse extends SimpleResponse {
+    user: UserDTO;
 }

@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ItemColorModel, ItemModel, ItemSizeModel} from "../../../shared/models/data.models";
+import {ItemColorModel,  ItemSizeModel} from "../../../shared/models/data.models";
 import {HttpService} from "../../../core/service/http.service";
 import {combineLatestWith, Subscription} from "rxjs";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import {TokenStorageService} from "../../../core/service/token-storage.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
+import {ItemWithImageDTO} from "../../../shared/models/dto.models";
 
 @Component({
     selector: 'app-product-details',
@@ -13,7 +14,7 @@ import {HttpErrorService} from "../../../core/service/http-error.service";
     styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit, OnDestroy {
-    item?: ItemModel;
+    item?: ItemWithImageDTO;
     itemSizes: ItemSizeModel[] = [];
     itemColors: ItemColorModel[] = [];
 
@@ -37,7 +38,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
                     next: next => {
                         const params = next[0];
                         const items = next[1];
-                        this.item = items.find((item: ItemModel) => item.id.toString() === params['id'])
+                        this.item = items.find((item: ItemWithImageDTO) => item.itemId.toString() === params['id'])
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);
@@ -77,7 +78,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     addToCart() {
         this.httpService.postAddToCart({
             userId: this.tokenStorageService.getUser().id,
-            itemId: this.item?.id,
+            itemId: this.item?.itemId,
             itemSizeId: this.itemSizes.find(itemSize => itemSize.size === this.selectedItemSize)?.id,
             itemAmount: this.itemAmount
         }).subscribe({

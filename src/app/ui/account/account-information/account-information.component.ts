@@ -4,10 +4,11 @@ import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} f
 import {Observable, of, Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
-import {AddressModel, UserModel} from "../../../shared/models/data.models";
+import { UserModel} from "../../../shared/models/data.models";
 import {FormValidationService} from "../../../core/service/form-validation.service";
 import {Router} from "@angular/router";
 import {HttpErrorService} from "../../../core/service/http-error.service";
+import {AddressDTO} from "../../../shared/models/dto.models";
 
 @Component({
     selector: 'app-account-information',
@@ -20,9 +21,8 @@ export class AccountInformationComponent implements OnDestroy {
     allSubscriptions: Subscription[] = [];
     columnNumber: number = 0;
     password: string;
-    //TODO: user model
     user: UserModel;
-    addresses: AddressModel[] = [];
+    addresses: AddressDTO[] = [];
 
     constructor(private tokenStorageService: TokenStorageService,
                 private formBuilder: FormBuilder,
@@ -72,6 +72,7 @@ export class AccountInformationComponent implements OnDestroy {
         if (this.formValidationService.isFormValid(this.addAddressForm)) {
             this.allSubscriptions.push(
                 this.httpService.postAddAddress({
+                    addressId: 0,
                     userId: this.user.id,
                     street: this.getFieldValue(this.addAddressForm, 'street'),
                     flatNumber: this.getFieldValue(this.addAddressForm, 'flatNumber'),
@@ -109,9 +110,9 @@ export class AccountInformationComponent implements OnDestroy {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-    removeAddress(address: AddressModel) {
+    removeAddress(addressId: number) {
         this.allSubscriptions.push(
-            this.httpService.postRemoveAddress(address.id).subscribe({
+            this.httpService.postRemoveAddress(addressId).subscribe({
                 next: next => {
                     this.snackbarService.openSnackBar(next.message);
                     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
