@@ -1,10 +1,11 @@
+<script src="../../app.module.ts"></script>
 <div class="container">
   <h2 class="text-left"><span><b>COMPLAINTS</b></span></h2>
   <div class="products">
     <ul cdkListbox
         cdkListboxUseActiveDescendant
         class="complaint-listbox">
-      <li *ngFor="let complaint of complaints; index as i"
+      <li *ngFor="let complaint of complaints; index as i" [routerLink]="'/complaints/chat'" [queryParams]="{ complaintId: complaint.complaintId }"
           class="card">
         <div class="item-row">
           <div class="column">

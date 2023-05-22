@@ -11,6 +11,7 @@ import {
 import {CartComponent} from "./ui/cart/cart.component";
 import {AccountInformationComponent} from "./ui/account/account-information/account-information.component";
 import {ComplaintsComponent} from "./ui/complaints/complaints.component";
+import {ComplaintsChatComponent} from "./ui/complaints/complaints-chat/complaints-chat.component";
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
     {path: 'registration-verification', component: RegistrationVerificationComponent},
     {path: 'cart', component: CartComponent},
     {path: 'account', component: AccountInformationComponent},
-    {path: 'complaints', component: ComplaintsComponent}
+    {path: 'complaints', component: ComplaintsComponent},
+    {path: 'complaints/chat', component: ComplaintsChatComponent}
 
 
 ];

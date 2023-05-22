@@ -39,6 +39,7 @@ import {HttpErrorService} from "./core/service/http-error.service";
 import {AccountInformationComponent} from "./ui/account/account-information/account-information.component";
 import {FormValidationService} from "./core/service/form-validation.service";
 import {ComplaintsComponent} from './ui/complaints/complaints.component';
+import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complaints-chat.component';
 
 @NgModule({
     declarations: [
@@ -53,7 +54,8 @@ import {ComplaintsComponent} from './ui/complaints/complaints.component';
         RegistrationVerificationComponent,
         CartComponent,
         AccountInformationComponent,
-        ComplaintsComponent
+        ComplaintsComponent,
+        ComplaintsChatComponent
     ],
     imports: [
         BrowserModule,

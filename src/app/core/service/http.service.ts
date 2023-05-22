@@ -13,7 +13,12 @@ import {
     ItemWithImageDTO, UserLoginDTO,
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
-import {CartResponse, GetAddressesResponse, SimpleResponse, UserResponse} from "../../shared/models/rest.models";
+import {
+    CartResponse,
+    GetAddressesResponse,
+    SimpleResponse,
+    UserResponse
+} from "../../shared/models/rest.models";
 
 @Injectable({
     providedIn: 'root'
@@ -111,5 +116,9 @@ export class HttpService {
                 complaintId: complaintId
             }
         });
+    }
+
+    public getComplaint(complaintId: string): Observable<ComplaintDTO> {
+        return this.http.get<ComplaintDTO>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
     }
 }
