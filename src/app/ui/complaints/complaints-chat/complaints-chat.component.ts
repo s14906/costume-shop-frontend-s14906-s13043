@@ -42,4 +42,12 @@ export class ComplaintsChatComponent implements OnDestroy {
     ngOnDestroy(): void {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
+
+    sendMessage() {
+
+    }
+
+    uploadPhoto() {
+
+    }
 }

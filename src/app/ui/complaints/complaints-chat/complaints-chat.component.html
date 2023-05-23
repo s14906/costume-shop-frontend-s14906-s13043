@@ -16,9 +16,27 @@
                         <span>{{ complaintChatMessage.createdDate}}</span>
                         <span>{{ complaintChatMessage.chatMessage }}</span>
                     </div>
-<!--                    <button *ngIf="this.loggedUser.id !== complaint.employeeId" (click)="assignToEmployee(complaint)">Assign to me</button>-->
                 </div>
             </li>
         </ul>
     </div>
 </div>
+<div class="container">
+    <div class="item-row">
+        <div class="column h-100">
+            <mat-form-field>
+                <mat-label>Autosize textarea</mat-label>
+                <textarea matInput
+                          cdkTextareaAutosize
+                          #autosize="cdkTextareaAutosize"
+                          cdkAutosizeMinRows="1"
+                          cdkAutosizeMaxRows="10"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="column">
+            <button class="button" (click)="uploadPhoto()">Upload photo</button>
+            <button class="button" (click)="sendMessage()">Send message</button>
+        </div>
+    </div>
+</div>
+

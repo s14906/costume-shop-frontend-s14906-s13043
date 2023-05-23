@@ -34,10 +34,7 @@ mat-toolbar {
   transition-duration: 500ms;
 }
 
-.search-input {
-  color: white !important;
 
-}
 
 .mat-mdc-form-field-infix {
   padding-top: 16px !important;
@@ -56,8 +53,6 @@ mat-toolbar {
 }
 
 .search-form-field {
-  width: auto;
-  line-height: 32px;
   background: #49a1ff;
 }
 
@@ -104,12 +99,10 @@ mat-toolbar {
   color: #fff;
 }
 
-.search-form-field {
-  width: 400px;
-}
-
 .search-input {
+  color: white !important;
   text-align: center;
+
 }
 
 .mat-icon {

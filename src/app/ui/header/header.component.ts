@@ -1,4 +1,4 @@
-import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {combineLatest, Subscription} from "rxjs";
 import {AuthService} from "../../core/service/auth.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
@@ -9,7 +9,6 @@ import {Router} from "@angular/router";
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  encapsulation: ViewEncapsulation.None
 
 })
 export class HeaderComponent implements OnDestroy {
