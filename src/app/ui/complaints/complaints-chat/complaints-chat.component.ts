@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {HttpService} from "../../../core/service/http.service";
@@ -14,6 +14,7 @@ export class ComplaintsChatComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     complaintId: string;
     complaintChatMessages: ComplaintChatMessageDTO[] = [];
+    @ViewChild('fileInput') fileInput!: ElementRef;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -21,7 +22,7 @@ export class ComplaintsChatComponent implements OnDestroy {
         this.allSubscriptions.push(
             this.route.queryParams.pipe(
                 switchMap((queryParams) => {
-                    this.complaintId = queryParams['complaintId'];
+                        this.complaintId = queryParams['complaintId'];
                         return this.httpService.getComplaint(this.complaintId).pipe(
                             switchMap((complaint) =>
                                 this.httpService.getComplaintChatMessages(complaint.complaintId)
@@ -47,7 +48,11 @@ export class ComplaintsChatComponent implements OnDestroy {
 
     }
 
-    uploadPhoto() {
+    onFileSelected($event: Event) {
+        console.log($event);
+    }
 
+    uploadImage() {
+        this.fileInput.nativeElement.click();
     }
 }
