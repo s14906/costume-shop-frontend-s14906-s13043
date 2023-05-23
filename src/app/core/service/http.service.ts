@@ -121,4 +121,9 @@ export class HttpService {
     public getComplaint(complaintId: string): Observable<ComplaintDTO> {
         return this.http.get<ComplaintDTO>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
     }
+
+    public getComplaintChatMessages(complaintId: number): Observable<any> {
+        return this.http.get(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
+
+    }
 }

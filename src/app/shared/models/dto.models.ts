@@ -72,3 +72,13 @@ export interface UserDTO {
     phone: string;
     roles: string[];
 }
+
+export interface ComplaintChatMessageDTO {
+    chatMessageId: number;
+    complaintId: number;
+    complaintStatus: string;
+    chatMessageUserName: string;
+    chatMessageUserSurname: string;
+    chatMessage: string;
+    createdDate: Date;
+}

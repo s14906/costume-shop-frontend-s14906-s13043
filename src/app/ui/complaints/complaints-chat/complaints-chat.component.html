@@ -1,1 +1,24 @@
-<p>complaints-chat works!</p>
+<h2 class="text-big-left"><span><b>Complaint ID: {{complaintId}}</b></span></h2>
+<div class="container">
+    <div class="sub-container">
+        <ul cdkListbox
+            cdkListboxUseActiveDescendant
+            class="listbox">
+            <li *ngFor="let complaintChatMessage of complaintChatMessages; index as i"
+                class="card">
+                <div class="item-row">
+                    <div class="column">
+                        <span>User:</span>
+                        <span>{{ complaintChatMessage.chatMessageUserName}}
+                            {{ complaintChatMessage.chatMessageUserSurname }}</span>
+                    </div>
+                    <div class="column">
+                        <span>{{ complaintChatMessage.createdDate}}</span>
+                        <span>{{ complaintChatMessage.chatMessage }}</span>
+                    </div>
+<!--                    <button *ngIf="this.loggedUser.id !== complaint.employeeId" (click)="assignToEmployee(complaint)">Assign to me</button>-->
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -15,7 +15,7 @@
   font-size: 1.5em;
 }
 
-.products {
+.sub-container {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
