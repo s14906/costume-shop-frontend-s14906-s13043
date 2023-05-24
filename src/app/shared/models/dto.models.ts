@@ -76,9 +76,10 @@ export interface UserDTO {
 export interface ComplaintChatMessageDTO {
     chatMessageId: number;
     complaintId: number;
-    complaintStatus: string;
     chatMessageUserName: string;
     chatMessageUserSurname: string;
     chatMessage: string;
     createdDate: Date;
+    chatImagesBase64: string[];
+
 }

@@ -8,7 +8,7 @@ import {
 import {Observable} from "rxjs";
 import {
     AddressDTO,
-    AddToCartDTO,
+    AddToCartDTO, ComplaintChatMessageDTO,
     ComplaintDTO,
     ItemWithImageDTO, UserLoginDTO,
     UserRegistrationDTO
@@ -118,12 +118,17 @@ export class HttpService {
         });
     }
 
+    public postSendComplaintChatMessage(complaintChatMessageDTO: ComplaintChatMessageDTO, complaintId: string): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`, complaintChatMessageDTO);
+
+    }
+
     public getComplaint(complaintId: string): Observable<ComplaintDTO> {
         return this.http.get<ComplaintDTO>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
     }
 
-    public getComplaintChatMessages(complaintId: number): Observable<any> {
-        return this.http.get(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
+    public getComplaintChatMessages(complaintId: number): Observable<ComplaintChatMessageDTO[]> {
+        return this.http.get<ComplaintChatMessageDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
 
     }
 }
