@@ -83,3 +83,11 @@ export interface ComplaintChatMessageDTO {
     chatImagesBase64: string[];
 
 }
+
+export interface OrderHistoryDTO {
+    orderId: string;
+    orderUserName: string;
+    orderUserSurname: string;
+    orderStatus: string;
+    createdDate: Date;
+}

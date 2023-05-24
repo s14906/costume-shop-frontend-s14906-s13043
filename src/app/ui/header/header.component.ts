@@ -53,4 +53,8 @@ export class HeaderComponent implements OnDestroy {
   navigateToComplaints() {
     this.router.navigate(['complaints']);
   }
+
+  navigateToOrderHistory() {
+    this.router.navigate(['orders']);
+  }
 }

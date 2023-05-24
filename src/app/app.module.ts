@@ -40,6 +40,7 @@ import {AccountInformationComponent} from "./ui/account/account-information/acco
 import {FormValidationService} from "./core/service/form-validation.service";
 import {ComplaintsComponent} from './ui/complaints/complaints.component';
 import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complaints-chat.component';
+import { OrderHistoryComponent } from './ui/order-history/order-history.component';
 
 @NgModule({
     declarations: [
@@ -55,7 +56,8 @@ import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complai
         CartComponent,
         AccountInformationComponent,
         ComplaintsComponent,
-        ComplaintsChatComponent
+        ComplaintsChatComponent,
+        OrderHistoryComponent
     ],
     imports: [
         BrowserModule,

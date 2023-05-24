@@ -12,6 +12,7 @@ import {CartComponent} from "./ui/cart/cart.component";
 import {AccountInformationComponent} from "./ui/account/account-information/account-information.component";
 import {ComplaintsComponent} from "./ui/complaints/complaints.component";
 import {ComplaintsChatComponent} from "./ui/complaints/complaints-chat/complaints-chat.component";
+import {OrderHistoryComponent} from "./ui/order-history/order-history.component";
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
     {path: 'cart', component: CartComponent},
     {path: 'account', component: AccountInformationComponent},
     {path: 'complaints', component: ComplaintsComponent},
-    {path: 'complaints/chat', component: ComplaintsChatComponent}
+    {path: 'complaints/chat', component: ComplaintsChatComponent},
+    {path: 'orders', component: OrderHistoryComponent}
 
 
 ];

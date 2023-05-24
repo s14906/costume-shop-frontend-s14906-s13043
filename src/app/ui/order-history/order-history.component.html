@@ -1,0 +1,29 @@
+<div class="container">
+    <h2 class="text-big-left"><span><b>YOUR ORDERS</b></span></h2>
+    <div class="main-card">
+        <ng-template [ngIf]="orders.length !== 0" [ngIfElse]="elseBlock">
+            <ul cdkListbox
+                cdkListboxUseActiveDescendant
+                class="listbox">
+                <li *ngFor="let order of orders; index as i" [routerLink]="'/orders'"
+                    class="card">
+                    <div class="item-row">
+                        <div class="column">
+                            <span>Order ID: {{ order.orderId }}</span>
+                            <span>User: {{ order.orderUserName}} {{ order.orderUserName }}</span>
+                        </div>
+                        <div class="column">
+                            <span>Status: {{ order.orderStatus }}</span>
+                            <span>Date: {{ formatDate(order.createdDate) }}</span>
+                        </div>
+                        <button (click)="navigateToDetails(order)">Details</button>
+                    </div>
+                </li>
+            </ul>
+        </ng-template>
+        <ng-template #elseBlock>
+            <h2 class="text-center">You didn't buy anything yet. You are not very rich, are you?</h2>
+        </ng-template>
+
+    </div>
+</div>

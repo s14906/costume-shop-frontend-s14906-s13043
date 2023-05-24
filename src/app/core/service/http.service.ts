@@ -10,7 +10,7 @@ import {
     AddressDTO,
     AddToCartDTO, ComplaintChatMessageDTO,
     ComplaintDTO,
-    ItemWithImageDTO, UserLoginDTO,
+    ItemWithImageDTO, OrderHistoryDTO, UserLoginDTO,
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
 import {
@@ -120,7 +120,6 @@ export class HttpService {
 
     public postSendComplaintChatMessage(complaintChatMessageDTO: ComplaintChatMessageDTO, complaintId: string): Observable<SimpleResponse> {
         return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`, complaintChatMessageDTO);
-
     }
 
     public getComplaint(complaintId: string): Observable<ComplaintDTO> {
@@ -129,6 +128,9 @@ export class HttpService {
 
     public getComplaintChatMessages(complaintId: number): Observable<ComplaintChatMessageDTO[]> {
         return this.http.get<ComplaintChatMessageDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
+    }
 
+    public getAllOrdersForUser(userId: number): Observable<OrderHistoryDTO[]> {
+        return this.http.get<OrderHistoryDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
     }
 }

@@ -14,4 +14,5 @@ export enum UrlPart {
   CHANGE_PASSWORD = 'change-password',
   COMPLAINTS = 'complaints',
   MESSAGES = 'messages',
+  ORDERS = 'orders',
 }
