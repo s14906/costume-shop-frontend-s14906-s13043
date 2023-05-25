@@ -40,7 +40,8 @@ import {AccountInformationComponent} from "./ui/account/account-information/acco
 import {FormValidationService} from "./core/service/form-validation.service";
 import {ComplaintsComponent} from './ui/complaints/complaints.component';
 import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complaints-chat.component';
-import { OrderHistoryComponent } from './ui/order-history/order-history.component';
+import { OrderHistoryComponent } from './ui/order/order-history/order-history.component';
+import { OrderDetailsComponent } from './ui/order/order-details/order-details.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { OrderHistoryComponent } from './ui/order-history/order-history.componen
         AccountInformationComponent,
         ComplaintsComponent,
         ComplaintsChatComponent,
-        OrderHistoryComponent
+        OrderHistoryComponent,
+        OrderDetailsComponent
     ],
     imports: [
         BrowserModule,

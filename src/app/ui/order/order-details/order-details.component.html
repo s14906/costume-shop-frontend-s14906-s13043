@@ -1,0 +1,16 @@
+<h2 class="text-big-left"><span><b>Order details for order: {{ orderId }}</b></span></h2>
+
+<div class="container" *ngFor="let item of orderDetails.items">
+    <div class="column">
+        <span>Item ID: {{ item.itemId }}</span>
+        <span>Item title: {{ item.title }}</span>
+    </div>
+    <div class="column">
+        <span>Item price: {{ item.price }}</span>
+        <span>Item description: {{ item.description }}</span>
+    </div>
+</div>
+<div class="container">
+    <button mat-stroked-button (click)="createComplaint()">Create a complaint</button>
+</div>
+

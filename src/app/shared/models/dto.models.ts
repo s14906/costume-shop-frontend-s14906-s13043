@@ -91,3 +91,8 @@ export interface OrderHistoryDTO {
     orderStatus: string;
     createdDate: Date;
 }
+
+export interface OrderDetailsDTO {
+    orderId: number;
+    items: ItemWithImageDTO[];
+}

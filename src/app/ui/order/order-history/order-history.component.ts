@@ -1,9 +1,9 @@
 import {Component, OnDestroy} from '@angular/core';
-import {HttpService} from "../../core/service/http.service";
-import {TokenStorageService} from "../../core/service/token-storage.service";
-import {HttpErrorService} from "../../core/service/http-error.service";
+import {HttpService} from "../../../core/service/http.service";
+import {TokenStorageService} from "../../../core/service/token-storage.service";
+import {HttpErrorService} from "../../../core/service/http-error.service";
 import {Subscription} from "rxjs";
-import {OrderHistoryDTO} from "../../shared/models/dto.models";
+import {OrderHistoryDTO} from "../../../shared/models/dto.models";
 import { formatDate } from 'src/app/shared/utils';
 import {Router} from "@angular/router";
 
@@ -46,7 +46,7 @@ export class OrderHistoryComponent implements OnDestroy {
     }
 
     navigateToDetails(order: OrderHistoryDTO) {
-        this.router.navigate(['orders'], {
+        this.router.navigate(['orders/details'], {
             queryParams: {
                 orderId: order.orderId
             }
