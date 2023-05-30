@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="column">
+    <mat-form-field class="chat-area" appearance="outline">
+                <textarea matInput #chatTextarea
+                          cdkTextareaAutosize
+                          cdkAutosizeMinRows="10"
+                          cdkAutosizeMaxRows="10"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="buttons-with-image-container">
+    <div class="buttons-with-image-column">
+      <button mat-stroked-button (click)="uploadImage()">
+        Upload image
+        <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
+      </button>
+
+      <button mat-stroked-button (click)="sendMessage()">Send message</button>
+
+      <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another
+        one.</a>
+    </div>
+    <div *ngIf="!fileInvalid" class="image-container">
+      <a *ngIf="chatImagesBase64.length > 0">Selected image:</a>
+      <img [src]="chatImagesBase64[0]">
+    </div>
+  </div>
+</div>
+

@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {HttpService} from "../../core/service/http.service";
 import {Subscription} from "rxjs";
-import {TokenStorageService} from "../../core/service/token-storage.service";
+import {StorageService} from "../../core/service/storage.service";
 import {HttpErrorService} from "../../core/service/http-error.service";
 import {CartItemDTO} from "../../shared/models/dto.models";
 
@@ -17,10 +17,10 @@ export class CartComponent implements OnDestroy {
     priceTimesItemCount: number[] = [];
 
     constructor(private httpService: HttpService,
-                private tokenStorageService: TokenStorageService,
+                private storageService: StorageService,
                 private httpErrorService: HttpErrorService) {
         this.allSubscriptions.push(
-            this.httpService.getCartItemsByUserId(this.tokenStorageService.getUser().id)
+            this.httpService.getCartItemsByUserId(this.storageService.getUser().id)
                 .subscribe({
                     next: next => {
                         this.cartItems = next.cartItems

@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {HttpService} from "../../../core/service/http.service";
-import {TokenStorageService} from "../../../core/service/token-storage.service";
+import {StorageService} from "../../../core/service/storage.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {Subscription} from "rxjs";
 import {OrderHistoryDTO} from "../../../shared/models/dto.models";
@@ -18,12 +18,12 @@ export class OrderHistoryComponent implements OnDestroy {
     orders: OrderHistoryDTO[] = [];
 
     constructor(private httpService: HttpService,
-                private tokenStorageService: TokenStorageService,
+                private storageService: StorageService,
                 // private snackbarService: SnackbarService,
                 private httpErrorService: HttpErrorService,
                 private router: Router) {
 
-        this.currentUser = this.tokenStorageService.getUser();
+        this.currentUser = this.storageService.getUser();
         this.allSubscriptions.push(
             this.httpService.getAllOrdersForUser(this.currentUser.id)
                 .subscribe({

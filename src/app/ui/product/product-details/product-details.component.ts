@@ -4,7 +4,7 @@ import {ItemColorModel,  ItemSizeModel} from "../../../shared/models/data.models
 import {HttpService} from "../../../core/service/http.service";
 import {combineLatestWith, Subscription} from "rxjs";
 import {SnackbarService} from "../../../core/service/snackbar.service";
-import {TokenStorageService} from "../../../core/service/token-storage.service";
+import {StorageService} from "../../../core/service/storage.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {ItemWithImageDTO} from "../../../shared/models/dto.models";
 
@@ -26,7 +26,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
                 private snackbarService: SnackbarService,
-                private tokenStorageService: TokenStorageService,
+                private storageService: StorageService,
                 private httpErrorService: HttpErrorService) {
     }
 
@@ -77,7 +77,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
     addToCart() {
         this.httpService.postAddToCart({
-            userId: this.tokenStorageService.getUser().id,
+            userId: this.storageService.getUser().id,
             itemId: this.item?.itemId,
             itemSizeId: this.itemSizes.find(itemSize => itemSize.size === this.selectedItemSize)?.id,
             itemAmount: this.itemAmount

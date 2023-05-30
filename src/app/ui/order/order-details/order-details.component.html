@@ -1,6 +1,6 @@
 <h2 class="text-big-left"><span><b>Order details for order: {{ orderId }}</b></span></h2>
 
-<div class="container" *ngFor="let item of orderDetails.items">
+<div class="container" *ngFor="let item of orderDetails?.items">
     <div class="column">
         <span>Item ID: {{ item.itemId }}</span>
         <span>Item title: {{ item.title }}</span>
@@ -10,7 +10,13 @@
         <span>Item description: {{ item.description }}</span>
     </div>
 </div>
+
 <div class="container">
-    <button mat-stroked-button (click)="createComplaint()">Create a complaint</button>
+  <ng-template [ngIf]="!complaint" [ngIfElse]="elseBlock">
+    <button mat-stroked-button (click)="navigateToComplaintCreation()">Create a complaint</button>
+  </ng-template>
+  <ng-template #elseBlock>
+    <button mat-stroked-button (click)="navigateToComplaintChat()">Go to complaint</button>
+  </ng-template>
 </div>
 

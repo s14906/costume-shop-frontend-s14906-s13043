@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {HttpService} from "../../core/service/http.service";
 import {UserModel} from "../../shared/models/data.models";
 import {Subscription} from "rxjs";
-import {TokenStorageService} from "../../core/service/token-storage.service";
+import {StorageService} from "../../core/service/storage.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
 import {HttpErrorService} from "../../core/service/http-error.service";
 import {Router} from "@angular/router";
@@ -19,11 +19,11 @@ export class ComplaintsComponent implements OnDestroy {
     loggedUser: UserModel;
 
     constructor(private httpService: HttpService,
-                private tokenStorageService: TokenStorageService,
+                private storageService: StorageService,
                 private snackbarService: SnackbarService,
                 private httpErrorService: HttpErrorService,
                 private router: Router) {
-        this.loggedUser = this.tokenStorageService.getUser();
+        this.loggedUser = this.storageService.getUser();
         this.allSubscriptions.push(
             this.httpService.getAllComplaints().subscribe({
                 next: next => {
@@ -56,4 +56,13 @@ export class ComplaintsComponent implements OnDestroy {
                 })
         );
     }
+
+  navigateToSelectedComplaint(complaintId: string) {
+    this.storageService.saveComplaintIdForUser(complaintId);
+    this.router.navigate(['/complaints/chat'], {
+      queryParams: {
+        complaintId: complaintId
+      }
+    });
+  }
 }

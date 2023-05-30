@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {combineLatest, Subscription} from "rxjs";
 import {AuthService} from "../../core/service/auth.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
-import {TokenStorageService} from "../../core/service/token-storage.service";
+import {StorageService} from "../../core/service/storage.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -20,11 +20,11 @@ export class HeaderComponent implements OnDestroy {
 
   constructor(public authService: AuthService,
               private snackbarService: SnackbarService,
-              private tokenStorageService: TokenStorageService,
+              private storageService: StorageService,
               private router: Router
   ) {
     this.allSubscriptions.push(
-      combineLatest([this.authService.getIsLoggedIn(), this.tokenStorageService.getUserRoles()])
+      combineLatest([this.authService.getIsLoggedIn(), this.storageService.getUserRoles()])
       .subscribe(userData => {
         this.loggedIn = userData[0];
         this.userRoles = userData[1];
@@ -32,7 +32,7 @@ export class HeaderComponent implements OnDestroy {
   }
 
   logout() {
-    this.tokenStorageService.signOut();
+    this.storageService.signOut();
     this.authService.announceLogout();
     this.snackbarService.openSnackBar('Logged out!');
     this.router.navigate(['/']);

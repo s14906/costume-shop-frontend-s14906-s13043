@@ -27,7 +27,7 @@ import {MessageService} from "./core/service/message.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarService} from "./core/service/snackbar.service";
 import {MatMenuModule} from "@angular/material/menu";
-import {TokenStorageService} from "./core/service/token-storage.service";
+import {StorageService} from "./core/service/storage.service";
 import {authInterceptorProviders} from "./core/service/auth.interceptor";
 import {RegistrationSuccessComponent} from './ui/registration/registration-success/registration-success.component';
 import {
@@ -42,6 +42,10 @@ import {ComplaintsComponent} from './ui/complaints/complaints.component';
 import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complaints-chat.component';
 import { OrderHistoryComponent } from './ui/order/order-history/order-history.component';
 import { OrderDetailsComponent } from './ui/order/order-details/order-details.component';
+import { ComplaintsCreateComponent } from './ui/complaints/complaints-create/complaints-create.component';
+import {SubjectService} from "./core/service/subject.service";
+import {MatTableModule} from "@angular/material/table";
+import { ChatComponent } from './ui/complaints/chat/chat.component';
 
 @NgModule({
     declarations: [
@@ -59,7 +63,9 @@ import { OrderDetailsComponent } from './ui/order/order-details/order-details.co
         ComplaintsComponent,
         ComplaintsChatComponent,
         OrderHistoryComponent,
-        OrderDetailsComponent
+        OrderDetailsComponent,
+        ComplaintsCreateComponent,
+        ChatComponent
     ],
     imports: [
         BrowserModule,
@@ -81,6 +87,7 @@ import { OrderDetailsComponent } from './ui/order/order-details/order-details.co
         MatMenuModule,
         CdkOption,
         CdkListbox,
+        MatTableModule,
     ],
     providers: [
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'},},
@@ -88,9 +95,10 @@ import { OrderDetailsComponent } from './ui/order/order-details/order-details.co
         MessageService,
         SnackbarService,
         MatSnackBar,
-        TokenStorageService,
+        StorageService,
         HttpErrorService,
         FormValidationService,
+        SubjectService,
         authInterceptorProviders
     ],
     bootstrap: [AppComponent]

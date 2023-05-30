@@ -1,5 +1,5 @@
 import {Component, HostListener, OnDestroy} from '@angular/core';
-import {TokenStorageService} from "../../../core/service/token-storage.service";
+import {StorageService} from "../../../core/service/storage.service";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Observable, of, Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http.service";
@@ -24,7 +24,7 @@ export class AccountInformationComponent implements OnDestroy {
     user: UserModel;
     addresses: AddressDTO[] = [];
 
-    constructor(private tokenStorageService: TokenStorageService,
+    constructor(private storageService: StorageService,
                 private formBuilder: FormBuilder,
                 private httpService: HttpService,
                 private snackbarService: SnackbarService,
@@ -32,7 +32,7 @@ export class AccountInformationComponent implements OnDestroy {
                 private router: Router,
                 private httpErrorService: HttpErrorService) {
         this.setGridColumnNumber();
-        this.user = this.tokenStorageService.getUser();
+        this.user = this.storageService.getUser();
 
         this.addAddressForm = this.formBuilder.group({
                 street: ['', Validators.required, this.validateField],

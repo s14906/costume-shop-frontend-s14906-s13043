@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {TokenStorageService} from "./token-storage.service";
+import {StorageService} from "./storage.service";
 import {AuthService} from "./auth.service";
 import {SnackbarService} from "./snackbar.service";
 import {Router} from "@angular/router";
@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class HttpErrorService {
 
-  constructor(private tokenStorageService: TokenStorageService,
+  constructor(private storageService: StorageService,
               private authService: AuthService,
               private snackbarService: SnackbarService,
               private router: Router) {
@@ -21,7 +21,7 @@ export class HttpErrorService {
       this.reloadOrNavigateToHomeWithSnackbar("Unauthorized access to this resource.");
     } else if (err.status === 403) {
       this.authService.announceLogout();
-      this.tokenStorageService.signOut();
+      this.storageService.signOut();
       this.reloadOrNavigateToHomeWithSnackbar("Your session token has expired. Please log in again.");
     } else {
       if (errorMessage) {

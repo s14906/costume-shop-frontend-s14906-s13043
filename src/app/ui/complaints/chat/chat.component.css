@@ -1,0 +1,41 @@
+.input-upload-image {
+  display: none;
+}
+
+.invalid-file-warning {
+  color: red;
+}
+
+.buttons-with-image-container {
+  display: flex;
+}
+
+.buttons-with-image-column {
+  display: flex;
+  flex: 3;
+  padding: 10px;
+  flex-direction: column;
+
+}
+
+
+button {
+  background-color: #009688;
+  color: #FFF;
+  border: none;
+  padding: 0.5em;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}
+
+img {
+  max-height: 150px;
+  max-width: 150px;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+}
+

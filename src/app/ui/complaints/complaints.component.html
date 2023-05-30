@@ -5,7 +5,8 @@
     <ul cdkListbox
         cdkListboxUseActiveDescendant
         class="listbox">
-      <li *ngFor="let complaint of complaints; index as i" [routerLink]="'/complaints/chat'" [queryParams]="{ complaintId: complaint.complaintId }"
+      <li *ngFor="let complaint of complaints; index as i"
+          (click)="navigateToSelectedComplaint(complaint.complaintId.toString())"
           class="card">
         <div class="item-row">
           <div class="column">

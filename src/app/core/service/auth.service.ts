@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {map, Observable, ReplaySubject} from "rxjs";
 import {HttpService} from "./http.service";
-import {TokenStorageService} from "./token-storage.service";
+import {StorageService} from "./storage.service";
 import {UserResponse} from "../../shared/models/rest.models";
 
 @Injectable({
@@ -13,26 +13,26 @@ export class AuthService {
   public loggedIn: ReplaySubject<boolean> = new ReplaySubject(1);
 
   constructor(private httpService: HttpService,
-              private tokenStorageService: TokenStorageService) { }
+              private storageService: StorageService) { }
 
   login(username: string, password: string): Observable<UserResponse>{
     return this.httpService.postLogin(
       { email: username, password: password }
       ).pipe(map((response: UserResponse) => {
-      sessionStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
+      localStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
       this.loggedIn.next(true);
-      this.tokenStorageService.userRoleSubject.next(response.user.roles);
+      this.storageService.userRoleSubject.next(response.user.roles);
       return response;
     }));
   }
 
   announceLogout(): void {
-    sessionStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
+    localStorage.removeItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME);
     this.loggedIn.next(false);
   }
 
   getIsLoggedIn(): Observable<boolean> {
-    const user = sessionStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
+    const user = localStorage.getItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME)
     if (user !== null) {
       this.loggedIn.next(true);
     } else {

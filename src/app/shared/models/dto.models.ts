@@ -94,5 +94,13 @@ export interface OrderHistoryDTO {
 
 export interface OrderDetailsDTO {
     orderId: number;
+    complaint: ComplaintDTO;
     items: ItemWithImageDTO[];
+}
+
+export interface CreateNewComplaintDTO {
+    userId: number;
+    orderId: number;
+    complaintCategory: string;
+    complaintMessage?: string;
 }

@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 import {
     AddressDTO,
     AddToCartDTO, ComplaintChatMessageDTO,
-    ComplaintDTO,
+    ComplaintDTO, CreateNewComplaintDTO,
     ItemWithImageDTO, OrderDetailsDTO, OrderHistoryDTO, UserLoginDTO,
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
@@ -106,6 +106,10 @@ export class HttpService {
     }
 
     public postAddAddress(dto: AddressDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, dto);
+    }
+
+    public postCreateNewComplaint(dto: CreateNewComplaintDTO): Observable<SimpleResponse> {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, dto);
     }
 
