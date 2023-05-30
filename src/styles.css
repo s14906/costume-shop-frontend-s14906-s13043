@@ -174,6 +174,15 @@ button[type="submit"] {
   margin: 4px auto;
   width: 40%;
 }
+.text-big-right {
+  margin: 20px 0;
+  font-family: 'Courier New', Courier, monospace;
+  color: tomato;
+  font-size: 2em;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+  justify-content: left;
+}
 
 .text-big-left {
   margin: 20px 0;
@@ -203,4 +212,48 @@ button[type="submit"] {
 
 .h-100 {
   height: 200px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.pagination button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #45a049;
+}
+
+.pagination button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  margin: 0 20px;
+  font-size: 18px;
+}
+
+ul.listbox {
+  list-style-type: none;
+}
+
+.header-container {
+  display: flex;
+  margin-bottom: 1em;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
 }

@@ -5,6 +5,7 @@ import {HttpService} from "../../../core/service/http.service";
 import {ComplaintDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {StorageService} from "../../../core/service/storage.service";
+import {formatDate} from "../../../shared/utils";
 
 @Component({
   selector: 'app-order-details',
@@ -63,4 +64,5 @@ export class OrderDetailsComponent implements OnDestroy {
       }
     });
   }
+  protected readonly formatDate = formatDate;
 }

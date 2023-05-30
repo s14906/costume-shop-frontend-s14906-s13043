@@ -1,22 +1,41 @@
-<h2 class="text-big-left"><span><b>Order details for order: {{ orderId }}</b></span></h2>
-
-<div class="container" *ngFor="let item of orderDetails?.items">
-    <div class="column">
-        <span>Item ID: {{ item.itemId }}</span>
-        <span>Item title: {{ item.title }}</span>
-    </div>
-    <div class="column">
-        <span>Item price: {{ item.price }}</span>
-        <span>Item description: {{ item.description }}</span>
-    </div>
-</div>
-
 <div class="container">
-  <ng-template [ngIf]="!complaint" [ngIfElse]="elseBlock">
-    <button mat-stroked-button (click)="navigateToComplaintCreation()">Create a complaint</button>
-  </ng-template>
-  <ng-template #elseBlock>
-    <button mat-stroked-button (click)="navigateToComplaintChat()">Go to complaint</button>
-  </ng-template>
+  <div class="header-container">
+    <h2 class="text-big-left"><span><b>Order details ID: {{ orderId }} </b></span></h2>
+    <h2 class="text-big-right"><span><b>Date: {{formatDate(orderDetails.orderDate)}}</b></span></h2>
+  </div>
+  <table class="table">
+    <thead>
+    <tr class="labels">
+      <th>Item ID</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Check the product</th>
+    </tr>
+    </thead>
+    <colgroup>
+      <col style="width: 10%">
+      <col style="width: 25%">
+      <col style="width: 10%">
+      <col style="width: 35%">
+      <col style="width: 20%">
+    </colgroup>
+    <tbody>
+    <tr *ngFor="let item of orderDetails?.items" class="card">
+      <td>{{ item.itemId }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.price }} PLN</td>
+      <td>{{ item.description }}</td>
+      <td><button>Go to Product</button></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="card border-top">
+    <ng-template [ngIf]="!complaint" [ngIfElse]="elseBlock">
+      <button class="button" (click)="navigateToComplaintCreation()">Create a complaint</button>
+    </ng-template>
+    <ng-template #elseBlock>
+      <button class="button" (click)="navigateToComplaintChat()">Go to complaint</button>
+    </ng-template>
+  </div>
 </div>
-

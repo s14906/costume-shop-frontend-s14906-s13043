@@ -93,6 +93,7 @@ export interface OrderHistoryDTO {
 }
 
 export interface OrderDetailsDTO {
+    orderDate: Date;
     orderId: number;
     complaint: ComplaintDTO;
     items: ItemWithImageDTO[];
