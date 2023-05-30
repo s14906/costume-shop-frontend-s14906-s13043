@@ -30,3 +30,11 @@
   margin: 0 20px;
   font-size: 18px;
 }
+
+ul.listbox {
+  list-style-type: none;
+}
+
+.button:hover {
+  transform: none;
+}
