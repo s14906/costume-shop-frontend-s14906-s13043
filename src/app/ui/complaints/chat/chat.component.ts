@@ -6,7 +6,6 @@ import {Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {CreateNewComplaintResponse} from "../../../shared/models/rest.models";
-import {formatDate} from "../../../shared/utils";
 
 @Component({
   selector: 'app-chat',
@@ -114,7 +113,6 @@ export class ChatComponent implements OnDestroy {
   }
 
   onFileSelected($event: any) {
-    console.log($event);
     const file: File = $event.target?.files[0];
     if (file.type === 'image/png' || file.type === 'image/jpeg') {
       this.fileInvalid = false;
@@ -122,7 +120,9 @@ export class ChatComponent implements OnDestroy {
         const reader = new FileReader();
         reader.onloadend = () => {
           const imageBase64 = reader.result as string;
-          console.log('Base64 string:', imageBase64);
+          if (this.chatImagesBase64.length > 2) {
+            this.chatImagesBase64.shift();
+          }
           this.chatImagesBase64.push(imageBase64);
         };
 
@@ -143,5 +143,7 @@ export class ChatComponent implements OnDestroy {
     this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  protected readonly formatDate = formatDate;
+  removeImages() {
+    this.chatImagesBase64 = [];
+  }
 }
