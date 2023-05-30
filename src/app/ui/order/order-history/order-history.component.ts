@@ -15,6 +15,8 @@ import {Router} from "@angular/router";
 export class OrderHistoryComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     private currentUser;
+    currentPage = 0;
+    itemsPerPage = 10;
     orders: OrderHistoryDTO[] = [];
 
     constructor(private httpService: HttpService,
@@ -52,4 +54,13 @@ export class OrderHistoryComponent implements OnDestroy {
             }
         });
     }
+  get paginatedOrders() {
+    const begin = this.currentPage * this.itemsPerPage;
+    const end = begin + this.itemsPerPage;
+    return this.orders.slice(begin, end);
+  }
+
+  noOrders() {
+    return this.orders.length === 0;
+  }
 }
