@@ -34,8 +34,6 @@ mat-toolbar {
   transition-duration: 500ms;
 }
 
-
-
 .mat-mdc-form-field-infix {
   padding-top: 16px !important;
 }
@@ -48,18 +46,20 @@ mat-toolbar {
   max-height: 35px;
 }
 
-.search-input::placeholder {
-  color: #cccccc;
-}
-
-.search-form-field {
-  background: #49a1ff;
+.search-input {
+  text-align: center;
+  background-color: #0069e1;
+  border: 1px solid #ddd;
+  color: #FFF;
+  padding: 0.3em;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 4px;
 }
 
 .mat-icon {
   transform: scale(1.2);
 }
-
 
 .header-items-left {
   display: flex;
@@ -75,11 +75,6 @@ mat-toolbar {
   color: #fff;
   transition: background-color 0.3s ease, color 0.3s ease;
   text-align: center;
-
-}
-
-.button:hover {
-  color: #e8491d;
 }
 
 .button:active {
@@ -97,12 +92,6 @@ mat-toolbar {
 .mat-menu-item:hover {
   background-color: #e8491d;
   color: #fff;
-}
-
-.search-input {
-  color: white !important;
-  text-align: center;
-
 }
 
 .mat-icon {
