@@ -38,7 +38,7 @@ export class ChatComponent implements OnDestroy {
   sendMessage() {
     if (!this.fileInvalid) {
       const chatMessage: string = this.chatTextarea.nativeElement.value;
-      if (chatMessage.length > 10 && chatMessage.length < 100) {
+      if (chatMessage.length > 10 && chatMessage.length < 1000) {
         if (!this.complaintId) {
           this.allSubscriptions.push(
             this.httpService.postCreateNewComplaint({
@@ -54,7 +54,7 @@ export class ChatComponent implements OnDestroy {
           );
         }
       } else {
-        this.snackbarService.openSnackBar('Your message length must be between 10 and 100 characters!');
+        this.snackbarService.openSnackBar('Your message length must be between 10 and 1000 characters!');
       }
     } else {
       this.snackbarService.openSnackBar('The attached file is invalid!');

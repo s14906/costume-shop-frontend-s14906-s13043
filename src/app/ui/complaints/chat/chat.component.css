@@ -21,6 +21,7 @@
   flex: 3;
   padding: 10px;
   flex-direction: column;
+  width: 50%;
 }
 
 img {
@@ -30,7 +31,7 @@ img {
 
 .image-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .card {

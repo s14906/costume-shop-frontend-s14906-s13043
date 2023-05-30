@@ -1,29 +1,25 @@
 <div class="container">
   <h2 class="text-big-left"><span><b>Complaint ID: {{complaintId}}</b></span></h2>
     <div class="sub-container">
-        <ng-template [ngIf]="complaintChatMessages.length !== 0" [ngIfElse]="elseBlock">
-            <ul cdkListbox
-                cdkListboxUseActiveDescendant
-                class="listbox">
-                <li *ngFor="let complaintChatMessage of complaintChatMessages; index as i"
-                    class="card">
-                    <div class="item-row">
-                        <div class="column">
-                            <span>User:</span>
-                            <span>{{ complaintChatMessage.chatMessageUserName }}
-                                {{ complaintChatMessage.chatMessageUserSurname }}</span>
-                        </div>
-                        <div class="column">
-                            <span>{{ formatDate(complaintChatMessage.createdDate) }}</span>
-                            <span>{{ complaintChatMessage.chatMessage }}</span>
-                            <div *ngFor="let chatImageBase64 of complaintChatMessage.chatImagesBase64">
-                                <img [src]="chatImageBase64">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </ng-template>
+      <ng-template [ngIf]="complaintChatMessages.length !== 0" [ngIfElse]="elseBlock">
+        <ul cdkListbox
+            cdkListboxUseActiveDescendant
+            class="listbox">
+          <li *ngFor="let complaintChatMessage of complaintChatMessages; index as i" class="card">
+            <div class="item-row">
+              <div class="column">
+                <span>{{ complaintChatMessage.chatMessageUserName }} {{ complaintChatMessage.chatMessageUserSurname }} Created date: {{ formatDate(complaintChatMessage.createdDate) }}</span>
+              </div>
+              <div class="item-row">
+                <span>{{ complaintChatMessage.chatMessage}}</span>
+                <span *ngFor="let chatImageBase64 of complaintChatMessage.chatImagesBase64">
+                  <img [src]="chatImageBase64">
+                </span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </ng-template>
         <ng-template #elseBlock>
             <h2 class="text-center">No messages here so far. Start a new chat or wait for a message from someone!</h2>
         </ng-template>

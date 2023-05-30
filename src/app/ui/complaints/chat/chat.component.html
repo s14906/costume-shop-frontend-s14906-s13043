@@ -12,12 +12,11 @@
     <div class="buttons-with-image-column">
       <button class="button" (click)="sendMessage()">Send message</button>
       <span>&nbsp;&nbsp;&nbsp;</span>
-      <button class="button" (click)="uploadImage()"> Upload image
-        <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
+      <button class="button" (click)="uploadImage()">Upload image
+      <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
       </button>
-
-      <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another one.</a>
     </div>
+      <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another one.</a>
     <div *ngIf="chatImagesBase64.length > 0" class="image-container">
       <a>Selected image:</a>
       <img *ngFor="let chatImageBase64 of chatImagesBase64" [src]="chatImageBase64">
