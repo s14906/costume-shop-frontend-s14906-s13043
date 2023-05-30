@@ -14,10 +14,10 @@ import {
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
 import {
-    CartResponse,
-    GetAddressesResponse,
-    SimpleResponse,
-    UserResponse
+  CartResponse, CreateNewComplaintResponse,
+  GetAddressesResponse,
+  SimpleResponse,
+  UserResponse
 } from "../../shared/models/rest.models";
 
 @Injectable({
@@ -109,8 +109,8 @@ export class HttpService {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, dto);
     }
 
-    public postCreateNewComplaint(dto: CreateNewComplaintDTO): Observable<SimpleResponse> {
-        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, dto);
+    public postCreateNewComplaint(dto: CreateNewComplaintDTO): Observable<CreateNewComplaintResponse> {
+        return this.http.post<CreateNewComplaintResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS + UrlPart.CREATE, dto);
     }
 
     public postAssignComplaintToEmployee(userId: number, complaintId: number): Observable<SimpleResponse> {

@@ -37,8 +37,8 @@ export class StorageService {
   }
 
   public saveOrderDetails(order: OrderDetailsDTO): void {
-    localStorage.removeItem(ORDER_DETAILS_KEY + this.userToken + order.orderId);
-    localStorage.setItem(ORDER_DETAILS_KEY + this.userToken + order.orderId, JSON.stringify(order));
+    localStorage.removeItem(ORDER_DETAILS_KEY + this.userToken);
+    localStorage.setItem(ORDER_DETAILS_KEY + this.userToken, JSON.stringify(order));
   }
 
   public saveComplaintIdForUser(complaintId: string): void {
@@ -56,8 +56,8 @@ export class StorageService {
       return JSON.parse(userKey);
   }
 
-  public getOrderDetails(orderId: any): any {
-    const order = localStorage.getItem(ORDER_DETAILS_KEY + this.userToken +  orderId);
+  public getOrderDetails(): any {
+    const order = localStorage.getItem(ORDER_DETAILS_KEY + this.userToken);
     if (order)
       return JSON.parse(order);
   }

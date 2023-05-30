@@ -1,18 +1,22 @@
 import {AddressDTO, CartItemDTO, UserDTO} from "./dto.models";
 
 export interface SimpleResponse {
-    message: string;
-    success: boolean;
+  message: string;
+  success: boolean;
 }
 
 export interface GetAddressesResponse extends SimpleResponse {
-    addresses: AddressDTO[];
+  addresses: AddressDTO[];
 }
 
 export interface CartResponse extends SimpleResponse {
-    cartItems: CartItemDTO[]
+  cartItems: CartItemDTO[]
 }
 
 export interface UserResponse extends SimpleResponse {
-    user: UserDTO;
+  user: UserDTO;
+}
+
+export interface CreateNewComplaintResponse extends SimpleResponse {
+  complaintId: number;
 }

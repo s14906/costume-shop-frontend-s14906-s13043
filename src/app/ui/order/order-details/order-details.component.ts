@@ -48,6 +48,7 @@ export class OrderDetailsComponent implements OnDestroy {
 
   navigateToComplaintCreation() {
     this.storageService.clearComplaintForUser();
+    this.storageService.saveOrderDetails(this.orderDetails);
     this.router.navigate(['orders/complaint'], {
       queryParams: {
         orderId: this.orderId

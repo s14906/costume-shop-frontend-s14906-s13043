@@ -15,4 +15,5 @@ export enum UrlPart {
   COMPLAINTS = 'complaints',
   MESSAGES = 'messages',
   ORDERS = 'orders',
+  CREATE = '/create'
 }

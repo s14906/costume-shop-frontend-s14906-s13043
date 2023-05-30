@@ -25,15 +25,14 @@ export class ComplaintsCreateComponent {
     private router: Router,
     private route: ActivatedRoute) {
     this.allSubscriptions.push(
-      this.route.queryParams.subscribe(queryParam => {
-          this.orderDetails = this.storageService.getOrderDetails(queryParam['orderId']);
+      this.route.queryParams.subscribe(() => {
+          this.orderDetails = this.storageService.getOrderDetails();
           if (!this.orderDetails) {
             this.snackbarService.openSnackBar('Could not find order details for this order.')
             this.router.navigate(['/']);
           }
           this.dataSource = new MatTableDataSource(this.orderDetails.items);
       }));
-
   }
 
   ngOnDestroy(): void {
