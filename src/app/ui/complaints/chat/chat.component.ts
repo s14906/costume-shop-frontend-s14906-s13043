@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {CreateNewComplaintResponse} from "../../../shared/models/rest.models";
+import {formatDate} from "../../../shared/utils";
 
 @Component({
   selector: 'app-chat',
@@ -19,6 +20,7 @@ export class ChatComponent implements OnDestroy {
   fileInvalid: boolean = false;
   @ViewChild('fileInput') fileInput!: ElementRef;
   @ViewChild('chatTextarea') chatTextarea!: ElementRef;
+
   complaintId: string;
   currentUser;
   orderId: string;
@@ -140,4 +142,6 @@ export class ChatComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
+
+  protected readonly formatDate = formatDate;
 }

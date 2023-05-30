@@ -13,17 +13,14 @@
 .cart-listbox {
   font-family: 'Roboto', sans-serif;
   font-size: 1.5em;
+  list-style-type: none;
+  padding: 0;
 }
 
 .sub-container {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
-}
-
-.cart-listbox {
-  list-style-type: none;
-  padding: 0;
 }
 
 .card {

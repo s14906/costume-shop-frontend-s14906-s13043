@@ -8,25 +8,19 @@
 
 .buttons-with-image-container {
   display: flex;
+  width: 100%;
 }
+
+.button {
+  width: 40%;
+}
+
 
 .buttons-with-image-column {
   display: flex;
   flex: 3;
   padding: 10px;
   flex-direction: column;
-
-}
-
-
-button {
-  background-color: #009688;
-  color: #FFF;
-  border: none;
-  padding: 0.5em;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 20px;
 }
 
 img {
@@ -37,5 +31,17 @@ img {
 .image-container {
   display: flex;
   flex-direction: column;
+}
+
+.card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 2px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: none;
 }
 

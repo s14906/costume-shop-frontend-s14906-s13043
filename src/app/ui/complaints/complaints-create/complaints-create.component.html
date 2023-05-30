@@ -1,5 +1,5 @@
-<h2 class="text-big-left"><span><b>Create a new complaint for order ID: {{orderDetails.orderId}}</b></span></h2>
 <div class="container">
+  <h2 class="text-big-left"><span><b>Create complaint - Order ID: {{orderDetails.orderId}}</b></span></h2>
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="itemId">
       <th mat-header-cell *matHeaderCellDef> Item ID</th>
@@ -18,14 +18,11 @@
 
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef> Price</th>
-      <td mat-cell *matCellDef="let item"> {{ item.price }} </td>
+      <td mat-cell *matCellDef="let item"> {{ item.price }} PLN </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <app-chat></app-chat>
 </div>
-<div class="container">
-  <p class="text-center">Describe your problem with the order in the field below.</p>
-</div>
-<app-chat></app-chat>
