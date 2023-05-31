@@ -9,11 +9,11 @@ import {HttpErrorService} from "../../../core/service/http-error.service";
 import {ItemWithImageDTO} from "../../../shared/models/dto.models";
 
 @Component({
-    selector: 'app-product-details',
-    templateUrl: './product-details.component.html',
-    styleUrls: ['./product-details.component.css']
+    selector: 'app-item-details',
+    templateUrl: './item-details.component.html',
+    styleUrls: ['./item-details.component.css']
 })
-export class ProductDetailsComponent implements OnInit, OnDestroy {
+export class ItemDetailsComponent implements OnInit, OnDestroy {
     item?: ItemWithImageDTO;
     itemSizes: ItemSizeModel[] = [];
     itemColors: ItemColorModel[] = [];
@@ -38,7 +38,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
                     next: next => {
                         const params = next[0];
                         const items = next[1];
-                        this.item = items.find((item: ItemWithImageDTO) => item.itemId.toString() === params['id'])
+                        this.item = items.find((item: ItemWithImageDTO) => item.itemId.toString() === params['itemId'])
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);

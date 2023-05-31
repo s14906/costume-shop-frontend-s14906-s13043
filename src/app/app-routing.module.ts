@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {ProductDetailsComponent} from "./ui/product/product-details/product-details.component";
-import {ProductListComponent} from "./ui/product/product-list/product-list.component";
+import {ItemDetailsComponent} from "./ui/item/item-details/item-details.component";
+import {ItemListComponent} from "./ui/item/item-list/item-list.component";
 import {LoginComponent} from "./ui/login/login.component";
 import {RegistrationComponent} from "./ui/registration/registration.component";
 import {RegistrationSuccessComponent} from "./ui/registration/registration-success/registration-success.component";
@@ -18,8 +18,8 @@ import {ComplaintsCreateComponent} from "./ui/complaints/complaints-create/compl
 
 
 const routes: Routes = [
-    {path: '', component: ProductListComponent},
-    {path: 'product', component: ProductDetailsComponent},
+    {path: '', component: ItemListComponent},
+    {path: 'item', component: ItemDetailsComponent},
     {path: 'login', component: LoginComponent},
     {path: 'registration', component: RegistrationComponent},
     {path: 'registration-success', component: RegistrationSuccessComponent},

@@ -26,7 +26,7 @@
       <td>{{ item.title }}</td>
       <td>{{ item.price }} PLN</td>
       <td>{{ item.description }}</td>
-      <td><button>Go to Product</button></td>
+      <td><button (click)="navigateToItem(item)">Go to Item</button></td>
     </tr>
     </tbody>
   </table>

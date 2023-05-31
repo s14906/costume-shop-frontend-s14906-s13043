@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpService} from "../../../core/service/http.service";
-import {ComplaintDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
+import {ComplaintDTO, ItemWithImageDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {StorageService} from "../../../core/service/storage.service";
 import {formatDate} from "../../../shared/utils";
@@ -70,4 +70,12 @@ export class OrderDetailsComponent implements OnDestroy {
     });
   }
   protected readonly formatDate = formatDate;
+
+  navigateToItem(item: ItemWithImageDTO) {
+    this.router.navigate(['item'], {
+      queryParams: {
+        itemId: item.itemId
+      }
+    })
+  }
 }

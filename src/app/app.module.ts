@@ -13,8 +13,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {AppRoutingModule} from './app-routing.module';
 import {MatInputModule} from "@angular/material/input";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
-import {ProductListComponent} from './ui/product/product-list/product-list.component';
-import {ProductDetailsComponent} from './ui/product/product-details/product-details.component';
+import {ItemListComponent} from './ui/item/item-list/item-list.component';
+import {ItemDetailsComponent} from './ui/item/item-details/item-details.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -54,8 +54,8 @@ import {MatSortModule} from "@angular/material/sort";
         AppComponent,
         HeaderComponent,
         FooterComponent,
-        ProductListComponent,
-        ProductDetailsComponent,
+        ItemListComponent,
+        ItemDetailsComponent,
         LoginComponent,
         RegistrationComponent,
         RegistrationSuccessComponent,

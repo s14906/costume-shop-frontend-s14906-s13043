@@ -1,9 +1,9 @@
 <div class="product-list">
-  <div class="product" *ngFor="let item of items" [routerLink]="'/product'" [queryParams]="{ id: item.itemId }">
+  <div class="product" *ngFor="let item of items">
     <img [src]="item.itemImages[0].imageBase64" [alt]="item.title">
     <h2>{{ item.title }}</h2>
     <p>{{ item.description }}</p>
     <p class="price">{{ item.price }} PLN</p>
-    <button class="button" mat-stroked-button>Add to Cart</button>
+    <button class="button" mat-stroked-button [routerLink]="'/item'" [queryParams]="{ itemId: item.itemId }">View details</button>
   </div>
 </div>

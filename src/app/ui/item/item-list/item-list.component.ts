@@ -5,11 +5,11 @@ import {HttpErrorService} from "../../../core/service/http-error.service";
 import {ItemWithImageDTO} from "../../../shared/models/dto.models";
 
 @Component({
-    selector: 'app-product-list',
-    templateUrl: './product-list.component.html',
-    styleUrls: ['./product-list.component.css']
+    selector: 'app-item-list',
+    templateUrl: './item-list.component.html',
+    styleUrls: ['./item-list.component.css']
 })
-export class ProductListComponent implements OnInit, OnDestroy {
+export class ItemListComponent implements OnInit, OnDestroy {
     items: ItemWithImageDTO[] = [];
     allSubscriptions: Subscription[] = [];
 
