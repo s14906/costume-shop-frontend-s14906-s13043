@@ -21,7 +21,6 @@ export class OrderHistoryComponent implements OnDestroy {
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
-                // private snackbarService: SnackbarService,
                 private httpErrorService: HttpErrorService,
                 private router: Router) {
 

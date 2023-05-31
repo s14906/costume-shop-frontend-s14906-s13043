@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {StorageService} from "../../../core/service/storage.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
-import {CreateNewComplaintResponse} from "../../../shared/models/rest.models";
+import {ComplaintResponse} from "../../../shared/models/rest.models";
 import {UserDTO} from "../../../shared/models/dto.models";
 
 @Component({
@@ -29,9 +29,15 @@ export class ChatComponent implements OnDestroy {
               private snackbarService: SnackbarService,
               private httpService: HttpService,
               private httpErrorService: HttpErrorService,
+              private route: ActivatedRoute,
               private router: Router) {
 
-    this.complaintId = this.storageService.getComplaintIdForUser();
+    this.allSubscriptions.push(
+      this.route.queryParams.subscribe(queryParam => {
+      this.complaintId = queryParam['complaintId']
+    }));
+
+
     this.currentUser = this.storageService.getUser();
     this.orderId = this.storageService.getOrderDetails()?.orderId;
   }
@@ -65,7 +71,6 @@ export class ChatComponent implements OnDestroy {
   private getNextFromSendComplaintChatMessageResponse() {
     return {
       next: next => {
-        this.storageService.saveComplaintIdForUser(next.complaintId);
         this.refreshOrRedirectPage(next);
       },
       error: err => {
@@ -74,7 +79,7 @@ export class ChatComponent implements OnDestroy {
     };
   }
 
-  private refreshOrRedirectPage(createNewComplaintResponse: CreateNewComplaintResponse) {
+  private refreshOrRedirectPage(createNewComplaintResponse: ComplaintResponse) {
     const complaintId = createNewComplaintResponse.complaintId ?
       createNewComplaintResponse.complaintId : this.complaintId;
     const url: string = this.router.url;

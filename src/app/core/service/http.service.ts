@@ -14,7 +14,7 @@ import {
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
 import {
-  CartResponse, CreateNewComplaintResponse,
+  CartResponse, ComplaintResponse,
   GetAddressesResponse,
   SimpleResponse,
   UserResponse
@@ -109,8 +109,8 @@ export class HttpService {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ADD_ADDRESS, dto);
     }
 
-    public postCreateNewComplaint(dto: CreateNewComplaintDTO): Observable<CreateNewComplaintResponse> {
-        return this.http.post<CreateNewComplaintResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS + UrlPart.CREATE, dto);
+    public postCreateNewComplaint(dto: CreateNewComplaintDTO): Observable<ComplaintResponse> {
+        return this.http.post<ComplaintResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS + UrlPart.CREATE, dto);
     }
 
     public postAssignComplaintToEmployee(userId: number, complaintId: number): Observable<SimpleResponse> {

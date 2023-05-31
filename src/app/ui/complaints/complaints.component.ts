@@ -1,4 +1,4 @@
-import {Component, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpService} from "../../core/service/http.service";
 import {UserModel} from "../../shared/models/data.models";
 import {Subscription} from "rxjs";
@@ -17,7 +17,7 @@ import {formatDate} from "../../shared/utils";
   templateUrl: './complaints.component.html',
   styleUrls: ['./complaints.component.css']
 })
-export class ComplaintsComponent implements OnDestroy {
+export class ComplaintsComponent implements OnDestroy, OnInit {
   complaints: ComplaintDTO[] = [];
   allSubscriptions: Subscription[] = [];
   loggedUser: UserModel;
@@ -47,7 +47,7 @@ export class ComplaintsComponent implements OnDestroy {
     );
   }
 
-  ngAfterViewInit() {
+  ngOnInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.dataSource.sortingDataAccessor = (item, property) => {
@@ -72,6 +72,7 @@ export class ComplaintsComponent implements OnDestroy {
             this.snackbarService.openSnackBar(next.message);
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
               this.router.navigate(['complaints']);
+
             });
           },
           error: err => {
@@ -82,7 +83,6 @@ export class ComplaintsComponent implements OnDestroy {
   }
 
   navigateToSelectedComplaint(complaintId: string) {
-    this.storageService.saveComplaintIdForUser(complaintId);
     this.router.navigate(['/complaints/chat'], {
       queryParams: {
         complaintId: complaintId

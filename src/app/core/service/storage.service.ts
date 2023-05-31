@@ -5,7 +5,6 @@ import {OrderDetailsDTO} from "../../shared/models/dto.models";
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'auth-user';
 const ORDER_DETAILS_KEY = 'order-details';
-const COMPLAINT_KEY = 'complaint';
 
 @Injectable({
   providedIn: 'root'
@@ -41,15 +40,6 @@ export class StorageService {
     localStorage.setItem(ORDER_DETAILS_KEY + this.userToken, JSON.stringify(order));
   }
 
-  public saveComplaintIdForUser(complaintId: string): void {
-    localStorage.removeItem(COMPLAINT_KEY + this.userToken);
-    localStorage.setItem(COMPLAINT_KEY + this.userToken, complaintId);
-  }
-
-  public clearComplaintForUser(): void {
-    localStorage.removeItem(COMPLAINT_KEY + this.userToken);
-  }
-
   public getUser(): any {
     const userKey = localStorage.getItem(USER_KEY);
     if (userKey)
@@ -60,12 +50,6 @@ export class StorageService {
     const order = localStorage.getItem(ORDER_DETAILS_KEY + this.userToken);
     if (order)
       return JSON.parse(order);
-  }
-
-  public getComplaintIdForUser(): any {
-    const complaintId = localStorage.getItem(COMPLAINT_KEY + this.userToken);
-    if (complaintId)
-      return complaintId;
   }
 
   public getUserRoles(): Observable<string[]> {

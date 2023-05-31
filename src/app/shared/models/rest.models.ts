@@ -17,6 +17,6 @@ export interface UserResponse extends SimpleResponse {
   user: UserDTO;
 }
 
-export interface CreateNewComplaintResponse extends SimpleResponse {
+export interface ComplaintResponse extends SimpleResponse {
   complaintId: number;
 }

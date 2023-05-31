@@ -47,7 +47,6 @@ export class OrderDetailsComponent implements OnDestroy {
   }
 
   navigateToComplaintCreation() {
-    this.storageService.clearComplaintForUser();
     this.storageService.saveOrderDetails(this.orderDetails);
     this.router.navigate(['orders/complaint'], {
       queryParams: {
@@ -58,7 +57,6 @@ export class OrderDetailsComponent implements OnDestroy {
 
   navigateToComplaintChat() {
     const complaintId: string = this.complaint.complaintId.toString();
-    this.storageService.saveComplaintIdForUser(complaintId);
     this.router.navigate(['/complaints/chat'], {
       queryParams: {
         complaintId: complaintId
