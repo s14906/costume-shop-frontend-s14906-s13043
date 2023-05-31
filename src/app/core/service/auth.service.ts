@@ -21,7 +21,9 @@ export class AuthService {
       ).pipe(map((response: UserResponse) => {
       localStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
       this.loggedIn.next(true);
-      this.storageService.userRoleSubject.next(response.user.roles);
+      if (response.user.roles) {
+        this.storageService.userRoleSubject.next(response.user.roles);
+      }
       return response;
     }));
   }

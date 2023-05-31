@@ -61,23 +61,22 @@ export interface UserLoginDTO {
 }
 
 export interface UserDTO {
-    id: number;
-    email: string;
-    password: string;
-    username: string;
-    emailVerified: number;
-    name: string;
-    surname: string;
-    token: string;
-    phone: string;
-    roles: string[];
+    id?: number;
+    email?: string;
+    password?: string;
+    username?: string;
+    emailVerified?: number;
+    name?: string;
+    surname?: string;
+    token?: string;
+    phone?: string;
+    roles?: string[];
 }
 
 export interface ComplaintChatMessageDTO {
     chatMessageId: number;
     complaintId: number;
-    chatMessageUserName: string;
-    chatMessageUserSurname: string;
+    user: UserDTO;
     chatMessage: string;
     createdDate: Date;
     chatImagesBase64: string[];

@@ -31,8 +31,10 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
       next: next => {
-        this.storageService.saveToken(next.user.token);
-        this.storageService.saveUser(next.user);
+        if (next.user.token) {
+          this.storageService.saveToken(next.user.token);
+          this.storageService.saveUser(next.user);
+        }
 
         this.roles = this.storageService.getUser().roles;
         this.snackbarService.openSnackBar(next.message);

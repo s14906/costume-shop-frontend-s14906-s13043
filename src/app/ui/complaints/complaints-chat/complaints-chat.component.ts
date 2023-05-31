@@ -48,4 +48,9 @@ export class ComplaintsChatComponent implements OnDestroy {
     formatDate(createdDate: Date): string {
         return formatDate(createdDate);
     }
+
+    isMessageAuthorEmployee(complaintChatMessage: ComplaintChatMessageDTO): boolean {
+      const user = complaintChatMessage.user;
+      return !!(user.roles && user.roles.includes('EMPLOYEE'));
+    }
 }

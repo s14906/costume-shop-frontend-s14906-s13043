@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {CreateNewComplaintResponse} from "../../../shared/models/rest.models";
+import {UserDTO} from "../../../shared/models/dto.models";
 
 @Component({
   selector: 'app-chat',
@@ -101,12 +102,17 @@ export class ChatComponent implements OnDestroy {
   }
 
   private getPostSendComplaintChatMessage(chatMessage: string, complaintId: number) {
+    const userDTO: UserDTO = {
+      id: this.currentUser.id,
+      roles: this.currentUser.roles,
+      name: this.currentUser.name,
+      surname: this.currentUser.surname
+    }
     return this.httpService.postSendComplaintChatMessage({
       chatMessageId: 0,
       chatMessage: chatMessage,
       createdDate: new Date(),
-      chatMessageUserName: this.currentUser.name,
-      chatMessageUserSurname: this.currentUser.surname,
+      user: userDTO,
       complaintId: Number(complaintId),
       chatImagesBase64: this.chatImagesBase64.length > 0 ? this.chatImagesBase64 : []
     }, complaintId.toString());

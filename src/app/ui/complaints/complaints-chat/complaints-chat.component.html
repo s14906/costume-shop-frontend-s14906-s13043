@@ -8,7 +8,18 @@
           <li *ngFor="let complaintChatMessage of complaintChatMessages; index as i" class="card">
             <div class="item-row">
               <div class="column">
-                <span>{{ complaintChatMessage.chatMessageUserName }} {{ complaintChatMessage.chatMessageUserSurname }} Created date: {{ formatDate(complaintChatMessage.createdDate) }}</span>
+                <ng-template [ngIf]="isMessageAuthorEmployee(complaintChatMessage)"
+                             [ngIfElse]="elseBlock">
+                <span class="employee-message">{{ complaintChatMessage.user.name }}
+                  {{ complaintChatMessage.user.surname }}
+                  Created date: {{ formatDate(complaintChatMessage.createdDate) }}</span>
+                </ng-template>
+                <ng-template #elseBlock>
+                <span class="user-message">{{ complaintChatMessage.user.name }}
+                  {{ complaintChatMessage.user.surname }}
+                  Created date: {{ formatDate(complaintChatMessage.createdDate) }}</span>
+                </ng-template>
+
               </div>
               <div class="item-row">
                 <span>{{ complaintChatMessage.chatMessage}}</span>
