@@ -3,21 +3,21 @@ import {HttpService} from "../../../core/service/http.service";
 import {StorageService} from "../../../core/service/storage.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {Subscription} from "rxjs";
-import {OrderHistoryDTO} from "../../../shared/models/dto.models";
+import {OrderDTO} from "../../../shared/models/dto.models";
 import { formatDate } from 'src/app/shared/utils';
 import {Router} from "@angular/router";
 
 @Component({
-    selector: 'app-order-history',
-    templateUrl: './order-history.component.html',
-    styleUrls: ['./order-history.component.css']
+    selector: 'app-order',
+    templateUrl: './order.component.html',
+    styleUrls: ['./order.component.css']
 })
-export class OrderHistoryComponent implements OnDestroy {
+export class OrderComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     private currentUser;
     currentPage = 0;
     itemsPerPage = 10;
-    orders: OrderHistoryDTO[] = [];
+    orders: OrderDTO[] = [];
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -25,17 +25,33 @@ export class OrderHistoryComponent implements OnDestroy {
                 private router: Router) {
 
         this.currentUser = this.storageService.getUser();
-        this.allSubscriptions.push(
+
+        if (this.currentUser.roles.includes('EMPLOYEE') && this.router.url.includes('orders/all')) {
+          this.allSubscriptions.push(
+            this.httpService.getAllOrders()
+              .subscribe({
+                next: next => {
+                  this.orders = next;
+                },
+                error: err => {
+                  this.httpErrorService.handleError(err);
+                }
+              })
+          );
+        } else {
+          this.allSubscriptions.push(
             this.httpService.getAllOrdersForUser(this.currentUser.id)
-                .subscribe({
-                    next: next => {
-                        this.orders = next;
-                    },
-                    error: err => {
-                        this.httpErrorService.handleError(err);
-                    }
-                })
-        );
+              .subscribe({
+                next: next => {
+                  this.orders = next;
+                },
+                error: err => {
+                  this.httpErrorService.handleError(err);
+                }
+              })
+          );
+        }
+
     }
 
     ngOnDestroy(): void {
@@ -46,7 +62,7 @@ export class OrderHistoryComponent implements OnDestroy {
         return formatDate(createdDate);
     }
 
-    navigateToDetails(order: OrderHistoryDTO) {
+    navigateToDetails(order: OrderDTO) {
         this.router.navigate(['orders/details'], {
             queryParams: {
                 orderId: order.orderId

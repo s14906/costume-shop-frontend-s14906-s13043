@@ -40,7 +40,7 @@ import {AccountInformationComponent} from "./ui/account/account-information/acco
 import {FormValidationService} from "./core/service/form-validation.service";
 import {ComplaintsComponent} from './ui/complaints/complaints.component';
 import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complaints-chat.component';
-import { OrderHistoryComponent } from './ui/order/order-history/order-history.component';
+import { OrderComponent } from './ui/order/order/order.component';
 import { OrderDetailsComponent } from './ui/order/order-details/order-details.component';
 import { ComplaintsCreateComponent } from './ui/complaints/complaints-create/complaints-create.component';
 import {SubjectService} from "./core/service/subject.service";
@@ -64,7 +64,7 @@ import {MatSortModule} from "@angular/material/sort";
         AccountInformationComponent,
         ComplaintsComponent,
         ComplaintsChatComponent,
-        OrderHistoryComponent,
+        OrderComponent,
         OrderDetailsComponent,
         ComplaintsCreateComponent,
         ChatComponent

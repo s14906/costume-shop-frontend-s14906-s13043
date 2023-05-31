@@ -84,10 +84,9 @@ export interface ComplaintChatMessageDTO {
 
 }
 
-export interface OrderHistoryDTO {
+export interface OrderDTO {
     orderId: string;
-    orderUserName: string;
-    orderUserSurname: string;
+    user: UserDTO;
     orderStatus: string;
     createdDate: Date;
 }

@@ -10,7 +10,7 @@ import {
     AddressDTO,
     AddToCartDTO, ComplaintChatMessageDTO,
     ComplaintDTO, CreateNewComplaintDTO,
-    ItemWithImageDTO, OrderDetailsDTO, OrderHistoryDTO, UserLoginDTO,
+    ItemWithImageDTO, OrderDetailsDTO, OrderDTO, UserLoginDTO,
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
 import {
@@ -134,9 +134,13 @@ export class HttpService {
         return this.http.get<ComplaintChatMessageDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
     }
 
-    public getAllOrdersForUser(userId: number): Observable<OrderHistoryDTO[]> {
-        return this.http.get<OrderHistoryDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
+    public getAllOrdersForUser(userId: number): Observable<OrderDTO[]> {
+        return this.http.get<OrderDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
     }
+
+  public getAllOrders(): Observable<OrderDTO[]> {
+    return this.http.get<OrderDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`);
+  }
 
     public getOrderDetails(orderId: string): Observable<OrderDetailsDTO> {
         return this.http.get<OrderDetailsDTO>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${orderId}`);
