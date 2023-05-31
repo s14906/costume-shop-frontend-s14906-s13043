@@ -46,6 +46,8 @@ import { ComplaintsCreateComponent } from './ui/complaints/complaints-create/com
 import {SubjectService} from "./core/service/subject.service";
 import {MatTableModule} from "@angular/material/table";
 import { ChatComponent } from './ui/complaints/chat/chat.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
     declarations: [
@@ -68,6 +70,7 @@ import { ChatComponent } from './ui/complaints/chat/chat.component';
         ChatComponent
     ],
     imports: [
+        MatSortModule,
         BrowserModule,
         MatIconModule,
         BrowserAnimationsModule,
@@ -88,6 +91,7 @@ import { ChatComponent } from './ui/complaints/chat/chat.component';
         CdkOption,
         CdkListbox,
         MatTableModule,
+        MatPaginatorModule,
     ],
     providers: [
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'},},

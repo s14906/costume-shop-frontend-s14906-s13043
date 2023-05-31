@@ -126,6 +126,10 @@ a:hover {
 
 .mat-form-field {
   padding: 0;
+  font-size: 25px;
+}
+
+.font-container{
   font-size: 20px;
 }
 
