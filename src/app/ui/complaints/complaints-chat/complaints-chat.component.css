@@ -1,9 +1,23 @@
 .employee-message {
-  background-color: darkgrey;
+  background-color: #d3d3d3;
 }
 
 .user-message {
-  background-color: lightgrey;
+  background-color: #e3e3e3;
+}
+.item-row {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 100%;
+  margin-right: 20px;
+}
+.spam-text-chat {
+  display: block;
+  white-space: break-spaces;
+  overflow: clip;
+  max-width: 2000px;
+  word-wrap: break-word;
 }
 
 button {
@@ -32,7 +46,7 @@ img {
   flex-direction: row;
   align-items: center;
   padding: 20px;
-  background-color: #f2f2f2;
+  background-color: #e7faf2;
   border-radius: 10px;
   margin-bottom: 10px;
 }
