@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpService} from "../../core/service/http.service";
-import {UserModel} from "../../shared/models/data.models";
 import {Subscription} from "rxjs";
 import {StorageService} from "../../core/service/storage.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
@@ -20,7 +19,7 @@ import {formatDate} from "../../shared/utils";
 export class ComplaintsComponent implements OnDestroy, OnInit {
   complaints: ComplaintDTO[] = [];
   allSubscriptions: Subscription[] = [];
-  loggedUser: UserModel;
+  loggedUser;
   displayedColumns: string[] = ['complaintId', 'userName', 'status', 'employee', 'createdDate', 'actions'];
   dataSource = new MatTableDataSource<ComplaintDTO>(this.complaints);
 
@@ -33,6 +32,10 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
               private httpErrorService: HttpErrorService,
               private router: Router) {
     this.loggedUser = this.storageService.getUser();
+    if (!this.loggedUser.roles.includes('EMPLOYEE')) {
+      this.router.navigate(['/']);
+    }
+
     this.allSubscriptions.push(
       this.httpService.getAllComplaints().subscribe({
         next: next => {

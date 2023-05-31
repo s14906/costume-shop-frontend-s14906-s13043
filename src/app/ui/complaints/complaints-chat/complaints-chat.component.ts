@@ -1,10 +1,11 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {HttpService} from "../../../core/service/http.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {ComplaintChatMessageDTO} from "../../../shared/models/dto.models";
 import {formatDate, sortArrayByDateDesc} from 'src/app/shared/utils';
+import {StorageService} from "../../../core/service/storage.service";
 
 @Component({
     selector: 'app-complaints-chat',
@@ -15,25 +16,36 @@ export class ComplaintsChatComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     complaintId: string;
     complaintChatMessages: ComplaintChatMessageDTO[] = [];
+    currentUser;
+    currentUserEqualsBuyer: boolean;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
                 private httpErrorService: HttpErrorService,
+                private storageService: StorageService,
+                private router: Router
 ) {
+      this.currentUser = this.storageService.getUser();
         this.allSubscriptions.push(
             this.route.queryParams.pipe(
                 switchMap((queryParams) => {
                         this.complaintId = queryParams['complaintId'];
                         return this.httpService.getComplaint(this.complaintId).pipe(
-                            switchMap((complaint) =>
-                                this.httpService.getComplaintChatMessages(complaint.complaintId)
+                            switchMap((complaint) => {
+                              this.currentUserEqualsBuyer = this.currentUser.id === complaint.buyerId;
+                                return this.httpService.getComplaintChatMessages(complaint.complaintId);
+                            }
                             )
                         );
                     }
                 )
             ).subscribe(({
                 next: next => {
+                  if (!this.currentUserEqualsBuyer) {
+                    this.router.navigate(['/']);
+                  } else {
                     this.complaintChatMessages = sortArrayByDateDesc(next);
+                  }
                 },
                 error: err => {
                     this.httpErrorService.handleError(err);
