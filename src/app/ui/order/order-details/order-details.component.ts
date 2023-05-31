@@ -34,7 +34,7 @@ export class OrderDetailsComponent implements OnDestroy {
         })
       ).subscribe({
         next: next => {
-          if (this.currentUser.id !== next.buyerId) {
+          if (!this.currentUser.roles.includes('EMPLOYEE') && this.currentUser.id !== next.buyerId) {
             this.router.navigate(['/']);
           } else {
             this.orderDetails = next;

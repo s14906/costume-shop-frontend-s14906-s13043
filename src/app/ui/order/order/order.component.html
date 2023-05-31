@@ -26,7 +26,7 @@
       <col style="width: 20%">
     </colgroup>
     <tbody>
-    <tr *ngFor="let order of paginatedOrders; index as i" [routerLink]="'/orders'" class="card">
+    <tr *ngFor="let order of paginatedOrders; index as i" class="card">
       <td>{{ order.orderId }}</td>
       <td>ADD COLUMN Price Total</td>
       <td>{{ order.orderStatus }}</td>
