@@ -17,24 +17,30 @@ export class OrderDetailsComponent implements OnDestroy {
   orderId: string;
   orderDetails: OrderDetailsDTO;
   complaint: ComplaintDTO;
+  currentUser;
 
   constructor(private route: ActivatedRoute,
               private httpService: HttpService,
               private httpErrorService: HttpErrorService,
               private storageService: StorageService,
               private router: Router) {
+
+    this.currentUser = this.storageService.getUser();
     this.allSubscriptions.push(
       this.route.queryParams.pipe(
         switchMap((queryParam) => {
           this.orderId = queryParam['orderId'];
-          // this.storageService.saveComplaintIdForUser(this.orderId);
           return this.httpService.getOrderDetails(this.orderId);
         })
       ).subscribe({
         next: next => {
-          this.orderDetails = next;
-          this.complaint = this.orderDetails.complaint;
-          this.storageService.saveOrderDetails(this.orderDetails);
+          if (this.currentUser.id !== next.buyerId) {
+            this.router.navigate(['/']);
+          } else {
+            this.orderDetails = next;
+            this.complaint = this.orderDetails.complaint;
+            this.storageService.saveOrderDetails(this.orderDetails);
+          }
         },
         error: err => {
           this.httpErrorService.handleError(err);

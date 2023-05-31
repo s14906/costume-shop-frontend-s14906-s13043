@@ -95,6 +95,7 @@ export interface OrderDetailsDTO {
     orderDate: Date;
     orderId: number;
     complaint: ComplaintDTO;
+    buyerId: number;
     items: ItemWithImageDTO[];
 }
 
