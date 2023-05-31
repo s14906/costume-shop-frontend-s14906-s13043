@@ -38,6 +38,7 @@ export class ComplaintsComponent implements OnDestroy {
         next: next => {
           this.complaints = next;
           this.dataSource.data = this.complaints;
+          this.dataSource.sort = this.sort;
         },
         error: err => {
           this.httpErrorService.handleError(err);
@@ -49,6 +50,14 @@ export class ComplaintsComponent implements OnDestroy {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.sortingDataAccessor = (item, property) => {
+      switch(property) {
+        case 'userName': return item.buyerName + ' ' + item.buyerSurname;
+        case 'employee': return item.employeeName && item.employeeSurname ? item.employeeName + ' ' + item.employeeSurname : 'NONE';
+        case 'status'  : return item.complaintStatus ? item.complaintStatus: 'NONE';
+        default: return item[property];
+      }
+    };
   }
 
   ngOnDestroy(): void {
