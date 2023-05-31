@@ -7,6 +7,7 @@ export interface ComplaintDTO {
     employeeName: string;
     employeeSurname: string;
     complaintStatus: string;
+    createdDate: Date;
 }
 
 export interface ItemWithImageDTO {
