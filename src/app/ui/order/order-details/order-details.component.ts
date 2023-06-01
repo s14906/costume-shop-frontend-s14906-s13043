@@ -6,6 +6,7 @@ import {ComplaintDTO, ItemWithImageDTO, OrderDetailsDTO} from "../../../shared/m
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {StorageService} from "../../../core/service/storage.service";
 import {formatDate} from "../../../shared/utils";
+import {SnackbarService} from "../../../core/service/snackbar.service";
 
 @Component({
   selector: 'app-order-details',
@@ -24,6 +25,7 @@ export class OrderDetailsComponent implements OnDestroy {
               private httpService: HttpService,
               private httpErrorService: HttpErrorService,
               private storageService: StorageService,
+              private snackbarService: SnackbarService,
               private router: Router) {
 
     this.currentUser = this.storageService.getUser();
@@ -35,6 +37,13 @@ export class OrderDetailsComponent implements OnDestroy {
         })
       ).subscribe({
         next: next => {
+          if (!next.orderDetails) {
+            this.router.navigate(['/']).then((navigated: boolean) => {
+              if (navigated) {
+                this.snackbarService.openSnackBar('Could not find order with this ID.');
+              }
+            });
+          }
           if (!this.currentUser.roles.includes('EMPLOYEE') && this.currentUser.id !== next.orderDetails.buyerId) {
             this.router.navigate(['/']);
           } else {
