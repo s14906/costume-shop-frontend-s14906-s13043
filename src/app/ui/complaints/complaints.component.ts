@@ -39,7 +39,7 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
     this.allSubscriptions.push(
       this.httpService.getAllComplaints().subscribe({
         next: next => {
-          this.complaints = next;
+          this.complaints = next.complaints;
           this.dataSource.data = this.complaints;
           this.dataSource.sort = this.sort;
         },

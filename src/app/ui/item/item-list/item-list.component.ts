@@ -20,8 +20,8 @@ export class ItemListComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.allSubscriptions.push(this.httpService.getAllItems()
             .subscribe({
-                next: items =>
-                    items.forEach(item => this.items.push(item)),
+                next: next =>
+                    next.itemsWithImages.forEach(item => this.items.push(item)),
                 error: err => {
                     this.httpErrorService.handleError(err);
                 }

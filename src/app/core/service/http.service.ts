@@ -3,21 +3,20 @@ import {Injectable} from '@angular/core';
 import {UrlPart} from "../../shared/models/http";
 import {
     ItemColorModel,
-    ItemSizeModel
 } from "../../shared/models/data.models";
 import {Observable} from "rxjs";
 import {
     AddressDTO,
     AddToCartDTO, ComplaintChatMessageDTO,
-    ComplaintDTO, CreateNewComplaintDTO,
-    ItemWithImageDTO, OrderDetailsDTO, OrderDTO, UserLoginDTO,
+    CreateNewComplaintDTO,
+    UserLoginDTO,
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
 import {
-  CartResponse, ComplaintResponse,
-  GetAddressesResponse,
-  SimpleResponse,
-  UserResponse
+    CartResponse, ComplaintChatMessageResponse, ComplaintResponse,
+    GetAddressesResponse, ItemResponse, OrderDetailsResponse, OrderResponse,
+    SimpleResponse,
+    UserResponse
 } from "../../shared/models/rest.models";
 
 @Injectable({
@@ -27,12 +26,12 @@ export class HttpService {
     constructor(private http: HttpClient) {
     }
 
-    public getAllItems(): Observable<ItemWithImageDTO[]> {
-        return this.http.get<ItemWithImageDTO[]>(UrlPart.BACKEND_LINK + UrlPart.ITEMS);
+    public getAllItems(): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS);
     }
 
-    public getAllItemSizes(): Observable<ItemSizeModel[]> {
-        return this.http.get<ItemSizeModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SIZES);
+    public getAllItemSizes(): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SIZES);
     }
 
     public getAllItemColors(): Observable<ItemColorModel[]> {
@@ -40,8 +39,8 @@ export class HttpService {
     }
 
 
-    public getAllComplaints(): Observable<ComplaintDTO[]> {
-        return this.http.get<ComplaintDTO[]>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS);
+    public getAllComplaints(): Observable<ComplaintResponse> {
+        return this.http.get<ComplaintResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS);
     }
 
     public getUserByVerificationToken(verificationToken: string): Observable<any> {
@@ -126,23 +125,23 @@ export class HttpService {
         return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`, complaintChatMessageDTO);
     }
 
-    public getComplaint(complaintId: string): Observable<ComplaintDTO> {
-        return this.http.get<ComplaintDTO>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
+    public getComplaint(complaintId: string): Observable<ComplaintResponse> {
+        return this.http.get<ComplaintResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
     }
 
-    public getComplaintChatMessages(complaintId: number): Observable<ComplaintChatMessageDTO[]> {
-        return this.http.get<ComplaintChatMessageDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
+    public getComplaintChatMessages(complaintId: number): Observable<ComplaintChatMessageResponse> {
+        return this.http.get<ComplaintChatMessageResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
     }
 
-    public getAllOrdersForUser(userId: number): Observable<OrderDTO[]> {
-        return this.http.get<OrderDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
+    public getAllOrdersForUser(userId: number): Observable<OrderResponse> {
+        return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
     }
 
-  public getAllOrders(): Observable<OrderDTO[]> {
-    return this.http.get<OrderDTO[]>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`);
+  public getAllOrders(): Observable<OrderResponse> {
+    return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`);
   }
 
-    public getOrderDetails(orderId: string): Observable<OrderDetailsDTO> {
-        return this.http.get<OrderDetailsDTO>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${orderId}`);
+    public getOrderDetails(orderId: string): Observable<OrderDetailsResponse> {
+        return this.http.get<OrderDetailsResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${orderId}`);
     }
 }

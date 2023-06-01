@@ -34,10 +34,10 @@ export class OrderDetailsComponent implements OnDestroy {
         })
       ).subscribe({
         next: next => {
-          if (!this.currentUser.roles.includes('EMPLOYEE') && this.currentUser.id !== next.buyerId) {
+          if (!this.currentUser.roles.includes('EMPLOYEE') && this.currentUser.id !== next.orderDetails.buyerId) {
             this.router.navigate(['/']);
           } else {
-            this.orderDetails = next;
+            this.orderDetails = next.orderDetails;
             this.complaint = this.orderDetails.complaint;
             this.storageService.saveOrderDetails(this.orderDetails);
           }

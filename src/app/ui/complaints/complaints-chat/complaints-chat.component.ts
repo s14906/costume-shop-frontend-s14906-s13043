@@ -31,9 +31,9 @@ export class ComplaintsChatComponent implements OnDestroy {
                 switchMap((queryParams) => {
                         this.complaintId = queryParams['complaintId'];
                         return this.httpService.getComplaint(this.complaintId).pipe(
-                            switchMap((complaint) => {
-                              this.currentUserEqualsBuyer = this.currentUser.id === complaint.buyerId;
-                                return this.httpService.getComplaintChatMessages(complaint.complaintId);
+                            switchMap((complaintResponse) => {
+                              this.currentUserEqualsBuyer = this.currentUser.id === complaintResponse.complaints[0].buyerId;
+                                return this.httpService.getComplaintChatMessages(complaintResponse.complaints[0].complaintId);
                             }
                             )
                         );
@@ -44,7 +44,7 @@ export class ComplaintsChatComponent implements OnDestroy {
                   if (!this.currentUserEqualsBuyer) {
                     this.router.navigate(['/']);
                   } else {
-                    this.complaintChatMessages = sortArrayByDateDesc(next);
+                    this.complaintChatMessages = sortArrayByDateDesc(next.complaintChatMessages);
                   }
                 },
                 error: err => {

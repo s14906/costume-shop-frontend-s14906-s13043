@@ -1,4 +1,13 @@
-import {AddressDTO, CartItemDTO, UserDTO} from "./dto.models";
+import {
+  AddressDTO,
+  CartItemDTO,
+  ComplaintChatMessageDTO,
+  ComplaintDTO,
+  ItemWithImageDTO, OrderDetailsDTO,
+  OrderDTO,
+  UserDTO
+} from "./dto.models";
+import {ItemSizeModel} from "./data.models";
 
 export interface SimpleResponse {
   message: string;
@@ -19,4 +28,22 @@ export interface UserResponse extends SimpleResponse {
 
 export interface ComplaintResponse extends SimpleResponse {
   complaintId: number;
+  complaints: ComplaintDTO[];
+}
+
+export interface ItemResponse extends SimpleResponse {
+  itemsWithImages: ItemWithImageDTO[];
+  itemSizes: ItemSizeModel[];
+}
+
+export interface OrderResponse extends SimpleResponse {
+  orders: OrderDTO[]
+}
+
+export interface ComplaintChatMessageResponse extends SimpleResponse {
+  complaintChatMessages: ComplaintChatMessageDTO[];
+}
+
+export interface OrderDetailsResponse extends SimpleResponse {
+  orderDetails: OrderDetailsDTO;
 }

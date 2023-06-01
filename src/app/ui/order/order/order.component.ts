@@ -31,7 +31,7 @@ export class OrderComponent implements OnDestroy {
             this.httpService.getAllOrders()
               .subscribe({
                 next: next => {
-                  this.orders = next;
+                  this.orders = next.orders;
                 },
                 error: err => {
                   this.httpErrorService.handleError(err);
@@ -43,7 +43,7 @@ export class OrderComponent implements OnDestroy {
             this.httpService.getAllOrdersForUser(this.currentUser.id)
               .subscribe({
                 next: next => {
-                  this.orders = next;
+                  this.orders = next.orders;
                 },
                 error: err => {
                   this.httpErrorService.handleError(err);

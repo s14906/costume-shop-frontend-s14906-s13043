@@ -37,7 +37,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                 .subscribe(({
                     next: next => {
                         const params = next[0];
-                        const items = next[1];
+                        const items = next[1].itemsWithImages;
                         this.item = items.find((item: ItemWithImageDTO) => item.itemId.toString() === params['itemId'])
                     },
                     error: err => {
@@ -46,9 +46,9 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                 })));
         this.allSubscriptions.push(
             this.httpService.getAllItemSizes()
-                .subscribe(itemSizes => {
-                    itemSizes.forEach(itemSize => this.itemSizes.push(itemSize));
-                    this.selectedItemSize = itemSizes[0].size;
+                .subscribe(itemResponse => {
+                    itemResponse.itemSizes.forEach(itemSize => this.itemSizes.push(itemSize));
+                    this.selectedItemSize = itemResponse.itemSizes[0].size;
                 })
         );
         this.allSubscriptions.push(
