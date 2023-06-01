@@ -1,7 +1,7 @@
 <!--<ng-template #ordersBlock>-->
 <div class="container">
   <div class="header-container">
-  <h2 class="text-big-left"><span><b>YOUR ORDERS</b></span></h2>
+  <h2 class="text-big-left"><span><b>{{pageTitle}}</b></span></h2>
   </div>
     <div class="main-card">
       <ng-template [ngIf]="noOrders()" [ngIfElse]="ordersBlock">
@@ -28,7 +28,7 @@
     <tbody>
     <tr *ngFor="let order of paginatedOrders; index as i" class="card">
       <td>{{ order.orderId }}</td>
-      <td>ADD COLUMN Price Total</td>
+      <td>{{ order.totalPrice }} PLN</td>
       <td>{{ order.orderStatus }}</td>
       <td>{{formatDate(order.createdDate)}}</td>
       <td><button (click)="navigateToDetails(order)">Details</button></td>

@@ -89,6 +89,7 @@ export interface OrderDTO {
     user: UserDTO;
     orderStatus: string;
     createdDate: Date;
+    totalPrice: number;
 }
 
 export interface OrderDetailsDTO {

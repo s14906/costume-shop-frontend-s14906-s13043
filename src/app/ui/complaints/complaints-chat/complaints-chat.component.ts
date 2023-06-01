@@ -41,7 +41,7 @@ export class ComplaintsChatComponent implements OnDestroy {
                 )
             ).subscribe(({
                 next: next => {
-                  if (!this.currentUserEqualsBuyer) {
+                  if (!this.currentUserEqualsBuyer && !this.currentUser.roles.includes('EMPLOYEE')) {
                     this.router.navigate(['/']);
                   } else {
                     this.complaintChatMessages = sortArrayByDateDesc(next.complaintChatMessages);

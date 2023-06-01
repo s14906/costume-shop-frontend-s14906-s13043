@@ -15,9 +15,10 @@ import {Router} from "@angular/router";
 export class OrderComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     private currentUser;
-    currentPage = 0;
-    itemsPerPage = 10;
+    currentPage: number = 0;
+    itemsPerPage: number = 10;
     orders: OrderDTO[] = [];
+    pageTitle: string;
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -32,6 +33,7 @@ export class OrderComponent implements OnDestroy {
               .subscribe({
                 next: next => {
                   this.orders = next.orders;
+                  this.pageTitle = 'ALL ORDERS';
                 },
                 error: err => {
                   this.httpErrorService.handleError(err);
@@ -44,6 +46,7 @@ export class OrderComponent implements OnDestroy {
               .subscribe({
                 next: next => {
                   this.orders = next.orders;
+                  this.pageTitle = 'YOUR ORDERS';
                 },
                 error: err => {
                   this.httpErrorService.handleError(err);

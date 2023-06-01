@@ -16,6 +16,7 @@ export class OrderDetailsComponent implements OnDestroy {
   private allSubscriptions: Subscription[] = [];
   orderId: string;
   orderDetails: OrderDetailsDTO;
+  orderDate: Date;
   complaint: ComplaintDTO;
   currentUser;
 
@@ -38,6 +39,7 @@ export class OrderDetailsComponent implements OnDestroy {
             this.router.navigate(['/']);
           } else {
             this.orderDetails = next.orderDetails;
+            this.orderDate = this.orderDetails.orderDate;
             this.complaint = this.orderDetails.complaint;
             this.storageService.saveOrderDetails(this.orderDetails);
           }
