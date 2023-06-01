@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ItemColorModel,  ItemSizeModel} from "../../../shared/models/data.models";
 import {HttpService} from "../../../core/service/http.service";
 import {combineLatestWith, Subscription} from "rxjs";
@@ -27,7 +27,8 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                 private httpService: HttpService,
                 private snackbarService: SnackbarService,
                 private storageService: StorageService,
-                private httpErrorService: HttpErrorService) {
+                private httpErrorService: HttpErrorService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -38,7 +39,14 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                     next: next => {
                         const params = next[0];
                         const items = next[1].itemsWithImages;
-                        this.item = items.find((item: ItemWithImageDTO) => item.itemId.toString() === params['itemId'])
+                        this.item = items.find((item: ItemWithImageDTO) => item.itemId.toString() === params['itemId']);
+                        if (!this.item) {
+                            this.router.navigate(['/']).then((navigated: boolean) => {
+                                if (navigated) {
+                                    this.snackbarService.openSnackBar('Could not find item with this ID.');
+                                }
+                            });
+                        }
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);
