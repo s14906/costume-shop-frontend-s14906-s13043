@@ -17,12 +17,14 @@ export class HttpErrorService {
 
   handleError(err: any): void {
     const errorMessage: string = err.error?.message;
-    if (err.status === 401 && !errorMessage) {
-      this.reloadOrNavigateToHomeWithSnackbar("Unauthorized access to this resource.");
-    } else if (err.status === 403) {
+    const jwtMessage: string = err.headers.get('JWT-Message');
+    const unauthorizedError: string = err.headers.get('Unauthorized-Error');
+    if (unauthorizedError) {
+      this.reloadOrNavigateToHomeWithSnackbar(unauthorizedError);
+    } else if (jwtMessage) {
       this.authService.announceLogout();
       this.storageService.signOut();
-      this.reloadOrNavigateToHomeWithSnackbar("Your session token has expired. Please log in again.");
+      this.reloadOrNavigateToHomeWithSnackbar(jwtMessage);
     } else {
       if (errorMessage) {
         this.snackbarService.openSnackBar(errorMessage);
