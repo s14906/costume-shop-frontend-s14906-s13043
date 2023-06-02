@@ -17,6 +17,7 @@ export class HeaderComponent implements OnDestroy {
   userRoles?: string[];
 
   private allSubscriptions: Subscription[] = [];
+    searchText: string;
 
   constructor(public authService: AuthService,
               private snackbarService: SnackbarService,
@@ -60,5 +61,33 @@ export class HeaderComponent implements OnDestroy {
 
   navigateToAllOrders() {
     this.router.navigate(['orders/all']);
+  }
+
+  checkEnterKeyPressed($event) {
+    if ($event.key === 'Enter') {
+      this.navigateToSearch();
+    }
+  }
+
+  navigateToSearch() {
+    if (this.searchText !== '') {
+      this.router.navigate(['/'], {
+        queryParams: {
+          searchText: this.searchText
+        }
+      });
+    } else {
+      this.router.navigate(['/']);
+    }
+
+  }
+
+  navigateToHome() {
+    this.searchText = '';
+    if (this.router.url !== '/') {
+      this.router.navigate(['/']);
+    } else {
+      window.location.reload();
+    }
   }
 }

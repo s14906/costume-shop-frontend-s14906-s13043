@@ -30,6 +30,10 @@ export class HttpService {
         return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS);
     }
 
+    public getAllItemsBySearchText(searchText: string): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEMS}/${searchText}`);
+    }
+
     public getAllItemSizes(): Observable<ItemResponse> {
         return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SIZES);
     }

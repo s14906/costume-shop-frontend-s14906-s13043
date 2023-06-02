@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <div class="header-items-left">
-      <img src="../../../assets/logo.png" alt="Internet Shop Logo" class="logo" [routerLink]="'/'">
+      <img src="../../../assets/logo.png" alt="Internet Shop Logo" class="logo" (click)="navigateToHome()">
       <div *ngIf="loggedIn; else elseBlock">
         <ng-template [ngIf]="!userRoles?.includes('EMPLOYEE')" [ngIfElse]="elseBlock">
           <button class="button" mat-stroked-button [matMenuTriggerFor]="menu">Menu</button>
@@ -30,10 +30,10 @@
     </div>
     <span class="spacer"></span>
     <div>
-      <input class="search-input" type="text">
+      <input class="search-input" type="text" [(ngModel)]="searchText" (keyup)="checkEnterKeyPressed($event)">
     </div>
-    <a class="button" mat-stroked-button>Search</a>
+    <a class="button" mat-stroked-button (click)="navigateToSearch()">Search</a>
     <span class="spacer"></span>
-      <img *ngIf="loggedIn" mat-button (click)="navigateToCart()"src="../../../assets/shopping-cart.png" class="logo" alt="Cart">
+      <img *ngIf="loggedIn" (click)="navigateToCart()" src="../../../assets/shopping-cart.png" class="logo" alt="Cart">
   </mat-toolbar-row>
 </mat-toolbar>
