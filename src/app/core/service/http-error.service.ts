@@ -17,14 +17,14 @@ export class HttpErrorService {
 
   handleError(err: any): void {
     const errorMessage: string = err.error?.message;
-    const jwtMessage: string = err.headers.get('JWT-Message');
+    const jwtMessage: string = err.headers.get('JWT-Error');
     const unauthorizedError: string = err.headers.get('Unauthorized-Error');
-    if (unauthorizedError) {
-      this.reloadOrNavigateToHomeWithSnackbar(unauthorizedError);
-    } else if (jwtMessage) {
+    if ((jwtMessage && unauthorizedError) || jwtMessage) {
       this.authService.announceLogout();
       this.storageService.signOut();
       this.reloadOrNavigateToHomeWithSnackbar(jwtMessage);
+    } else if (unauthorizedError) {
+      this.reloadOrNavigateToHomeWithSnackbar(unauthorizedError);
     } else {
       if (errorMessage) {
         this.snackbarService.openSnackBar(errorMessage);
