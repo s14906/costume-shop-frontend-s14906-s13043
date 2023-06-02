@@ -13,6 +13,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 export class ItemListComponent implements OnInit, OnDestroy {
     items: ItemWithImageDTO[] = [];
     allSubscriptions: Subscription[] = [];
+    isSearch: boolean = false;
 
     constructor(private httpService: HttpService,
                 private httpErrorService: HttpErrorService,
@@ -26,8 +27,10 @@ export class ItemListComponent implements OnInit, OnDestroy {
                     const searchText: string = queryParams['searchText'];
                     this.items = [];
                     if (searchText) {
+                        this.isSearch = true;
                         return this.httpService.getAllItemsBySearchText(searchText);
                     } else {
+                        this.isSearch = false;
                         return this.httpService.getAllItems();
                     }
                 })).subscribe(
