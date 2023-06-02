@@ -98,3 +98,9 @@
   text-align: center;
   color: #333;
 }
+
+.delete-button {
+  cursor: pointer;
+  height: 34px;
+  width: 34px;
+}

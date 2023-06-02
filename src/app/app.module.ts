@@ -43,11 +43,13 @@ import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complai
 import { OrderComponent } from './ui/order/order/order.component';
 import { OrderDetailsComponent } from './ui/order/order-details/order-details.component';
 import { ComplaintsCreateComponent } from './ui/complaints/complaints-create/complaints-create.component';
-import {SubjectService} from "./core/service/subject.service";
 import {MatTableModule} from "@angular/material/table";
 import { ChatComponent } from './ui/complaints/chat/chat.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import { CartConfirmationComponent } from './ui/cart/cart-confirmation/cart-confirmation.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
     declarations: [
@@ -67,7 +69,8 @@ import {MatSortModule} from "@angular/material/sort";
         OrderComponent,
         OrderDetailsComponent,
         ComplaintsCreateComponent,
-        ChatComponent
+        ChatComponent,
+        CartConfirmationComponent
     ],
     imports: [
         MatSortModule,
@@ -92,6 +95,8 @@ import {MatSortModule} from "@angular/material/sort";
         CdkListbox,
         MatTableModule,
         MatPaginatorModule,
+        MatCheckboxModule,
+        MatRadioModule,
     ],
     providers: [
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'},},
@@ -102,7 +107,6 @@ import {MatSortModule} from "@angular/material/sort";
         StorageService,
         HttpErrorService,
         FormValidationService,
-        SubjectService,
         authInterceptorProviders
     ],
     bootstrap: [AppComponent]

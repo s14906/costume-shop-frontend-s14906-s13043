@@ -75,12 +75,17 @@ export class HttpService {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.CART, dto);
     }
 
-    public getCartItemsByUserId(userId: number): Observable<CartResponse> {
-        return this.http.get<CartResponse>(UrlPart.BACKEND_LINK + UrlPart.CART, {
-            params: {
-                userId: userId
-            }
-        });
+    public getCartByUserId(userId: number): Observable<CartResponse> {
+        return this.http.get<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}`);
+    }
+
+    public deleteCartByUserId(userId: number): Observable<CartResponse> {
+        return this.http.delete<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/
+            ${UrlPart.CART}/${UrlPart.ITEMS}`);
+    }
+
+    public deleteCartItemByUserIdAndCartItemId(userId: number, itemId: number): Observable<CartResponse> {
+        return this.http.delete<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}/${UrlPart.ITEMS}/${itemId}`);
     }
 
     public postRemoveAddress(addressId: number): Observable<SimpleResponse> {

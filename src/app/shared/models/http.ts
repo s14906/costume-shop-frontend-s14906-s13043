@@ -6,6 +6,7 @@ export enum UrlPart {
   ITEM_SIZES = 'items/sizes',
   ITEM_COLORS = 'items/colors',
   USERS = 'users',
+  USER = 'user',
   VERIFICATION = 'verification',
   CART = 'cart',
   ADD_ADDRESS = 'add-address',

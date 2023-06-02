@@ -15,6 +15,7 @@
             <span class="item-details">{{cartItem.itemsAmount}} x {{cartItem.price}} PLN</span>
             <span class="item-size">Size: {{cartItem.size}}</span>
             <span class="item-price">{{cartItem.itemsAmount * cartItem.price}} PLN</span>
+            <img class="delete-button" src="../../../../assets/trash.png" (click)="deleteItemFromCart(cartItem)">
           </div>
         </li>
       </ul>
@@ -24,7 +25,7 @@
         <span class="summary-text"> </span>
         <span class="price-sum-text"><b>SUMMARY {{totalPrice}} PLN&nbsp;</b></span>
       </div>
-      <button class="button continue-button">Continue</button>
+      <button class="button continue-button" (click)="navigateToCartConfirmation()">Continue</button>
     </div>
   </div>
 </ng-template>

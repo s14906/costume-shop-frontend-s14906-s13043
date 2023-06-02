@@ -40,9 +40,11 @@ export interface AddressDTO {
     postalCode: string;
     city: string;
     flatNumber: string;
+    notes?: string;
 }
 
 export interface CartItemDTO {
+    cartItemId: number;
     title: string;
     itemsAmount: number;
     price: number;

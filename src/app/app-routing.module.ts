@@ -15,6 +15,7 @@ import {ComplaintsChatComponent} from "./ui/complaints/complaints-chat/complaint
 import {OrderComponent} from "./ui/order/order/order.component";
 import {OrderDetailsComponent} from "./ui/order/order-details/order-details.component";
 import {ComplaintsCreateComponent} from "./ui/complaints/complaints-create/complaints-create.component";
+import {CartConfirmationComponent} from "./ui/cart/cart-confirmation/cart-confirmation.component";
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
     {path: 'registration-success', component: RegistrationSuccessComponent},
     {path: 'registration-verification', component: RegistrationVerificationComponent},
     {path: 'cart', component: CartComponent},
+    {path: 'cart/confirmation', component: CartConfirmationComponent},
     {path: 'account', component: AccountInformationComponent},
     {path: 'complaints', component: ComplaintsComponent},
     {path: 'complaints/chat', component: ComplaintsChatComponent},
