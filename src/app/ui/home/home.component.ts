@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpService} from "../../core/service/http.service";
 import {Subscription, switchMap} from "rxjs";
 import {HttpErrorService} from "../../core/service/http-error.service";
-import {ItemWithImageDTO} from "../../shared/models/dto.models";
+import {ItemDTO} from "../../shared/models/dto.models";
 import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
@@ -11,7 +11,7 @@ import {ActivatedRoute, Params} from "@angular/router";
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-    items: ItemWithImageDTO[] = [];
+    items: ItemDTO[] = [];
     allSubscriptions: Subscription[] = [];
     isSearch: boolean = false;
 

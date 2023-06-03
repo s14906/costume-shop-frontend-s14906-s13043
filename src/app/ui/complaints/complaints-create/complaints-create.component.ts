@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Subscription} from "rxjs";
-import {ItemWithImageDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
+import {ItemDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import {StorageService} from "../../../core/service/storage.service";
@@ -16,7 +16,7 @@ export class ComplaintsCreateComponent {
   private allSubscriptions: Subscription[] = [];
   orderDetails: OrderDetailsDTO;
   displayedColumns: string[] = ['itemId', 'title', 'description', 'price'];
-  dataSource: MatTableDataSource<ItemWithImageDTO>;
+  dataSource: MatTableDataSource<ItemDTO>;
 
 
   constructor(

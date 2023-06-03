@@ -10,12 +10,13 @@ export interface ComplaintDTO {
     createdDate: Date;
 }
 
-export interface ItemWithImageDTO {
+export interface ItemDTO {
     itemId: number;
     title: string;
     description: string;
     price: number;
     itemImages: ItemImageDTO[];
+    quantity: number;
 }
 
 export interface ItemImageDTO {
@@ -46,7 +47,7 @@ export interface AddressDTO {
 export interface CartItemDTO {
     cartItemId: number;
     title: string;
-    items: ItemWithImageDTO[];
+    items: ItemDTO[];
     price: number;
     size: string;
 }
@@ -101,7 +102,7 @@ export interface OrderDetailsDTO {
     orderId: number;
     complaint: ComplaintDTO;
     buyerId: number;
-    items: ItemWithImageDTO[];
+    items: ItemDTO[];
 }
 
 export interface CreateNewComplaintDTO {

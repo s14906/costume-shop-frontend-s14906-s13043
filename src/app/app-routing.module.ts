@@ -16,11 +16,13 @@ import {OrderComponent} from "./ui/order/order/order.component";
 import {OrderDetailsComponent} from "./ui/order/order-details/order-details.component";
 import {ComplaintsCreateComponent} from "./ui/complaints/complaints-create/complaints-create.component";
 import {CartConfirmationComponent} from "./ui/cart/cart-confirmation/cart-confirmation.component";
+import {ItemListComponent} from "./ui/item/item-list/item-list.component";
 
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'item', component: ItemDetailsComponent},
+    {path: 'items', component: ItemListComponent},
     {path: 'login', component: LoginComponent},
     {path: 'registration', component: RegistrationComponent},
     {path: 'registration-success', component: RegistrationSuccessComponent},

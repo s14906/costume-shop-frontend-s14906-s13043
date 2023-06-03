@@ -50,6 +50,7 @@ import {MatSortModule} from "@angular/material/sort";
 import { CartConfirmationComponent } from './ui/cart/cart-confirmation/cart-confirmation.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatRadioModule} from "@angular/material/radio";
+import { ItemListComponent } from './ui/item/item-list/item-list.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import {MatRadioModule} from "@angular/material/radio";
         OrderDetailsComponent,
         ComplaintsCreateComponent,
         ChatComponent,
-        CartConfirmationComponent
+        CartConfirmationComponent,
+        ItemListComponent
     ],
     imports: [
         MatSortModule,

@@ -90,4 +90,8 @@ export class HeaderComponent implements OnDestroy {
       window.location.reload();
     }
   }
+
+  navigateToItemList() {
+    this.router.navigate(['items']);
+  }
 }

@@ -3,7 +3,7 @@ import {
   CartItemDTO,
   ComplaintChatMessageDTO,
   ComplaintDTO,
-  ItemWithImageDTO, OrderDetailsDTO,
+  ItemDTO, OrderDetailsDTO,
   OrderDTO,
   UserDTO
 } from "./dto.models";
@@ -32,7 +32,7 @@ export interface ComplaintResponse extends SimpleResponse {
 }
 
 export interface ItemResponse extends SimpleResponse {
-  itemsWithImages: ItemWithImageDTO[];
+  itemsWithImages: ItemDTO[];
   itemSizes: ItemSizeModel[];
 }
 

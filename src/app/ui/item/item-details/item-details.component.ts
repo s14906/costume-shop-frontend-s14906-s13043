@@ -6,7 +6,7 @@ import {combineLatestWith, Subscription} from "rxjs";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import {StorageService} from "../../../core/service/storage.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
-import {ItemWithImageDTO} from "../../../shared/models/dto.models";
+import {ItemDTO} from "../../../shared/models/dto.models";
 
 @Component({
     selector: 'app-item-details',
@@ -14,7 +14,7 @@ import {ItemWithImageDTO} from "../../../shared/models/dto.models";
     styleUrls: ['./item-details.component.css']
 })
 export class ItemDetailsComponent implements OnInit, OnDestroy {
-    item?: ItemWithImageDTO;
+    item?: ItemDTO;
     itemSizes: ItemSizeModel[] = [];
     itemColors: ItemColorModel[] = [];
 
@@ -39,7 +39,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                     next: next => {
                         const params = next[0];
                         const items = next[1].itemsWithImages;
-                        this.item = items.find((item: ItemWithImageDTO) => item.itemId.toString() === params['itemId']);
+                        this.item = items.find((item: ItemDTO) => item.itemId.toString() === params['itemId']);
                         if (!this.item) {
                             this.router.navigate(['/']).then((navigated: boolean) => {
                                 if (navigated) {
