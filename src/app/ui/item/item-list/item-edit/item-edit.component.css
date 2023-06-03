@@ -1,0 +1,36 @@
+.UserInfo{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.description-form-field {
+    width: 100%;
+}
+
+.buttons-with-image-container {
+    display: flex;
+    width: 100%;
+}
+
+.buttons-with-image-column {
+    display: flex;
+    flex: 3;
+    padding: 10px;
+    flex-direction: column;
+    width: 50%;
+}
+
+.input-upload-image {
+    display: none;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: row;
+}
+
+img {
+    max-height: 150px;
+    max-width: 150px;
+}

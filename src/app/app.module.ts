@@ -51,6 +51,8 @@ import { CartConfirmationComponent } from './ui/cart/cart-confirmation/cart-conf
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatRadioModule} from "@angular/material/radio";
 import { ItemListComponent } from './ui/item/item-list/item-list.component';
+import { ItemEditComponent } from './ui/item/item-list/item-edit/item-edit.component';
+import {ImageUploadService} from "./core/service/image-upload.service";
 
 @NgModule({
     declarations: [
@@ -72,7 +74,8 @@ import { ItemListComponent } from './ui/item/item-list/item-list.component';
         ComplaintsCreateComponent,
         ChatComponent,
         CartConfirmationComponent,
-        ItemListComponent
+        ItemListComponent,
+        ItemEditComponent
     ],
     imports: [
         MatSortModule,
@@ -109,6 +112,7 @@ import { ItemListComponent } from './ui/item/item-list/item-list.component';
         StorageService,
         HttpErrorService,
         FormValidationService,
+        ImageUploadService,
         authInterceptorProviders
     ],
     bootstrap: [AppComponent]

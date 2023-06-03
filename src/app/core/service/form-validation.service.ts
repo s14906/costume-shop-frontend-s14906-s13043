@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
-import {AbstractControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormGroup, ValidationErrors} from "@angular/forms";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,22 @@ export class FormValidationService {
       confirmPasswordControl?.setErrors(null);
     }
     return null;
+  }
+
+  public validateNumber(numberControl: AbstractControl): Observable<ValidationErrors | null> {
+    if (isNaN(numberControl?.value)) {
+      return of({invalid: true})
+    } else {
+      return of(null);
+    }
+  }
+
+  validateField(control: AbstractControl): Observable<ValidationErrors | null> {
+    if (control?.value === '') {
+      return of({invalid: true})
+    } else {
+      return of(null);
+    }
   }
 
 

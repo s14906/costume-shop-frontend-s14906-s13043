@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 })).subscribe(
                 {
                     next: next =>
-                        next.itemsWithImages.forEach(item => this.items.push(item)),
+                        next.items.forEach(item => this.items.push(item)),
                     error: err => {
                         this.httpErrorService.handleError(err);
                     }

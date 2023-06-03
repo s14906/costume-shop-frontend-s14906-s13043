@@ -38,7 +38,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                 .subscribe(({
                     next: next => {
                         const params = next[0];
-                        const items = next[1].itemsWithImages;
+                        const items = next[1].items;
                         this.item = items.find((item: ItemDTO) => item.itemId.toString() === params['itemId']);
                         if (!this.item) {
                             this.router.navigate(['/']).then((navigated: boolean) => {

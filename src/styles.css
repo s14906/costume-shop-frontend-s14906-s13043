@@ -261,3 +261,14 @@ ul.listbox {
   justify-content: space-between;
   border-bottom: 1px solid #ddd;
 }
+
+.form-container {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  max-width: 800px;
+  margin: auto auto 1em;
+  padding: 1em;
+  background-color: #FFF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

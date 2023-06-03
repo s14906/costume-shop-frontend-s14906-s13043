@@ -32,7 +32,7 @@ export interface ComplaintResponse extends SimpleResponse {
 }
 
 export interface ItemResponse extends SimpleResponse {
-  itemsWithImages: ItemDTO[];
+  items: ItemDTO[];
   itemSizes: ItemSizeModel[];
 }
 

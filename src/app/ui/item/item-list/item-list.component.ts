@@ -21,7 +21,7 @@ export class ItemListComponent implements OnDestroy {
             this.httpService.getAllItems()
                 .subscribe({
                     next: next => {
-                        this.allItems = next.itemsWithImages;
+                        this.allItems = next.items;
                         this.allItemSizes = next.itemSizes;
                     }
                 })
@@ -34,11 +34,15 @@ export class ItemListComponent implements OnDestroy {
 
     navigateToEditItem(item: ItemDTO) {
         console.log(item);
-        this.router.navigate(['/']);
+        this.router.navigate(['/items/edit'], {
+            queryParams: {
+                itemId: item.itemId
+            }
+        });
     }
 
     navigateToAddItem() {
-        this.router.navigate(['/']);
+        this.router.navigate(['/items/add']);
 
     }
 }

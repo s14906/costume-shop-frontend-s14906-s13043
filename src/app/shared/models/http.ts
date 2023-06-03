@@ -18,4 +18,5 @@ export enum UrlPart {
   ORDERS = 'orders',
   CREATE = '/create',
   PAYMENT = 'payment',
+  SEARCH = 'search',
 }

@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="form-container labels">
+        <form [formGroup]="itemForm" (ngSubmit)="onSubmitRegistrationForm()">
+            <h2 class="section-title">Item details:</h2>
+            <table class="UserInfo">
+                <mat-form-field class="mat-form-field" appearance="outline">
+                    <mat-label>Item title:</mat-label>
+                    <input class="reg-input" matInput formControlName="title" required>
+                    <mat-error>
+                        Please provide a valid item title
+                    </mat-error>
+                </mat-form-field>
+                <br><br>
+                <mat-form-field class="description-form-field" appearance="outline">
+                    <mat-label>Item description:</mat-label>
+                    <textarea matInput formControlName="description"
+                              cdkTextareaAutosize
+                              cdkAutosizeMinRows="10"
+                              cdkAutosizeMaxRows="10"></textarea>
+                    <mat-error>
+                        Please provide a valid item description
+                    </mat-error>
+                </mat-form-field>
+                <br><br>
+                <mat-form-field class="mat-form-field" appearance="outline">
+                    <mat-label>Item price:</mat-label>
+                    <input matInput class="reg-input" formControlName="price" required>
+                    <mat-error>
+                        Please provide a valid item price
+                    </mat-error>
+                </mat-form-field>
+                <br><br>
+                <mat-form-field class="mat-form-field" appearance="outline">
+                    <mat-label>Quantity:</mat-label>
+                    <input matInput class="reg-input" formControlName="quantity" required>
+                    <mat-error>
+                        Please provide a valid item quantity
+                    </mat-error>
+                </mat-form-field>
+            </table>
+            <br>
+            <button type="submit" class="button">Save item</button>
+            <br>
+            <div class="buttons-with-image-container card">
+                <div class="buttons-with-image-column">
+                    <span>&nbsp;&nbsp;&nbsp;</span>
+                    <button class="button" (click)="uploadImage()">Upload image
+                        <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
+                    </button>
+                </div>
+                <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another one.</a>
+                <div *ngIf="imagesBase64.length > 0" class="image-container">
+                    <a>Selected image:</a>
+                    <img *ngFor="let imageBase64 of imagesBase64" [src]="imageBase64">
+                    <p (click)="removeImages()">Remove images</p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,20 +1,26 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UrlPart} from "../../shared/models/http";
-import {
-    ItemColorModel,
-} from "../../shared/models/data.models";
+import {ItemColorModel,} from "../../shared/models/data.models";
 import {Observable} from "rxjs";
 import {
     AddressDTO,
-    AddToCartDTO, CartConfirmationDTO, ComplaintChatMessageDTO,
-    CreateNewComplaintDTO, PaymentTransactionDTO,
+    AddToCartDTO,
+    CartConfirmationDTO,
+    ComplaintChatMessageDTO,
+    CreateNewComplaintDTO, ItemDTO,
+    PaymentTransactionDTO,
     UserLoginDTO,
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
 import {
-    CartResponse, ComplaintChatMessageResponse, ComplaintResponse,
-    GetAddressesResponse, ItemResponse, OrderDetailsResponse, OrderResponse,
+    CartResponse,
+    ComplaintChatMessageResponse,
+    ComplaintResponse,
+    GetAddressesResponse,
+    ItemResponse,
+    OrderDetailsResponse,
+    OrderResponse,
     SimpleResponse,
     UserResponse
 } from "../../shared/models/rest.models";
@@ -30,8 +36,21 @@ export class HttpService {
         return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS);
     }
 
+
+    public getItemById(itemId: string): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEMS}/${itemId}`);
+    }
+
+    public deleteItemById(itemId: string): Observable<SimpleResponse> {
+        return this.http.delete<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEMS}/${itemId}`);
+    }
+
+    public postItem(dto: ItemDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS, dto);
+    }
+
     public getAllItemsBySearchText(searchText: string): Observable<ItemResponse> {
-        return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEMS}/${searchText}`);
+        return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.SEARCH}/${searchText}`);
     }
 
     public getAllItemSizes(): Observable<ItemResponse> {
