@@ -13,7 +13,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {AppRoutingModule} from './app-routing.module';
 import {MatInputModule} from "@angular/material/input";
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
-import {ItemListComponent} from './ui/item/item-list/item-list.component';
+import {HomeComponent} from './ui/home/home.component';
 import {ItemDetailsComponent} from './ui/item/item-details/item-details.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSelectModule} from "@angular/material/select";
@@ -56,7 +56,7 @@ import {MatRadioModule} from "@angular/material/radio";
         AppComponent,
         HeaderComponent,
         FooterComponent,
-        ItemListComponent,
+        HomeComponent,
         ItemDetailsComponent,
         LoginComponent,
         RegistrationComponent,

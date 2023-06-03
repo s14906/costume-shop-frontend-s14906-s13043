@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../core/service/http.service";
 import {Subscription, switchMap} from "rxjs";
-import {HttpErrorService} from "../../../core/service/http-error.service";
-import {ItemWithImageDTO} from "../../../shared/models/dto.models";
+import {HttpErrorService} from "../../core/service/http-error.service";
+import {ItemWithImageDTO} from "../../shared/models/dto.models";
 import {ActivatedRoute, Params} from "@angular/router";
 
 @Component({
-    selector: 'app-item-list',
-    templateUrl: './item-list.component.html',
-    styleUrls: ['./item-list.component.css']
+    selector: 'app-home',
+    templateUrl: './home..component.html',
+    styleUrls: ['./home.component.css']
 })
-export class ItemListComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
     items: ItemWithImageDTO[] = [];
     allSubscriptions: Subscription[] = [];
     isSearch: boolean = false;
