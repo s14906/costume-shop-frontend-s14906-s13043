@@ -37,7 +37,8 @@ export interface ItemResponse extends SimpleResponse {
 }
 
 export interface OrderResponse extends SimpleResponse {
-  orders: OrderDTO[]
+  orders: OrderDTO[];
+  orderId: number;
 }
 
 export interface ComplaintChatMessageResponse extends SimpleResponse {

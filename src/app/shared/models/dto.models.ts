@@ -46,7 +46,7 @@ export interface AddressDTO {
 export interface CartItemDTO {
     cartItemId: number;
     title: string;
-    itemsAmount: number;
+    items: ItemWithImageDTO[];
     price: number;
     size: string;
 }
@@ -92,6 +92,8 @@ export interface OrderDTO {
     orderStatus: string;
     createdDate: Date;
     totalPrice: number;
+    address?: AddressDTO;
+    ordersDetails?: OrderDetailsDTO[];
 }
 
 export interface OrderDetailsDTO {
@@ -107,4 +109,17 @@ export interface CreateNewComplaintDTO {
     orderId: number;
     complaintCategory: string;
     complaintMessage?: string;
+}
+
+export interface PaymentTransactionDTO {
+    userId: number;
+    orderId: number;
+    paidAmount: number;
+}
+
+export interface CartConfirmationDTO {
+    userId: number;
+    paidAmount: number;
+    address: AddressDTO;
+    cartItems: CartItemDTO[];
 }

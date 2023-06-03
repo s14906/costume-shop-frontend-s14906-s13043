@@ -61,8 +61,11 @@ export class OrderComponent implements OnDestroy {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-    formatDate(createdDate: Date) {
-        return formatDate(createdDate);
+    formatDate(createdDate: Date | undefined): string {
+        if (createdDate) {
+            return formatDate(createdDate);
+        }
+        return '';
     }
 
     navigateToDetails(order: OrderDTO) {

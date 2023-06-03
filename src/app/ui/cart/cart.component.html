@@ -12,9 +12,9 @@
           <div class="item-row">
             <span class="item-number">{{ i + 1 }}</span>
             <span class="item-title">{{cartItem.title}}</span>
-            <span class="item-details">{{cartItem.itemsAmount}} x {{cartItem.price}} PLN</span>
+            <span class="item-details">{{cartItem.items.length}} x {{cartItem.price}} PLN</span>
             <span class="item-size">Size: {{cartItem.size}}</span>
-            <span class="item-price">{{cartItem.itemsAmount * cartItem.price}} PLN</span>
+            <span class="item-price">{{cartItem.items.length * cartItem.price}} PLN</span>
             <img class="delete-button" src="../../../../assets/trash.png" (click)="deleteItemFromCart(cartItem)">
           </div>
         </li>

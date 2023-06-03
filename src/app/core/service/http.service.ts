@@ -7,8 +7,8 @@ import {
 import {Observable} from "rxjs";
 import {
     AddressDTO,
-    AddToCartDTO, ComplaintChatMessageDTO,
-    CreateNewComplaintDTO,
+    AddToCartDTO, CartConfirmationDTO, ComplaintChatMessageDTO,
+    CreateNewComplaintDTO, PaymentTransactionDTO,
     UserLoginDTO,
     UserRegistrationDTO
 } from "../../shared/models/dto.models";
@@ -119,6 +119,14 @@ export class HttpService {
 
     public postCreateNewComplaint(dto: CreateNewComplaintDTO): Observable<ComplaintResponse> {
         return this.http.post<ComplaintResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS + UrlPart.CREATE, dto);
+    }
+
+    public postCreateNewOrderPaymentTransaction(dto: CartConfirmationDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ORDERS + '/' + UrlPart.PAYMENT, dto);
+    }
+
+    public postCreateNewPaymentTransaction(dto: PaymentTransactionDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ORDERS, dto);
     }
 
     public postAssignComplaintToEmployee(userId: number, complaintId: number): Observable<SimpleResponse> {

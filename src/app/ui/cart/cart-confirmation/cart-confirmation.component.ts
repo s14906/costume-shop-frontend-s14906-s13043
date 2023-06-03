@@ -2,8 +2,15 @@ import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {StorageService} from "../../../core/service/storage.service";
 import {HttpService} from "../../../core/service/http.service";
-import {AddressDTO, CartItemDTO} from "../../../shared/models/dto.models";
+import {
+    AddressDTO,
+    CartConfirmationDTO,
+    CartItemDTO,
+} from "../../../shared/models/dto.models";
 import {CartResponse} from "../../../shared/models/rest.models";
+import {SnackbarService} from "../../../core/service/snackbar.service";
+import {HttpErrorService} from "../../../core/service/http-error.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-cart-confirmation',
@@ -16,16 +23,22 @@ export class CartConfirmationComponent implements OnDestroy {
     currentUser;
     totalPrice: number = 0;
     @ViewChild('notesTextarea') notesTextarea!: ElementRef;
+    private selectedAddress: AddressDTO;
+    private cartItems: CartItemDTO[];
 
     constructor(private storageService: StorageService,
-                private httpService: HttpService) {
+                private snackbarService: SnackbarService,
+                private httpService: HttpService,
+                private httpErrorService: HttpErrorService,
+                private router: Router) {
         this.currentUser = this.storageService.getUser();
         this.allSubscriptions.push(
             this.httpService.getCartByUserId(this.currentUser.id)
                 .pipe(
                     switchMap((cartResponse: CartResponse) => {
-                        cartResponse.cartItems.forEach((cartItem: CartItemDTO) => {
-                            this.totalPrice = this.totalPrice + cartItem.price;
+                        this.cartItems = cartResponse.cartItems;
+                        this.cartItems.forEach((cartItem: CartItemDTO) => {
+                            this.totalPrice = this.totalPrice + (cartItem.price * cartItem.items.length);
                         });
                         return this.httpService.getAddressesForUser(this.currentUser.id);
                     }))
@@ -41,12 +54,33 @@ export class CartConfirmationComponent implements OnDestroy {
     }
 
     fillNotesForSelectedAddress(address: AddressDTO): void {
+        this.selectedAddress = address;
         this.notesTextarea.nativeElement.value = address.notes;
     }
 
     commencePayment(): void {
-        this.allSubscriptions.push(
+        if (this.selectedAddress) {
+            const cartConfirmationDTO: CartConfirmationDTO = {
+                userId: this.currentUser.id,
+                paidAmount: this.totalPrice,
+                address: this.selectedAddress,
+                cartItems: this.cartItems
+            }
 
-        );
+            this.allSubscriptions.push(
+                this.httpService.postCreateNewOrderPaymentTransaction(cartConfirmationDTO)
+                    .subscribe({
+                        next: next => {
+                            this.snackbarService.openSnackBar(next.message);
+                            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+                                this.router.navigate(['/']);
+                            });
+                        },
+                        error: err => {
+                            this.httpErrorService.handleError(err);
+                        }
+                    })
+            );
+        }
     }
 }

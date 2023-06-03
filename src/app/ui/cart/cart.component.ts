@@ -32,8 +32,8 @@ export class CartComponent implements OnDestroy {
 
                         this.cartItems = next.cartItems
                         this.cartItems.forEach((cartItem) => {
-                            this.totalPrice = this.totalPrice + (cartItem.price * cartItem.itemsAmount);
-                            this.priceTimesItemCount.push(cartItem.price * cartItem.itemsAmount);
+                            this.totalPrice = this.totalPrice + (cartItem.price * cartItem.items.length);
+                            this.priceTimesItemCount.push(cartItem.price * cartItem.items.length);
                         });
                     }, error: err => {
                         this.httpErrorService.handleError(err);

@@ -16,5 +16,6 @@ export enum UrlPart {
   COMPLAINTS = 'complaints',
   MESSAGES = 'messages',
   ORDERS = 'orders',
-  CREATE = '/create'
+  CREATE = '/create',
+  PAYMENT = 'payment',
 }
