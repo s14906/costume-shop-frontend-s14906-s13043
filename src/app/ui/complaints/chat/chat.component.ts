@@ -7,6 +7,8 @@ import {HttpService} from "../../../core/service/http.service";
 import {HttpErrorService} from "../../../core/service/http-error.service";
 import {ComplaintResponse} from "../../../shared/models/rest.models";
 import {UserDTO} from "../../../shared/models/dto.models";
+import {ImageUploadService} from "../../../core/service/image-upload.service";
+import {ImageUploadModel} from "../../../shared/models/data.models";
 
 @Component({
   selector: 'app-chat',
@@ -29,6 +31,7 @@ export class ChatComponent implements OnDestroy {
               private snackbarService: SnackbarService,
               private httpService: HttpService,
               private httpErrorService: HttpErrorService,
+              private imageUploadService: ImageUploadService,
               private route: ActivatedRoute,
               private router: Router) {
 
@@ -124,30 +127,16 @@ export class ChatComponent implements OnDestroy {
   }
 
   onFileSelected($event: any) {
-    const file: File = $event.target?.files[0];
-    if (file.type === 'image/png' || file.type === 'image/jpeg') {
-      this.fileInvalid = false;
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const imageBase64 = reader.result as string;
-          if (this.chatImagesBase64.length > 2) {
-            this.chatImagesBase64.shift();
-          }
-          this.chatImagesBase64.push(imageBase64);
-        };
-
-        reader.readAsDataURL(file);
-      }
-    } else {
-      this.fileInvalid = true;
-      this.snackbarService.openSnackBar("Invalid type file! Select an image of .jpg or .png type.")
+    const imageUploadModel: ImageUploadModel = {
+      fileInvalid: this.fileInvalid,
+      itemImagesBase64: this.chatImagesBase64
     }
+    this.imageUploadService.onFileSelected($event, imageUploadModel);
   }
 
 
   uploadImage() {
-    this.fileInput.nativeElement.click();
+    this.imageUploadService.uploadImage(this.fileInput);
   }
 
   ngOnDestroy(): void {

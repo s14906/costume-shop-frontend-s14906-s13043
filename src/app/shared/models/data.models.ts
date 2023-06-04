@@ -1,4 +1,3 @@
-import {ItemImageDTO} from "./dto.models";
 
 export interface ItemSizeModel {
     id: number;
@@ -22,7 +21,7 @@ export interface UserModel {
 
 export interface ImageUploadModel {
     fileInvalid: boolean;
-    itemImages: ItemImageDTO[];
+    itemImagesBase64: string[];
 }
 
 

@@ -25,11 +25,9 @@ export class ItemEditComponent implements OnDestroy {
     itemForm: FormGroup;
     fileInvalid: boolean = false;
     noImageUploaded: boolean = false;
-    itemImages: ItemImageDTO[] = [];
+    itemImagesBase64: string[] = [];
     currentUser;
-    selectedItemCategory: ItemCategoryDTO;
     itemCategories: ItemCategoryDTO[] = [];
-    selectedItemSet: ItemSetDTO;
     itemSets: ItemSetDTO[] = [];
 
 
@@ -82,7 +80,7 @@ export class ItemEditComponent implements OnDestroy {
                     });
                     itemResponse.items[0].itemImages
                         .forEach((itemImage: ItemImageDTO) => {
-                            this.itemImages.push(itemImage);
+                            this.itemImagesBase64.push(itemImage.imageBase64);
                         });
                 }
             })
@@ -118,14 +116,14 @@ export class ItemEditComponent implements OnDestroy {
     }
 
     onSubmitRegistrationForm() {
-        if (!this.fileInvalid && this.itemImages.length > 0
+        if (!this.fileInvalid && this.itemImagesBase64.length > 0
             && this.formValidationService.isFormValid(this.itemForm)) {
             this.noImageUploaded = false;
             const itemImagesDTOs: ItemImageDTO[] = [];
-            this.itemImages.forEach((itemImage: ItemImageDTO) => {
+            this.itemImagesBase64.forEach((itemImageBase64: string) => {
                 const itemImageDTO: ItemImageDTO = {
-                    imageId: itemImage.imageId ? itemImage.imageId : 0,
-                    imageBase64: itemImage.imageBase64
+                    imageId: 0,
+                    imageBase64: itemImageBase64
                 };
                 itemImagesDTOs.push(itemImageDTO);
             })
@@ -157,7 +155,7 @@ export class ItemEditComponent implements OnDestroy {
                         }
                     })
             );
-        } else if (this.itemImages.length === 0) {
+        } else if (this.itemImagesBase64.length === 0) {
             this.noImageUploaded = true;
         }
     }
@@ -169,14 +167,14 @@ export class ItemEditComponent implements OnDestroy {
     onFileSelected($event: any) {
         const imageUploadModel: ImageUploadModel = {
             fileInvalid: this.fileInvalid,
-            itemImages: this.itemImages
+            itemImagesBase64: this.itemImagesBase64
         }
         this.imageUploadService.onFileSelected($event, imageUploadModel);
         this.fileInvalid = imageUploadModel.fileInvalid;
     }
 
     removeImages() {
-        this.itemImages = [];
+        this.itemImagesBase64 = [];
     }
 
     private getFieldValue(fieldName: string) {

@@ -77,9 +77,9 @@
                 </button>
             </div>
             <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another one.</a>
-            <div *ngIf="itemImages.length > 0" class="image-container">
+            <div *ngIf="itemImagesBase64.length > 0" class="image-container">
                 <a>Selected image:</a>
-                <img *ngFor="let image of itemImages" [src]="image.imageBase64">
+                <img *ngFor="let imageBase64 of itemImagesBase64" [src]="imageBase64">
                 <p (click)="removeImages()">Remove images</p>
             </div>
         </div>
