@@ -48,4 +48,8 @@ export class FormValidationService {
     });
     return errorCount === 0;
   }
+
+  getFieldValue(form: FormGroup, fieldName: string) {
+    return form.get(fieldName)?.value;
+  }
 }

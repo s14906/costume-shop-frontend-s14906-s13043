@@ -2,9 +2,6 @@
   <mat-card-content class="labels">
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
       <h2 class="section-title">Log In</h2>
-      <mat-error *ngIf="!loginValid">
-        The username and password were not recognized
-      </mat-error>
       <mat-form-field class="mat-form-field" appearance="outline">
         <mat-label>Email:</mat-label>
         <input matInput class="reg-input" [(ngModel)]="email" name="email" required>

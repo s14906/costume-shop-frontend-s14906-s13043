@@ -3,12 +3,10 @@ import {StorageService} from "../../../core/service/storage.service";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Observable, of, Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http/http.service";
-import {SnackbarService} from "../../../core/service/snackbar.service";
 import { UserModel} from "../../../shared/models/data.models";
 import {FormValidationService} from "../../../core/service/form/form-validation.service";
-import {Router} from "@angular/router";
-import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {AddressDTO} from "../../../shared/models/dto.models";
+import {AccountService} from "../../../core/service/account.service";
 
 @Component({
     selector: 'app-account-information',
@@ -27,10 +25,8 @@ export class AccountInformationComponent implements OnDestroy {
     constructor(private storageService: StorageService,
                 private formBuilder: FormBuilder,
                 private httpService: HttpService,
-                private snackbarService: SnackbarService,
                 private formValidationService: FormValidationService,
-                private router: Router,
-                private httpErrorService: HttpErrorService) {
+                private accountService: AccountService) {
         this.setGridColumnNumber();
         this.user = this.storageService.getUser();
 
@@ -69,41 +65,12 @@ export class AccountInformationComponent implements OnDestroy {
     }
 
     onSubmitAddAddress() {
-        if (this.formValidationService.isFormValid(this.addAddressForm)) {
-            this.allSubscriptions.push(
-                this.httpService.postAddAddress({
-                    addressId: 0,
-                    userId: this.user.id,
-                    street: this.getFieldValue(this.addAddressForm, 'street'),
-                    flatNumber: this.getFieldValue(this.addAddressForm, 'flatNumber'),
-                    postalCode: this.getFieldValue(this.addAddressForm, 'postalCode'),
-                    city: this.getFieldValue(this.addAddressForm, 'city'),
-                }).subscribe({
-                    next: next => {
-                        this.snackbarService.openSnackBar(next.message);
-                        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-                            this.router.navigate(['account']);
-                        });
-                    },
-                    error: err => {
-                        this.httpErrorService.handleError(err);
-                    }
-                }));
-        }
+        this.accountService.addAddress(this.addAddressForm, this.user, this.allSubscriptions);
     }
 
     onSubmitChangePassword() {
-        if (this.formValidationService.isFormValid(this.changePasswordForm)) {
-            this.httpService.postChangePassword(this.user.id, this.getFieldValue(this.changePasswordForm, 'password'))
-                .subscribe({
-                    next: next => {
-                        this.snackbarService.openSnackBar(next.message)
-                    },
-                    error: err => {
-                        this.httpErrorService.handleError(err);
-                    }
-                })
-        }
+        this.accountService.changePassword(this.changePasswordForm, this.user);
+
     }
 
     ngOnDestroy(): void {
@@ -111,18 +78,7 @@ export class AccountInformationComponent implements OnDestroy {
     }
 
     removeAddress(addressId: number) {
-        this.allSubscriptions.push(
-            this.httpService.postRemoveAddress(addressId).subscribe({
-                next: next => {
-                    this.snackbarService.openSnackBar(next.message);
-                    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-                        this.router.navigate(['account']);
-                    });
-                },
-                error: err => {
-                    this.httpErrorService.handleError(err);
-                }
-            }));
+        this.accountService.removeAddress(addressId, this.allSubscriptions);
     }
 
     private setGridColumnNumber() {
@@ -133,7 +89,4 @@ export class AccountInformationComponent implements OnDestroy {
         }
     }
 
-    private getFieldValue(form: FormGroup, fieldName: string) {
-        return form.get(fieldName)?.value;
-    }
 }
