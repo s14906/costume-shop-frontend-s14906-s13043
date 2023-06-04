@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../../core/service/http/http.service";
 import {StorageService} from "../../../core/service/storage.service";
-import {HttpErrorService} from "../../../core/service/http-error.service";
+import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {Subscription} from "rxjs";
 import {OrderDTO} from "../../../shared/models/dto.models";
 import { formatDate } from 'src/app/shared/utils';

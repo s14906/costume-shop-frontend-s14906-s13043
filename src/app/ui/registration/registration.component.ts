@@ -1,10 +1,10 @@
 import {Component, OnDestroy} from '@angular/core';
-import {HttpService} from "../../core/service/http.service";
+import {HttpService} from "../../core/service/http/http.service";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {SnackbarService} from "../../core/service/snackbar.service";
 import {Router} from "@angular/router";
 import {Observable, of, Subscription} from "rxjs";
-import {FormValidationService} from "../../core/service/form-validation.service";
+import {FormValidationService} from "../../core/service/form/form-validation.service";
 import {AddressDTO} from "../../shared/models/dto.models";
 
 @Component({

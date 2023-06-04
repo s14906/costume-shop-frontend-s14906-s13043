@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {map, Observable, ReplaySubject} from "rxjs";
-import {HttpService} from "./http.service";
-import {StorageService} from "./storage.service";
-import {UserResponse} from "../../shared/models/rest.models";
+import {HttpService} from "../http/http.service";
+import {StorageService} from "../storage.service";
+import {UserResponse} from "../../../shared/models/rest.models";
 
 @Injectable({
   providedIn: 'root'

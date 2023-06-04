@@ -1,9 +1,9 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../../core/service/http/http.service";
 import {ComplaintDTO, ItemDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
-import {HttpErrorService} from "../../../core/service/http-error.service";
+import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {StorageService} from "../../../core/service/storage.service";
 import {formatDate} from "../../../shared/utils";
 import {SnackbarService} from "../../../core/service/snackbar.service";

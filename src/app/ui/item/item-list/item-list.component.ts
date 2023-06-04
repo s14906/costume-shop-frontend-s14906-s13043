@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Subscription} from "rxjs";
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../../core/service/http/http.service";
 import {ItemDTO} from "../../../shared/models/dto.models";
 import {ItemSizeModel} from "../../../shared/models/data.models";
 import {Router} from "@angular/router";

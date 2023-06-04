@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ItemColorModel,  ItemSizeModel} from "../../../shared/models/data.models";
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../../core/service/http/http.service";
 import {combineLatestWith, Subscription} from "rxjs";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import {StorageService} from "../../../core/service/storage.service";
-import {HttpErrorService} from "../../../core/service/http-error.service";
+import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {ItemDTO} from "../../../shared/models/dto.models";
 
 @Component({

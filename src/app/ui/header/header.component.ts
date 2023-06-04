@@ -1,6 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import {combineLatest, Subscription} from "rxjs";
-import {AuthService} from "../../core/service/auth.service";
+import {AuthService} from "../../core/service/auth/auth.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
 import {StorageService} from "../../core/service/storage.service";
 import {Router} from "@angular/router";

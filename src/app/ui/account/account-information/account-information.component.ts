@@ -2,12 +2,12 @@ import {Component, HostListener, OnDestroy} from '@angular/core';
 import {StorageService} from "../../../core/service/storage.service";
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
 import {Observable, of, Subscription} from "rxjs";
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../../core/service/http/http.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import { UserModel} from "../../../shared/models/data.models";
-import {FormValidationService} from "../../../core/service/form-validation.service";
+import {FormValidationService} from "../../../core/service/form/form-validation.service";
 import {Router} from "@angular/router";
-import {HttpErrorService} from "../../../core/service/http-error.service";
+import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {AddressDTO} from "../../../shared/models/dto.models";
 
 @Component({

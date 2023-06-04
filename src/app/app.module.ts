@@ -22,22 +22,21 @@ import {LoginComponent} from './ui/login/login.component';
 import {MatCardModule} from "@angular/material/card";
 import {RegistrationComponent} from './ui/registration/registration.component';
 import {HttpClientModule} from "@angular/common/http";
-import {AuthService} from "./core/service/auth.service";
-import {MessageService} from "./core/service/message.service";
+import {AuthService} from "./core/service/auth/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackbarService} from "./core/service/snackbar.service";
 import {MatMenuModule} from "@angular/material/menu";
 import {StorageService} from "./core/service/storage.service";
-import {authInterceptorProviders} from "./core/service/auth.interceptor";
+import {authInterceptorProviders} from "./core/service/auth/auth.interceptor";
 import {RegistrationSuccessComponent} from './ui/registration/registration-success/registration-success.component';
 import {
     RegistrationVerificationComponent
 } from './ui/registration/registration-verification/registration-verification.component';
 import {CartComponent} from './ui/cart/cart.component';
 import {CdkListbox, CdkOption} from "@angular/cdk/listbox";
-import {HttpErrorService} from "./core/service/http-error.service";
+import {HttpErrorService} from "./core/service/http/http-error.service";
 import {AccountInformationComponent} from "./ui/account/account-information/account-information.component";
-import {FormValidationService} from "./core/service/form-validation.service";
+import {FormValidationService} from "./core/service/form/form-validation.service";
 import {ComplaintsComponent} from './ui/complaints/complaints.component';
 import { ComplaintsChatComponent } from './ui/complaints/complaints-chat/complaints-chat.component';
 import { OrderComponent } from './ui/order/order/order.component';
@@ -52,7 +51,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatRadioModule} from "@angular/material/radio";
 import { ItemListComponent } from './ui/item/item-list/item-list.component';
 import { ItemEditComponent } from './ui/item/item-list/item-edit/item-edit.component';
-import {ImageUploadService} from "./core/service/image-upload.service";
+import {ImageUploadService} from "./core/service/image/image-upload.service";
 
 @NgModule({
     declarations: [
@@ -106,7 +105,6 @@ import {ImageUploadService} from "./core/service/image-upload.service";
     providers: [
         {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {subscriptSizing: 'dynamic'},},
         AuthService,
-        MessageService,
         SnackbarService,
         MatSnackBar,
         StorageService,

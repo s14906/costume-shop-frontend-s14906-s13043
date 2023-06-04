@@ -1,6 +1,6 @@
 import {ElementRef, Injectable} from "@angular/core";
-import {SnackbarService} from "./snackbar.service";
-import {ImageUploadModel} from "../../shared/models/data.models";
+import {SnackbarService} from "../snackbar.service";
+import {ImageUploadModel} from "../../../shared/models/data.models";
 
 @Injectable({
     providedIn: 'root'

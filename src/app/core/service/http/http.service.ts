@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {UrlPart} from "../../shared/models/http";
-import {ItemColorModel,} from "../../shared/models/data.models";
+import {UrlPart} from "../../../shared/models/http";
+import {ItemColorModel,} from "../../../shared/models/data.models";
 import {Observable} from "rxjs";
 import {
     AddressDTO,
@@ -12,7 +12,7 @@ import {
     PaymentTransactionDTO,
     UserLoginDTO,
     UserRegistrationDTO
-} from "../../shared/models/dto.models";
+} from "../../../shared/models/dto.models";
 import {
     CartResponse,
     ComplaintChatMessageResponse,
@@ -23,7 +23,7 @@ import {
     OrderResponse,
     SimpleResponse,
     UserResponse
-} from "../../shared/models/rest.models";
+} from "../../../shared/models/rest.models";
 
 @Injectable({
     providedIn: 'root'

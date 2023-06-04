@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpService} from "../../core/service/http.service";
+import {HttpService} from "../../core/service/http/http.service";
 import {Subscription, switchMap} from "rxjs";
-import {HttpErrorService} from "../../core/service/http-error.service";
+import {HttpErrorService} from "../../core/service/http/http-error.service";
 import {ItemDTO} from "../../shared/models/dto.models";
 import {ActivatedRoute, Params} from "@angular/router";
 

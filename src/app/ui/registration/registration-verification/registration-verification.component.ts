@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {mergeMap, Subscription, switchMap} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../../core/service/http/http.service";
 
 @Component({
     selector: 'app-registration-verification',

@@ -1,15 +1,15 @@
 import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {Observable, Subscription, switchMap} from "rxjs";
-import {HttpService} from "../../../../core/service/http.service";
+import {HttpService} from "../../../../core/service/http/http.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ItemResponse} from "../../../../shared/models/rest.models";
 import {ItemCategoryDTO, ItemDTO, ItemImageDTO, ItemSetDTO} from "../../../../shared/models/dto.models";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {FormValidationService} from "../../../../core/service/form-validation.service";
-import {ImageUploadService} from "../../../../core/service/image-upload.service";
+import {FormValidationService} from "../../../../core/service/form/form-validation.service";
+import {ImageUploadService} from "../../../../core/service/image/image-upload.service";
 import {ImageUploadModel} from "../../../../shared/models/data.models";
 import {SnackbarService} from "../../../../core/service/snackbar.service";
-import {HttpErrorService} from "../../../../core/service/http-error.service";
+import {HttpErrorService} from "../../../../core/service/http/http-error.service";
 import {StorageService} from "../../../../core/service/storage.service";
 
 @Component({

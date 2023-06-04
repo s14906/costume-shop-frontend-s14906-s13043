@@ -4,7 +4,7 @@ import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http'
 
 
 import { Observable } from 'rxjs';
-import {StorageService} from "./storage.service";
+import {StorageService} from "../storage.service";
 
 const TOKEN_HEADER_KEY = 'Authorization';
 

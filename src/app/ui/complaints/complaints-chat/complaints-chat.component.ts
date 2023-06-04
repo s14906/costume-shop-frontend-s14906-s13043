@@ -1,8 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
 import {Observable, Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
-import {HttpService} from "../../../core/service/http.service";
-import {HttpErrorService} from "../../../core/service/http-error.service";
+import {HttpService} from "../../../core/service/http/http.service";
+import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {ComplaintChatMessageDTO} from "../../../shared/models/dto.models";
 import {formatDate, sortArrayByDateDesc} from 'src/app/shared/utils';
 import {StorageService} from "../../../core/service/storage.service";

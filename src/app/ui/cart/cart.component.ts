@@ -1,8 +1,8 @@
 import {Component, OnDestroy} from '@angular/core';
-import {HttpService} from "../../core/service/http.service";
+import {HttpService} from "../../core/service/http/http.service";
 import {Subscription} from "rxjs";
 import {StorageService} from "../../core/service/storage.service";
-import {HttpErrorService} from "../../core/service/http-error.service";
+import {HttpErrorService} from "../../core/service/http/http-error.service";
 import {CartItemDTO} from "../../shared/models/dto.models";
 import {Router} from "@angular/router";
 import {SnackbarService} from "../../core/service/snackbar.service";

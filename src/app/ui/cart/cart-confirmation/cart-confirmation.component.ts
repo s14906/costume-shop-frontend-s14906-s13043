@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {StorageService} from "../../../core/service/storage.service";
-import {HttpService} from "../../../core/service/http.service";
+import {HttpService} from "../../../core/service/http/http.service";
 import {
     AddressDTO,
     CartConfirmationDTO,
@@ -9,7 +9,7 @@ import {
 } from "../../../shared/models/dto.models";
 import {CartResponse} from "../../../shared/models/rest.models";
 import {SnackbarService} from "../../../core/service/snackbar.service";
-import {HttpErrorService} from "../../../core/service/http-error.service";
+import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {Router} from "@angular/router";
 
 @Component({

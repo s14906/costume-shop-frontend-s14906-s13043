@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
-import {StorageService} from "./storage.service";
-import {AuthService} from "./auth.service";
-import {SnackbarService} from "./snackbar.service";
+import {StorageService} from "../storage.service";
+import {AuthService} from "../auth/auth.service";
+import {SnackbarService} from "../snackbar.service";
 import {Router} from "@angular/router";
 
 @Injectable({

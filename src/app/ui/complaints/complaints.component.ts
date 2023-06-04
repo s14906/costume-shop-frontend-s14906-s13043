@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {HttpService} from "../../core/service/http.service";
+import {HttpService} from "../../core/service/http/http.service";
 import {Subscription} from "rxjs";
 import {StorageService} from "../../core/service/storage.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
-import {HttpErrorService} from "../../core/service/http-error.service";
+import {HttpErrorService} from "../../core/service/http/http-error.service";
 import {Router} from "@angular/router";
 import {ComplaintDTO} from "../../shared/models/dto.models";
 import {MatPaginator} from "@angular/material/paginator";
