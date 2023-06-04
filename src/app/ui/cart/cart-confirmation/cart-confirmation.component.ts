@@ -1,16 +1,14 @@
 import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {StorageService} from "../../../core/service/storage.service";
-import {HttpService} from "../../../core/service/http/http.service";
 import {
     AddressDTO,
-    CartConfirmationDTO,
     CartItemDTO,
 } from "../../../shared/models/dto.models";
-import {CartResponse} from "../../../shared/models/rest.models";
-import {SnackbarService} from "../../../core/service/snackbar.service";
-import {HttpErrorService} from "../../../core/service/http/http-error.service";
-import {Router} from "@angular/router";
+import {CartService} from "../../../core/service/cart.service";
+import {HttpService} from "../../../core/service/http/http.service";
+import {CartResponse, GetAddressesResponse} from "../../../shared/models/rest.models";
+import {CartConfirmationDataModel} from "../../../shared/models/data.models";
 
 @Component({
     selector: 'app-cart-confirmation',
@@ -27,25 +25,21 @@ export class CartConfirmationComponent implements OnDestroy {
     private cartItems: CartItemDTO[];
 
     constructor(private storageService: StorageService,
-                private snackbarService: SnackbarService,
                 private httpService: HttpService,
-                private httpErrorService: HttpErrorService,
-                private router: Router) {
+                private cartService: CartService) {
         this.currentUser = this.storageService.getUser();
         this.allSubscriptions.push(
             this.httpService.getCartByUserId(this.currentUser.id)
                 .pipe(
                     switchMap((cartResponse: CartResponse) => {
-                        this.cartItems = cartResponse.cartItems;
-                        this.cartItems.forEach((cartItem: CartItemDTO) => {
-                            this.totalPrice = this.totalPrice + (cartItem.price * cartItem.items.length);
-                        });
+                        const cartConfirmationData: CartConfirmationDataModel
+                            = this.cartService.prepareCartConfirmationData(cartResponse);
+                        this.totalPrice = cartConfirmationData.totalPrice;
+                        this.cartItems = cartConfirmationData.cartItems;
                         return this.httpService.getAddressesForUser(this.currentUser.id);
                     }))
-                .subscribe(addressResponse => {
-                    this.allAddresses = addressResponse.addresses
-                        .sort((address1: AddressDTO, address2: AddressDTO) =>
-                            address1.addressId > address2.addressId ? 1 : -1);
+                .subscribe((addressResponse: GetAddressesResponse) => {
+                    this.allAddresses = this.cartService.prepareAllAddressesForBuyer(addressResponse);
                 }));
     }
 
@@ -59,28 +53,7 @@ export class CartConfirmationComponent implements OnDestroy {
     }
 
     commencePayment(): void {
-        if (this.selectedAddress) {
-            const cartConfirmationDTO: CartConfirmationDTO = {
-                userId: this.currentUser.id,
-                paidAmount: this.totalPrice,
-                address: this.selectedAddress,
-                cartItems: this.cartItems
-            }
-
-            this.allSubscriptions.push(
-                this.httpService.postCreateNewOrderPaymentTransaction(cartConfirmationDTO)
-                    .subscribe({
-                        next: next => {
-                            this.snackbarService.openSnackBar(next.message);
-                            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-                                this.router.navigate(['/']);
-                            });
-                        },
-                        error: err => {
-                            this.httpErrorService.handleError(err);
-                        }
-                    })
-            );
-        }
+        this.cartService.commencePayment(this.selectedAddress, this.totalPrice,
+            this.cartItems, this.allSubscriptions);
     }
 }

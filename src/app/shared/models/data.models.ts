@@ -1,3 +1,4 @@
+import {CartItemDTO} from "./dto.models";
 
 export interface ItemSizeModel {
     id: number;
@@ -22,6 +23,17 @@ export interface UserModel {
 export interface ImageUploadModel {
     fileInvalid: boolean;
     itemImagesBase64: string[];
+}
+
+export interface CartDataModel {
+    cartItems: CartItemDTO[],
+    totalPrice: number,
+    priceTimesItemCount: number[]
+}
+
+export interface CartConfirmationDataModel {
+    cartItems: CartItemDTO[],
+    totalPrice: number,
 }
 
 
