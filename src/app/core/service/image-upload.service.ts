@@ -20,10 +20,14 @@ export class ImageUploadService {
                 const reader = new FileReader();
                 reader.onloadend = () => {
                     const imageBase64 = reader.result as string;
-                    if (imageUploadModel.imagesBase64.length > 2) {
-                        imageUploadModel.imagesBase64.shift();
+                    if (imageUploadModel.itemImages.length > 2) {
+                        imageUploadModel.itemImages.shift();
                     }
-                    imageUploadModel.imagesBase64.push(imageBase64);
+
+                    imageUploadModel.itemImages.push({
+                        imageId: 0,
+                        imageBase64: imageBase64
+                    });
                 };
 
                 reader.readAsDataURL(file);

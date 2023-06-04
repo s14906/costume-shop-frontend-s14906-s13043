@@ -37,24 +37,51 @@
                         Please provide a valid item quantity
                     </mat-error>
                 </mat-form-field>
+                <mat-form-field appearance="outline" class="mat-form-field">
+                    <mat-select formControlName="itemCategory">
+                        <mat-option *ngFor="let itemCategory of itemCategories" [value]="itemCategory.category">
+                            {{itemCategory.category}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="mat-form-field">
+                    <mat-select formControlName="itemSet">
+                        <mat-option *ngFor="let itemSet of itemSets" [value]="itemSet.set">
+                            {{itemSet.set}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
             </table>
             <br>
             <button type="submit" class="button">Save item</button>
             <br>
-            <div class="buttons-with-image-container card">
-                <div class="buttons-with-image-column">
-                    <span>&nbsp;&nbsp;&nbsp;</span>
-                    <button class="button" (click)="uploadImage()">Upload image
-                        <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
-                    </button>
-                </div>
-                <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another one.</a>
-                <div *ngIf="imagesBase64.length > 0" class="image-container">
-                    <a>Selected image:</a>
-                    <img *ngFor="let imageBase64 of imagesBase64" [src]="imageBase64">
-                    <p (click)="removeImages()">Remove images</p>
-                </div>
-            </div>
+
         </form>
+        <div class="buttons-with-image-container card">
+            <div class="buttons-with-image-column">
+                <span>&nbsp;&nbsp;&nbsp;</span>
+                <button class="button" (click)="uploadImage()">Upload image
+                    <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
+                </button>
+                <p class="invalid-file-warning" *ngIf="noImageUploaded">
+                    You must upload at least one image
+                </p>
+                <button *ngIf="item?.itemId" class="button" (click)="setItemVisible()">
+                    <ng-template [ngIf]="item?.visible === 1" [ngIfElse]="elseBlock">
+                        Hide item
+                    </ng-template>
+                    <ng-template #elseBlock>
+                        Show item
+                    </ng-template>
+                </button>
+            </div>
+            <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another one.</a>
+            <div *ngIf="itemImages.length > 0" class="image-container">
+                <a>Selected image:</a>
+                <img *ngFor="let image of itemImages" [src]="image.imageBase64">
+                <p (click)="removeImages()">Remove images</p>
+            </div>
+        </div>
     </div>
 </div>

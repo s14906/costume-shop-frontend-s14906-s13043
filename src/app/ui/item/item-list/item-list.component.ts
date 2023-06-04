@@ -4,6 +4,7 @@ import {HttpService} from "../../../core/service/http.service";
 import {ItemDTO} from "../../../shared/models/dto.models";
 import {ItemSizeModel} from "../../../shared/models/data.models";
 import {Router} from "@angular/router";
+import {StorageService} from "../../../core/service/storage.service";
 
 @Component({
     selector: 'app-item-list',
@@ -14,9 +15,16 @@ export class ItemListComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     allItems: ItemDTO[] = [];
     allItemSizes: ItemSizeModel[] = [];
+    currentUser;
 
     constructor(private httpService: HttpService,
+                private storageService: StorageService,
                 private router: Router) {
+        this.currentUser = this.storageService.getUser();
+        if (!this.currentUser || !this.currentUser.roles.includes('EMPLOYEE')) {
+            this.router.navigate(['/']);
+        }
+
         this.allSubscriptions.push(
             this.httpService.getAllItems()
                 .subscribe({

@@ -17,6 +17,19 @@ export interface ItemDTO {
     price: number;
     itemImages: ItemImageDTO[];
     quantity: number;
+    visible: number;
+    itemCategory?: string;
+    itemSet?: string;
+}
+
+export interface ItemCategoryDTO {
+    itemCategoryId: number;
+    category: string;
+}
+
+export interface ItemSetDTO {
+    itemSetId: number;
+    set: string;
 }
 
 export interface ItemImageDTO {

@@ -19,4 +19,6 @@ export enum UrlPart {
   CREATE = '/create',
   PAYMENT = 'payment',
   SEARCH = 'search',
+  ITEM_CATEGORIES = 'items/categories',
+  ITEM_SETS = 'items/sets',
 }

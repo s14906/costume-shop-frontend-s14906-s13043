@@ -44,7 +44,8 @@ export class OrderDetailsComponent implements OnDestroy {
               }
             });
           }
-          if (!this.currentUser.roles.includes('EMPLOYEE') && this.currentUser.id !== next.orderDetails.buyerId) {
+          if (!this.currentUser
+              || (!this.currentUser.roles.includes('EMPLOYEE') && this.currentUser.id !== next.orderDetails.buyerId)) {
             this.router.navigate(['/']);
           } else {
             this.orderDetails = next.orderDetails;

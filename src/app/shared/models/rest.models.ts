@@ -2,8 +2,8 @@ import {
   AddressDTO,
   CartItemDTO,
   ComplaintChatMessageDTO,
-  ComplaintDTO,
-  ItemDTO, OrderDetailsDTO,
+  ComplaintDTO, ItemCategoryDTO,
+  ItemDTO, ItemSetDTO, OrderDetailsDTO,
   OrderDTO,
   UserDTO
 } from "./dto.models";
@@ -34,6 +34,8 @@ export interface ComplaintResponse extends SimpleResponse {
 export interface ItemResponse extends SimpleResponse {
   items: ItemDTO[];
   itemSizes: ItemSizeModel[];
+  itemCategories: ItemCategoryDTO[];
+  itemSets: ItemSetDTO[];
 }
 
 export interface OrderResponse extends SimpleResponse {

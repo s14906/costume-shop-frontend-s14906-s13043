@@ -36,13 +36,8 @@ export class HttpService {
         return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS);
     }
 
-
     public getItemById(itemId: string): Observable<ItemResponse> {
         return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEMS}/${itemId}`);
-    }
-
-    public deleteItemById(itemId: string): Observable<SimpleResponse> {
-        return this.http.delete<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEMS}/${itemId}`);
     }
 
     public postItem(dto: ItemDTO): Observable<SimpleResponse> {
@@ -55,6 +50,14 @@ export class HttpService {
 
     public getAllItemSizes(): Observable<ItemResponse> {
         return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SIZES);
+    }
+
+    public getAllItemCategories(): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEM_CATEGORIES);
+    }
+
+    public getAllItemSets(): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SETS);
     }
 
     public getAllItemColors(): Observable<ItemColorModel[]> {

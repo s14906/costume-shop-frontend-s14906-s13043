@@ -34,3 +34,7 @@ img {
     max-height: 150px;
     max-width: 150px;
 }
+
+.invalid-file-warning {
+    color: red;
+}
