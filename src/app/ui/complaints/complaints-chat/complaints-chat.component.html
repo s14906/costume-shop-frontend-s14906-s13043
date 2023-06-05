@@ -1,5 +1,7 @@
 <div class="container">
   <h2 class="text-big-left"><span><b>Complaint ID: {{complaintId}}</b></span></h2>
+  <p>Complaint status: {{complaintStatus}}</p>
+  <button *ngIf="complaintStatus !== 'CLOSED'" mat-stroked-button (click)="closeComplaint()">Close complaint</button>
   <div class="sub-container">
     <ng-template [ngIf]="complaintChatMessages.length !== 0" [ngIfElse]="elseBlock">
       <ul cdkListbox
@@ -33,5 +35,5 @@
       <h2 class="text-center">No messages here so far. Start a new chat or wait for a message from someone!</h2>
     </ng-template>
   </div>
-  <app-chat></app-chat>
+  <app-chat *ngIf="complaintStatus !== 'CLOSED'"></app-chat>
 </div>

@@ -3,7 +3,7 @@ import {of, Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpService} from "../../../core/service/http/http.service";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
-import {ComplaintChatMessageDTO} from "../../../shared/models/dto.models";
+import {ComplaintChatMessageDTO, UserDTO} from "../../../shared/models/dto.models";
 import {formatDate, sortArrayByDateDesc} from 'src/app/shared/utils';
 import {StorageService} from "../../../core/service/storage.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
@@ -19,6 +19,7 @@ export class ComplaintsChatComponent implements OnDestroy {
     complaintChatMessages: ComplaintChatMessageDTO[] = [];
     currentUser;
     currentUserEqualsBuyer: boolean;
+    complaintStatus: string;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -43,6 +44,7 @@ export class ComplaintsChatComponent implements OnDestroy {
                                         return of(null);
                                     } else {
                                         this.currentUserEqualsBuyer = this.currentUser.id === complaintResponse.complaints[0].buyerId;
+                                        this.complaintStatus = complaintResponse.complaints[0].complaintStatus;
                                         return this.httpService.getComplaintChatMessages(complaintResponse.complaints[0].complaintId);
                                     }
                                 }
@@ -75,7 +77,22 @@ export class ComplaintsChatComponent implements OnDestroy {
     }
 
     isMessageAuthorEmployee(complaintChatMessage: ComplaintChatMessageDTO): boolean {
-        const user = complaintChatMessage.user;
+        const user: UserDTO = complaintChatMessage.user;
         return !!(user.roles && user.roles.includes('EMPLOYEE'));
+    }
+
+    closeComplaint(): void {
+        this.allSubscriptions.push(
+            this.httpService.postCloseComplaint(this.complaintId)
+                .subscribe({
+                    next: next => {
+                        this.complaintStatus = next.complaints[0].complaintStatus;
+                        this.snackbarService.openSnackBar(next.message);
+                    },
+                    error: err => {
+                        this.httpErrorService.handleError(err);
+                    }
+                })
+        )
     }
 }

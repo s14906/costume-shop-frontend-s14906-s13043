@@ -171,6 +171,10 @@ export class HttpService {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.EMAIL, dto);
     }
 
+    public postCloseComplaint(complaintId: string): Observable<ComplaintResponse> {
+        return this.http.post<ComplaintResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`, {});
+    }
+
     public deleteCartItemByUserIdAndCartItemId(userId: number, itemId: number): Observable<CartResponse> {
         return this.http.delete<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}/${UrlPart.ITEMS}/${itemId}`);
     }
