@@ -89,7 +89,7 @@ export class HeaderComponent implements OnDestroy {
   }
 
   navigateToSearch(): void {
-      this.router.navigate(['/'], {
+      this.router.navigate(['/search'], {
         queryParams: {
             category: this.selectedCategory ? this.selectedCategory : 'all',
           searchText: this.searchText ? this.searchText : 'all'

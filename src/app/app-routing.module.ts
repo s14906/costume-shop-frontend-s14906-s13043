@@ -22,6 +22,7 @@ import {ItemEditComponent} from "./ui/item/item-list/item-edit/item-edit.compone
 
 const routes: Routes = [
     {path: '', component: HomeComponent},
+    {path: 'search', component: HomeComponent},
     {path: 'item', component: ItemDetailsComponent},
     {path: 'items', component: ItemListComponent},
     {path: 'items/add', component: ItemEditComponent},
