@@ -30,7 +30,7 @@
     </div>
     <span class="spacer"></span>
     <div>
-      <input class="search-input" type="text" [(ngModel)]="searchText" (keyup)="checkEnterKeyPressed($event)">
+      <input class="search-input" type="text" [(ngModel)]="searchText" placeholder="Search for items" (keyup)="checkEnterKeyPressed($event)">
     </div>
     <button class="button" mat-stroked-button [matMenuTriggerFor]="categories">{{selectedCategory && selectedCategory !== 'all' ? selectedCategory : 'Category'}}</button>
     <mat-menu #categories="matMenu" [overlapTrigger]="false">
