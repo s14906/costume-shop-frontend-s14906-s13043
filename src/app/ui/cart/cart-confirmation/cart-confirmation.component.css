@@ -6,6 +6,18 @@ table {
   padding: 0.3em;
 }
 
+.border-bottom{
+  border-bottom: 1px solid #ddd;
+  font-size: 25px;
+}
+.text-left {
+  margin: 20px 0;
+  font-family: 'Courier New', Courier, monospace;
+  color: tomato;
+  font-size: 1.5em;
+  border-bottom: 1px solid #ddd;
+  padding: 20px;
+}
 
 .table th,
 .table td {

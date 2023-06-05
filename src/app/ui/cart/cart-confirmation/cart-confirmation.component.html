@@ -1,5 +1,6 @@
 <div class="container cart-listbox">
-    <p class="text-big-left">Select shipping address</p>
+  <p class="text-big-left">Summary</p><br>
+    <p class="text-left">Select shipping address</p>
   <table class="card section-details">
     <thead>
     <tr>
@@ -21,16 +22,16 @@
     </tbody>
   </table>
   <div class="column">
-    <p class="text-big-left">Additional notes</p>
+    <p class="text-left">Additional notes</p>
     <mat-form-field appearance="outline">
-        <mat-label>Additional notes before we send your delivery</mat-label>
+        <mat-label>Additional notes</mat-label>
         <textarea matInput #notesTextarea
                   cdkTextareaAutosize
                   cdkAutosizeMinRows="10"
                   cdkAutosizeMaxRows="10"></textarea>
     </mat-form-field>
   </div>
-    <p class="text-big-left">Payment method</p>
+    <p class="text-left">Payment method</p>
     <section>
         <mat-radio-group>
             <mat-radio-button>Credit card</mat-radio-button>
@@ -38,13 +39,13 @@
             <mat-radio-button>Google pay</mat-radio-button>
         </mat-radio-group>
     </section>
-    <p class="text-big-left">Summary</p>
-    <div class="item-row">
+  <br>
+    <div class="item-row border-bottom">
         <span>Shipping</span>
         <span class="spacer"></span>
         <span>19,99 PLN</span>
     </div>
-    <div class="item-row">
+    <div class="item-row border-bottom">
         <span>Total cost</span>
         <span class="spacer"></span>
         <span>{{totalPrice}} PLN</span>
@@ -57,5 +58,4 @@
             <button class="button" (click)="commencePayment()">Commence payment</button>
         </span>
     </div>
-  <br>
 </div>
