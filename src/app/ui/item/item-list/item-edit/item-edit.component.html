@@ -61,7 +61,8 @@
                   <span>&nbsp;&nbsp;&nbsp;</span>
                   <button class="button" type="button" (click)="uploadImage()">Select image
                     <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
-                  </button>
+                  </button>&nbsp;&nbsp;&nbsp;
+                  <button class="button" (click)="removeImages()">Remove images</button>
                 </div>
                   <p class="invalid-file-warning" *ngIf="noImageUploaded">
                     You must select at least one image
@@ -71,9 +72,6 @@
                 <div *ngIf="itemImagesBase64.length > 0" class="image-container">
                   <img *ngFor="let imageBase64 of itemImagesBase64" [src]="imageBase64">
                 </div>
-              <div class ="card">
-                <button class="button" (click)="removeImages()">Remove images</button>
-              </div>
               <br>
               <div>
                 <button type="submit" class="button">Save item</button>
