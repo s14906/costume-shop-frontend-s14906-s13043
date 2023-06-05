@@ -1,41 +1,54 @@
 <div class="container">
-  <div class="header-container">
-    <h2 class="text-big-left"><span><b>Order details ID: {{ orderId }} </b></span></h2>
-    <h2 class="text-big-right"><span><b>Date: {{formatDate(orderDate)}}</b></span></h2>
-  </div>
-  <table class="table">
-    <thead>
-    <tr class="labels">
-      <th>Item ID</th>
-      <th>Title</th>
-      <th>Price</th>
-      <th>Description</th>
-      <th>Check the product</th>
-    </tr>
-    </thead>
-    <colgroup>
-      <col style="width: 10%">
-      <col style="width: 25%">
-      <col style="width: 10%">
-      <col style="width: 35%">
-      <col style="width: 20%">
-    </colgroup>
-    <tbody>
-    <tr *ngFor="let item of orderDetails?.items" class="card">
-      <td>{{ item.itemId }}</td>
-      <td>{{ item.title }}</td>
-      <td>{{ item.price }} PLN</td>
-      <td>{{ item.description }}</td>
-      <td><button (click)="navigateToItem(item)">Go to Item</button></td>
-    </tr>
-    </tbody>
-  </table>
-  <div class="card border-top">
-    <ng-template [ngIf]="!complaint" [ngIfElse]="elseBlock">
-      <button class="button" (click)="navigateToComplaintCreation()">Create a complaint</button>
-    </ng-template>
-    <ng-template #elseBlock>
-      <button class="button" (click)="navigateToComplaintChat()">Go to complaint</button>
-    </ng-template>
-  </div>
+    <div class="header-container">
+        <h2 class="text-big-left"><span><b>Order details ID: {{ orderId }} </b></span></h2>
+        <h2 class="text-big-right"><span><b>Date: {{formatDate(orderDate)}}</b></span></h2>
+    </div>
+    <table class="table">
+        <thead>
+        <tr class="labels">
+            <th>Item ID</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Check the product</th>
+        </tr>
+        </thead>
+        <colgroup>
+            <col style="width: 10%">
+            <col style="width: 25%">
+            <col style="width: 10%">
+            <col style="width: 35%">
+            <col style="width: 20%">
+        </colgroup>
+        <tbody>
+        <tr *ngFor="let item of orderDetails?.items" class="card">
+            <td>{{ item.itemId }}</td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.price }} PLN</td>
+            <td>{{ item.description }}</td>
+            <td>
+                <button (click)="navigateToItem(item)">Go to Item</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="card border-top">
+        <ng-template [ngIf]="!complaint" [ngIfElse]="elseBlock">
+            <button class="button" (click)="navigateToComplaintCreation()">Create a complaint</button>
+        </ng-template>
+        <ng-template #elseBlock>
+            <button class="button" (click)="navigateToComplaintChat()">Go to complaint</button>
+        </ng-template>
+
+        <mat-form-field appearance="outline" class="mat-form-field">
+            <mat-label>Order status: {{selectedOrderStatus}}</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let orderStatus of orderStatuses" [value]="orderStatus" (click)="setOrderStatus(orderStatus)">
+                    {{orderStatus.status}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span class="spacer"></span>
+        <button class="button" (click)="updateOrderStatusForOrder()">Save status</button>
+    </div>
 </div>

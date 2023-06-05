@@ -116,6 +116,13 @@ export interface OrderDetailsDTO {
     complaint: ComplaintDTO;
     buyerId: number;
     items: ItemDTO[];
+    orderStatus: string;
+}
+
+export interface OrderStatusDTO {
+    orderId: string;
+    orderStatusId: number;
+    status: string;
 }
 
 export interface CreateNewComplaintDTO {
@@ -123,12 +130,6 @@ export interface CreateNewComplaintDTO {
     orderId: number;
     complaintCategory: string;
     complaintMessage?: string;
-}
-
-export interface PaymentTransactionDTO {
-    userId: number;
-    orderId: number;
-    paidAmount: number;
 }
 
 export interface CartConfirmationDTO {

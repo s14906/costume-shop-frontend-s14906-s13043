@@ -22,4 +22,5 @@ export enum UrlPart {
   ITEM_SETS = 'items/sets',
   PAYMENTS = 'payments',
   EMAIL = 'email',
+  STATUSES = 'statuses',
 }

@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpService} from "../../../core/service/http/http.service";
-import {ComplaintDTO, ItemDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
+import {ComplaintDTO, ItemDTO, OrderDetailsDTO, OrderStatusDTO} from "../../../shared/models/dto.models";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {StorageService} from "../../../core/service/storage.service";
 import {formatDate} from "../../../shared/utils";
@@ -20,6 +20,8 @@ export class OrderDetailsComponent implements OnDestroy {
   orderDate: Date;
   complaint: ComplaintDTO;
   currentUser;
+  orderStatuses: OrderStatusDTO[] = []
+  selectedOrderStatus: string;
 
   constructor(private route: ActivatedRoute,
               private httpService: HttpService,
@@ -49,6 +51,7 @@ export class OrderDetailsComponent implements OnDestroy {
             this.router.navigate(['/']);
           } else {
             this.orderDetails = next.orderDetails;
+            this.selectedOrderStatus = this.orderDetails.orderStatus;
             this.orderDate = this.orderDetails.orderDate;
             this.complaint = this.orderDetails.complaint;
             this.storageService.saveOrderDetails(this.orderDetails);
@@ -58,6 +61,17 @@ export class OrderDetailsComponent implements OnDestroy {
           this.httpErrorService.handleError(err);
         }
       }));
+    this.allSubscriptions.push(
+        this.httpService.getAllOrderStatuses()
+            .subscribe({
+              next: next => {
+                this.orderStatuses = next.orderStatuses;
+              },
+              error: err => {
+                this.httpErrorService.handleError(err);
+              }
+            })
+    );
   }
 
   ngOnDestroy(): void {
@@ -81,6 +95,11 @@ export class OrderDetailsComponent implements OnDestroy {
       }
     });
   }
+
+  setOrderStatus(orderStatus: OrderStatusDTO): void {
+    this.selectedOrderStatus = orderStatus.status;
+  }
+
   protected readonly formatDate = formatDate;
 
   navigateToItem(item: ItemDTO) {
@@ -89,5 +108,26 @@ export class OrderDetailsComponent implements OnDestroy {
         itemId: item.itemId
       }
     })
+  }
+
+
+  updateOrderStatusForOrder(): void {
+    if (this.selectedOrderStatus !== this.orderDetails.orderStatus) {
+      const orderStatus: OrderStatusDTO | undefined
+          = this.orderStatuses.find((orderStatus: OrderStatusDTO) =>
+          orderStatus.status === this.selectedOrderStatus);
+      if (orderStatus) {
+        orderStatus.orderId = this.orderId;
+          this.httpService.postUpdateOrderStatusForOrder(orderStatus)
+              .subscribe({
+                  next: next => {
+                      this.snackbarService.openSnackBar(next.message);
+                  },
+                  error: err => {
+                      this.httpErrorService.handleError(err);
+                  }
+              })
+      }
+    }
   }
 }

@@ -7,7 +7,7 @@ import {
     AddToCartDTO,
     CartConfirmationDTO,
     ComplaintChatMessageDTO,
-    CreateNewComplaintDTO, ItemDTO,
+    CreateNewComplaintDTO, ItemDTO, OrderStatusDTO,
     UserLoginDTO,
     UserRegistrationDTO
 } from "../../../shared/models/dto.models";
@@ -18,7 +18,7 @@ import {
     GetAddressesResponse,
     ItemResponse,
     OrderDetailsResponse,
-    OrderResponse, PaymentTransactionResponse,
+    OrderResponse, OrderStatusResponse, PaymentTransactionResponse,
     SimpleResponse,
     UserResponse
 } from "../../../shared/models/rest.models";
@@ -92,6 +92,10 @@ export class HttpService {
 
     public getAllOrders(): Observable<OrderResponse> {
         return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`);
+    }
+
+    public getAllOrderStatuses(): Observable<OrderStatusResponse> {
+        return this.http.get<OrderStatusResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${UrlPart.STATUSES}`);
     }
 
     public getOrderDetails(orderId: string): Observable<OrderDetailsResponse> {
@@ -173,6 +177,10 @@ export class HttpService {
 
     public postCloseComplaint(complaintId: string): Observable<ComplaintResponse> {
         return this.http.post<ComplaintResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`, {});
+    }
+
+    public postUpdateOrderStatusForOrder(dto: OrderStatusDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`, dto)
     }
 
     public deleteCartItemByUserIdAndCartItemId(userId: number, itemId: number): Observable<CartResponse> {
