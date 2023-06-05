@@ -38,3 +38,14 @@ img {
 .invalid-file-warning {
     color: red;
 }
+
+.center {
+  align-content: center;
+}
+
+.card {
+  box-shadow: 0px 0px 0px 0px;
+}
+.mat-form-field {
+  width: 600px;
+}
