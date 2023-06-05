@@ -22,8 +22,8 @@ export class CartConfirmationComponent implements OnDestroy {
     currentUser: UserModel;
     totalPrice: number = 0;
     @ViewChild('notesTextarea') notesTextarea!: ElementRef;
-    private selectedAddress: AddressDTO;
-    public cartItems: CartItemDTO[];
+    public selectedAddress: AddressDTO;
+    private cartItems: CartItemDTO[];
 
     constructor(private storageService: StorageService,
                 private httpService: HttpService,
