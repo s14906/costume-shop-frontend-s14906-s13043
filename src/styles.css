@@ -77,6 +77,20 @@ a {
   margin: 20px 0;
 }
 
+.user-info,
+.add-address,
+.address-list,
+.change-password {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  max-width: 800px;
+  margin: auto auto 1em;
+  padding: 1em;
+  background-color: #FFF;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .section-title {
   margin-left: auto;
   margin-right: auto;

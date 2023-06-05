@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="text-big-left"><span><b>Create complaint - Order ID: {{orderDetails?.orderId}}</b></span></h2>
+  <h2 class="text-big-left"><span><b>Create complaint - Order ID: {{getOrderId()}}</b></span></h2>
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="itemId">
       <th mat-header-cell *matHeaderCellDef> Item ID</th>

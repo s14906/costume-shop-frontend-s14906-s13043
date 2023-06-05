@@ -42,4 +42,11 @@ export class ComplaintsCreateComponent {
     ngOnDestroy(): void {
         this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
+
+    getOrderId(): number {
+        if (this.orderDetails) {
+            return this.orderDetails.orderId
+        }
+        return 0;
+    }
 }

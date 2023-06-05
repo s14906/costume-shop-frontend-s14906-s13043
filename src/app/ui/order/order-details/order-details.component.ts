@@ -2,12 +2,12 @@ import {Component, OnDestroy} from '@angular/core';
 import {Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpService} from "../../../core/service/http/http.service";
-import {ComplaintDTO, ItemDTO, OrderDetailsDTO, OrderStatusDTO} from "../../../shared/models/dto.models";
+import {ComplaintDTO, ItemDTO, OrderDetailsDTO, OrderStatusDTO, UserDTO} from "../../../shared/models/dto.models";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {StorageService} from "../../../core/service/storage.service";
 import {formatDate} from "../../../shared/utils";
 import {SnackbarService} from "../../../core/service/snackbar.service";
-import {OrderDetailsResponse, OrderStatusResponse} from "../../../shared/models/rest.models";
+import {OrderDetailsResponse, OrderStatusResponse, UserResponse} from "../../../shared/models/rest.models";
 import {UserModel} from "../../../shared/models/data.models";
 
 @Component({
@@ -24,6 +24,7 @@ export class OrderDetailsComponent implements OnDestroy {
     currentUser: UserModel;
     orderStatuses: OrderStatusDTO[] = []
     selectedOrderStatus: string;
+    buyer: UserDTO;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -67,6 +68,17 @@ export class OrderDetailsComponent implements OnDestroy {
                 .subscribe({
                     next: (next: OrderStatusResponse): void => {
                         this.orderStatuses = next.orderStatuses;
+                    },
+                    error: err => {
+                        this.httpErrorService.handleError(err);
+                    }
+                })
+        );
+        this.allSubscriptions.push(
+            this.httpService.getUserByOrderId(this.orderId)
+                .subscribe({
+                    next: (next: UserResponse): void => {
+                        this.buyer = next.user;
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);

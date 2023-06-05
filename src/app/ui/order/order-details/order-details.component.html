@@ -1,4 +1,17 @@
 <div class="container">
+    <div class="user-info labels">
+        <h2 class="section-title">Buyer information</h2>
+        <table class="UserInfo">
+            <tr><td><b>Username: </b></td><td>{{buyer.username}}</td></tr>
+            <tr><td><b>Name: </b></td><td>{{buyer.name}}</td></tr>
+            <tr><td><b>Surname: </b></td><td>{{buyer.surname}}</td></tr>
+            <tr><td><b>Email: </b></td><td>{{buyer.email}}</td></tr>
+            <tr><td><b>Phone: </b></td><td>{{buyer.phone}}</td></tr>
+            <tr><td><b>Roles: </b></td><td>{{buyer.roles}}</td></tr>
+        </table>
+    </div>
+</div>
+<div class="container">
     <div class="header-container">
         <h2 class="text-big-left"><span><b>Order details ID: {{ orderId }} </b></span></h2>
         <h2 class="text-big-right"><span><b>Date: {{formatDate(orderDate)}}</b></span></h2>

@@ -186,4 +186,8 @@ export class HttpService {
     public deleteCartItemByUserIdAndCartItemId(userId: number, itemId: number): Observable<CartResponse> {
         return this.http.delete<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}/${UrlPart.ITEMS}/${itemId}`);
     }
+
+    public getUserByOrderId(orderId: string): Observable<UserResponse> {
+        return this.http.get<UserResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${orderId}/${UrlPart.USER}`);
+    }
 }
