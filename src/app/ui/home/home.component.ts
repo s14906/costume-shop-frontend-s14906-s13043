@@ -43,8 +43,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                 })).subscribe(
                 {
                     next: next =>
-                        next.items.forEach(item => {
-                            if (item.visible) {
+                        next.items.forEach((item: ItemDTO) => {
+                            if (item.visible && item.quantity > 0) {
                                 this.items.push(item)
                             }
                         }),
