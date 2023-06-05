@@ -23,7 +23,7 @@ export class CartConfirmationComponent implements OnDestroy {
     totalPrice: number = 0;
     @ViewChild('notesTextarea') notesTextarea!: ElementRef;
     private selectedAddress: AddressDTO;
-    private cartItems: CartItemDTO[];
+    public cartItems: CartItemDTO[];
 
     constructor(private storageService: StorageService,
                 private httpService: HttpService,

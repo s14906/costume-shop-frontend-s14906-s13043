@@ -1,35 +1,43 @@
-<div class="container">
-    <p class="text-big-left">Shipping address</p>
-    <div class="item-row" *ngFor="let address of allAddresses" (click)="fillNotesForSelectedAddress(address)">
-        <span>{{address.addressId}}</span>
-        <span>{{address.street}}</span>
-        <span>{{address.city}}</span>
-        <span>{{address.flatNumber}}</span>
-        <span>{{address.street}}</span>
-        <span>{{address.postalCode}}</span>
-    </div>
-</div>
-<div class="container">
+<div class="container cart-listbox">
+    <p class="text-big-left">Select shipping address</p>
+  <table class="card section-details">
+    <thead>
+    <tr>
+      <th>Address</th>
+      <th>Flat Number</th>
+      <th>City</th>
+      <th>Postal Code</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let address of allAddresses"
+        (click)="fillNotesForSelectedAddress(address)"
+        [class.selected]="address === selectedAddress">
+      <td>{{address.street}}</td>
+      <td>{{address.flatNumber}}</td>
+      <td>{{address.city}}</td>
+      <td>{{address.postalCode}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="column">
     <p class="text-big-left">Additional notes</p>
     <mat-form-field appearance="outline">
-        <mat-label>Describe your problem with the order here: </mat-label>
+        <mat-label>Additional notes before we send your delivery</mat-label>
         <textarea matInput #notesTextarea
                   cdkTextareaAutosize
                   cdkAutosizeMinRows="10"
                   cdkAutosizeMaxRows="10"></textarea>
     </mat-form-field>
-</div>
-<div class="container">
+  </div>
     <p class="text-big-left">Payment method</p>
     <section>
         <mat-radio-group>
             <mat-radio-button>Credit card</mat-radio-button>
-            <mat-radio-button>Payypal</mat-radio-button>
+            <mat-radio-button>PayPal</mat-radio-button>
             <mat-radio-button>Google pay</mat-radio-button>
         </mat-radio-group>
     </section>
-</div>
-<div class="container">
     <p class="text-big-left">Summary</p>
     <div class="item-row">
         <span>Shipping</span>
@@ -41,12 +49,13 @@
         <span class="spacer"></span>
         <span>{{totalPrice}} PLN</span>
     </div>
-    <div class="item-row">
+  <br>
+    <div class="item-row card">
         <span></span>
         <span class="spacer"></span>
         <span>
-            <button mat-stroked-button (click)="commencePayment()">Commence payment</button>
+            <button class="button" (click)="commencePayment()">Commence payment</button>
         </span>
     </div>
-
+  <br>
 </div>

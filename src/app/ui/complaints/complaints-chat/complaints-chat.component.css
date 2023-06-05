@@ -15,7 +15,7 @@
 .spam-text-chat {
   display: block;
   white-space: break-spaces;
-  max-width: 2000px;
+  max-height: 1000px;
   word-wrap: break-word;
 }
 
