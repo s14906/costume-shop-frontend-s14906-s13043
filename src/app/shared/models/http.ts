@@ -4,7 +4,6 @@ export enum UrlPart {
   LOGIN = 'login',
   ITEMS = 'items',
   ITEM_SIZES = 'items/sizes',
-  ITEM_COLORS = 'items/colors',
   USERS = 'users',
   USER = 'user',
   VERIFICATION = 'verification',
@@ -22,4 +21,5 @@ export enum UrlPart {
   ITEM_CATEGORIES = 'items/categories',
   ITEM_SETS = 'items/sets',
   PAYMENTS = 'payments',
+  EMAIL = 'email',
 }

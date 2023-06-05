@@ -5,8 +5,8 @@ import {StorageService} from "./storage.service";
 import {Router} from "@angular/router";
 import {SnackbarService} from "./snackbar.service";
 import {HttpErrorService} from "./http/http-error.service";
-import {Subscription} from "rxjs";
-import {CartResponse, GetAddressesResponse} from "../../shared/models/rest.models";
+import {Subscription, switchMap} from "rxjs";
+import {CartResponse, GetAddressesResponse, PaymentTransactionResponse} from "../../shared/models/rest.models";
 import {CartConfirmationDataModel, CartDataModel} from "../../shared/models/data.models";
 
 @Injectable({
@@ -80,20 +80,24 @@ export class CartService {
 
             allSubscriptions.push(
                 this.httpService.postCreateNewOrderPaymentTransaction(cartConfirmationDTO)
-                    .subscribe({
-                        next: next => {
-                            this.snackbarService.openSnackBar(next.message);
+                    .pipe(switchMap((response: PaymentTransactionResponse) => {
+                            this.snackbarService.openSnackBar(response.message);
                             this.router.navigate(['payment-success'], {
                                 queryParams: {
-                                    paymentTransactionId: next.paymentTransactionId
+                                    paymentTransactionId: response.paymentTransactionId
                                 }
                             });
-
+                            return this.httpService.postSendPaymentTransactionSuccessEmail(cartConfirmationDTO);
+                        }
+                    )).subscribe({
+                        next: next => {
+                            this.snackbarService.openSnackBar(next.message);
                         },
                         error: err => {
-                            this.httpErrorService.handleError(err);
+                            this.httpErrorService.handleError(err.message);
                         }
-                    })
+                    }
+                )
             );
         }
     }

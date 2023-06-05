@@ -38,10 +38,6 @@ export class HttpService {
         return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEMS}/${itemId}`);
     }
 
-    public postItem(dto: ItemDTO): Observable<SimpleResponse> {
-        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS, dto);
-    }
-
     public getAllItemsBySearchTextAndCategory(searchText: string, category: string): Observable<ItemResponse> {
         return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.SEARCH}/${category}/${searchText}`);
     }
@@ -82,6 +78,30 @@ export class HttpService {
         });
     }
 
+    public getComplaint(complaintId: string): Observable<ComplaintResponse> {
+        return this.http.get<ComplaintResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
+    }
+
+    public getComplaintChatMessages(complaintId: number): Observable<ComplaintChatMessageResponse> {
+        return this.http.get<ComplaintChatMessageResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
+    }
+
+    public getAllOrdersForUser(userId: number): Observable<OrderResponse> {
+        return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
+    }
+
+    public getAllOrders(): Observable<OrderResponse> {
+        return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`);
+    }
+
+    public getOrderDetails(orderId: string): Observable<OrderDetailsResponse> {
+        return this.http.get<OrderDetailsResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${orderId}`);
+    }
+
+    public getCartByUserId(userId: number): Observable<CartResponse> {
+        return this.http.get<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}`);
+    }
+
     public postUserVerification(userId: number): Observable<SimpleResponse> {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {}, {
             params: {
@@ -94,19 +114,9 @@ export class HttpService {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.CART, dto);
     }
 
-    public getCartByUserId(userId: number): Observable<CartResponse> {
-        return this.http.get<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}`);
+    public postItem(dto: ItemDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS, dto);
     }
-
-    public deleteCartByUserId(userId: number): Observable<CartResponse> {
-        return this.http.delete<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/
-            ${UrlPart.CART}/${UrlPart.ITEMS}`);
-    }
-
-    public deleteCartItemByUserIdAndCartItemId(userId: number, itemId: number): Observable<CartResponse> {
-        return this.http.delete<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}/${UrlPart.ITEMS}/${itemId}`);
-    }
-
     public postRemoveAddress(addressId: number): Observable<SimpleResponse> {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.REMOVE_ADDRESS, {}, {
             params: {
@@ -157,23 +167,11 @@ export class HttpService {
         return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`, complaintChatMessageDTO);
     }
 
-    public getComplaint(complaintId: string): Observable<ComplaintResponse> {
-        return this.http.get<ComplaintResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
+    public postSendPaymentTransactionSuccessEmail(dto: CartConfirmationDTO): Observable<SimpleResponse> {
+        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.EMAIL, dto);
     }
 
-    public getComplaintChatMessages(complaintId: number): Observable<ComplaintChatMessageResponse> {
-        return this.http.get<ComplaintChatMessageResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
-    }
-
-    public getAllOrdersForUser(userId: number): Observable<OrderResponse> {
-        return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
-    }
-
-  public getAllOrders(): Observable<OrderResponse> {
-    return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`);
-  }
-
-    public getOrderDetails(orderId: string): Observable<OrderDetailsResponse> {
-        return this.http.get<OrderDetailsResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${orderId}`);
+    public deleteCartItemByUserIdAndCartItemId(userId: number, itemId: number): Observable<CartResponse> {
+        return this.http.delete<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}/${UrlPart.ITEMS}/${itemId}`);
     }
 }
