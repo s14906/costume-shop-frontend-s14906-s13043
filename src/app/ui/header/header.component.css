@@ -13,9 +13,7 @@ mat-toolbar {
 
 .mat-toolbar.mat-primary {
   background: linear-gradient(270deg, #007bff, #50b3a2);
-  background-size: 200% 200%;
-  animation: gradient 3s ease-in-out infinite;
-  color: #fff;
+  background-size: 200%;
 }
 
 .header-button {
@@ -48,7 +46,7 @@ mat-toolbar {
 
 .search-input {
   text-align: center;
-  background-color: #0069e1;
+  background-color: #abd1ff;
   border: 1px solid #ddd;
   color: #FFF;
   padding: 0.3em;
