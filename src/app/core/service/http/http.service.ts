@@ -44,8 +44,8 @@ export class HttpService {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS, dto);
     }
 
-    public getAllItemsBySearchText(searchText: string): Observable<ItemResponse> {
-        return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.SEARCH}/${searchText}`);
+    public getAllItemsBySearchTextAndCategory(searchText: string, category: string): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.SEARCH}/${category}/${searchText}`);
     }
 
     public getAllItemSizes(): Observable<ItemResponse> {

@@ -25,10 +25,17 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.route.queryParams.pipe(
                 switchMap((queryParams: Params) => {
                     const searchText: string = queryParams['searchText'];
+                    const category: string = queryParams['category'];
                     this.items = [];
-                    if (searchText) {
+                    if (searchText && category) {
                         this.isSearch = true;
-                        return this.httpService.getAllItemsBySearchText(searchText);
+                        return this.httpService.getAllItemsBySearchTextAndCategory(searchText, category)
+                    } else if (category) {
+                        this.isSearch = true;
+                        return this.httpService.getAllItemsBySearchTextAndCategory('all', category);
+                    } else if (searchText) {
+                        this.isSearch = true;
+                        return this.httpService.getAllItemsBySearchTextAndCategory(searchText, 'all');
                     } else {
                         this.isSearch = false;
                         return this.httpService.getAllItems();

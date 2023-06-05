@@ -4,6 +4,8 @@ import {AuthService} from "../../core/service/auth/auth.service";
 import {SnackbarService} from "../../core/service/snackbar.service";
 import {StorageService} from "../../core/service/storage.service";
 import {Router} from "@angular/router";
+import {HttpService} from "../../core/service/http/http.service";
+import {ItemCategoryDTO} from "../../shared/models/dto.models";
 
 @Component({
   selector: 'app-header',
@@ -18,10 +20,13 @@ export class HeaderComponent implements OnDestroy {
 
   private allSubscriptions: Subscription[] = [];
     searchText: string;
+  itemCategories: string[] = [];
+  selectedCategory: string;
 
   constructor(public authService: AuthService,
               private snackbarService: SnackbarService,
               private storageService: StorageService,
+              private httpService: HttpService,
               private router: Router
   ) {
     this.allSubscriptions.push(
@@ -30,6 +35,15 @@ export class HeaderComponent implements OnDestroy {
         this.loggedIn = userData[0];
         this.userRoles = userData[1];
       }));
+    this.allSubscriptions.push(
+        this.httpService.getAllItemCategories()
+            .subscribe({
+              next: next => {
+                this.itemCategories = next.itemCategories
+                    .map((itemCategory: ItemCategoryDTO) => itemCategory.category);
+              }
+            })
+    );
   }
 
   logout() {
@@ -70,16 +84,12 @@ export class HeaderComponent implements OnDestroy {
   }
 
   navigateToSearch() {
-    if (this.searchText !== '') {
       this.router.navigate(['/'], {
         queryParams: {
-          searchText: this.searchText
+            category: this.selectedCategory ? this.selectedCategory : 'all',
+          searchText: this.searchText ? this.searchText : 'all'
         }
       });
-    } else {
-      this.router.navigate(['/']);
-    }
-
   }
 
   navigateToHome() {
@@ -93,5 +103,9 @@ export class HeaderComponent implements OnDestroy {
 
   navigateToItemList() {
     this.router.navigate(['items']);
+  }
+
+  selectCategory(itemCategory: string): void {
+    this.selectedCategory = itemCategory;
   }
 }
