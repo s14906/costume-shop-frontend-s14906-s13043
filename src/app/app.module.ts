@@ -52,6 +52,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import { ItemListComponent } from './ui/item/item-list/item-list.component';
 import { ItemEditComponent } from './ui/item/item-list/item-edit/item-edit.component';
 import {ImageUploadService} from "./core/service/image/image-upload.service";
+import { PaymentSuccessComponent } from './ui/payment/payment-success/payment-success.component';
 
 @NgModule({
     declarations: [
@@ -74,7 +75,8 @@ import {ImageUploadService} from "./core/service/image/image-upload.service";
         ChatComponent,
         CartConfirmationComponent,
         ItemListComponent,
-        ItemEditComponent
+        ItemEditComponent,
+        PaymentSuccessComponent
     ],
     imports: [
         MatSortModule,

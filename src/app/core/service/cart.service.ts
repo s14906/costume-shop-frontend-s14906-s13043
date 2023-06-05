@@ -83,9 +83,12 @@ export class CartService {
                     .subscribe({
                         next: next => {
                             this.snackbarService.openSnackBar(next.message);
-                            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-                                this.router.navigate(['/']);
+                            this.router.navigate(['payment-success'], {
+                                queryParams: {
+                                    paymentTransactionId: next.paymentTransactionId
+                                }
                             });
+
                         },
                         error: err => {
                             this.httpErrorService.handleError(err);

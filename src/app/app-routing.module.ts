@@ -18,6 +18,7 @@ import {ComplaintsCreateComponent} from "./ui/complaints/complaints-create/compl
 import {CartConfirmationComponent} from "./ui/cart/cart-confirmation/cart-confirmation.component";
 import {ItemListComponent} from "./ui/item/item-list/item-list.component";
 import {ItemEditComponent} from "./ui/item/item-list/item-edit/item-edit.component";
+import {PaymentSuccessComponent} from "./ui/payment/payment-success/payment-success.component";
 
 
 const routes: Routes = [
@@ -40,7 +41,7 @@ const routes: Routes = [
     {path: 'orders/all', component: OrderComponent},
     {path: 'orders/details', component: OrderDetailsComponent},
     {path: 'orders/complaint', component: ComplaintsCreateComponent},
-
+    {path: 'payment-success', component: PaymentSuccessComponent},
 
 ];
 

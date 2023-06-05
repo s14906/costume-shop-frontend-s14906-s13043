@@ -1,7 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {UrlPart} from "../../../shared/models/http";
-import {ItemColorModel,} from "../../../shared/models/data.models";
 import {Observable} from "rxjs";
 import {
     AddressDTO,
@@ -9,7 +8,6 @@ import {
     CartConfirmationDTO,
     ComplaintChatMessageDTO,
     CreateNewComplaintDTO, ItemDTO,
-    PaymentTransactionDTO,
     UserLoginDTO,
     UserRegistrationDTO
 } from "../../../shared/models/dto.models";
@@ -20,7 +18,7 @@ import {
     GetAddressesResponse,
     ItemResponse,
     OrderDetailsResponse,
-    OrderResponse,
+    OrderResponse, PaymentTransactionResponse,
     SimpleResponse,
     UserResponse
 } from "../../../shared/models/rest.models";
@@ -60,10 +58,9 @@ export class HttpService {
         return this.http.get<ItemResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEM_SETS);
     }
 
-    public getAllItemColors(): Observable<ItemColorModel[]> {
-        return this.http.get<ItemColorModel[]>(UrlPart.BACKEND_LINK + UrlPart.ITEM_COLORS);
+    public getItemsByPaymentTransactionId(paymentTransactionId: number): Observable<ItemResponse> {
+        return this.http.get<ItemResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.PAYMENTS}/${paymentTransactionId}`);
     }
-
 
     public getAllComplaints(): Observable<ComplaintResponse> {
         return this.http.get<ComplaintResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS);
@@ -143,12 +140,8 @@ export class HttpService {
         return this.http.post<ComplaintResponse>(UrlPart.BACKEND_LINK + UrlPart.COMPLAINTS + UrlPart.CREATE, dto);
     }
 
-    public postCreateNewOrderPaymentTransaction(dto: CartConfirmationDTO): Observable<SimpleResponse> {
-        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ORDERS + '/' + UrlPart.PAYMENT, dto);
-    }
-
-    public postCreateNewPaymentTransaction(dto: PaymentTransactionDTO): Observable<SimpleResponse> {
-        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ORDERS, dto);
+    public postCreateNewOrderPaymentTransaction(dto: CartConfirmationDTO): Observable<PaymentTransactionResponse> {
+        return this.http.post<PaymentTransactionResponse>(UrlPart.BACKEND_LINK + UrlPart.ORDERS + '/' + UrlPart.PAYMENT, dto);
     }
 
     public postAssignComplaintToEmployee(userId: number, complaintId: number): Observable<SimpleResponse> {
