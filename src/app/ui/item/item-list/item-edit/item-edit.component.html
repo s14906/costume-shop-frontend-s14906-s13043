@@ -54,7 +54,7 @@
 <!--                        </mat-option>-->
 <!--                    </mat-select>-->
 <!--                </mat-form-field>-->
-              <mat-checkbox *ngIf="item?.itemId" (click)="setItemVisible()">
+              <mat-checkbox *ngIf="item?.itemId" (click)="setItemVisible()" [checked]="item?.visible === 1">
                 <mat-label>Show Item: </mat-label>
               </mat-checkbox>
               <div class="buttons-with-image-container card">
