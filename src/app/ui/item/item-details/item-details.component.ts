@@ -49,6 +49,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);
+                        this.router.navigate(['/']);
                     }
                 })));
         this.allSubscriptions.push(

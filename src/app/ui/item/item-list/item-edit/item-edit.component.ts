@@ -1,8 +1,7 @@
 import {Component, ElementRef, OnDestroy, ViewChild} from '@angular/core';
-import {Observable, Subscription, switchMap} from "rxjs";
+import {of, Subscription, switchMap} from "rxjs";
 import {HttpService} from "../../../../core/service/http/http.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {ItemResponse} from "../../../../shared/models/rest.models";
 import {ItemCategoryDTO, ItemDTO, ItemImageDTO, ItemSetDTO} from "../../../../shared/models/dto.models";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormValidationService} from "../../../../core/service/form/form-validation.service";
@@ -64,26 +63,37 @@ export class ItemEditComponent implements OnDestroy {
                     if (itemId) {
                         return this.httpService.getItemById(itemId);
                     } else {
-                        return new Observable<ItemResponse>()
+                        return of(null);
                     }
                 })
-            ).subscribe((itemResponse: ItemResponse) => {
-                if (itemResponse.items) {
-                    this.item = itemResponse.items[0];
-                    this.itemForm.setValue({
-                        title: this.item.title,
-                        description: this.item.description,
-                        price: this.item.price,
-                        quantity: this.item.quantity,
-                        itemCategory: this.item.itemCategory,
-                        itemSet: this.item.itemSet
-                    });
-                    itemResponse.items[0].itemImages
-                        .forEach((itemImage: ItemImageDTO) => {
-                            this.itemImagesBase64.push(itemImage.imageBase64);
-                        });
+            ).subscribe({
+                    next: next => {
+                        if (next === null) {
+                            this.router.navigate(['/']);
+                        } else {
+                            if (next.items) {
+                                this.item = next.items[0];
+                                this.itemForm.setValue({
+                                    title: this.item.title,
+                                    description: this.item.description,
+                                    price: this.item.price,
+                                    quantity: this.item.quantity,
+                                    itemCategory: this.item.itemCategory,
+                                    itemSet: this.item.itemSet
+                                });
+                                next.items[0].itemImages
+                                    .forEach((itemImage: ItemImageDTO) => {
+                                        this.itemImagesBase64.push(itemImage.imageBase64);
+                                    });
+                            }
+                        }
+                    },
+                    error: err => {
+                        this.httpErrorService.handleError(err);
+                        this.router.navigate(['/']);
+                    }
                 }
-            })
+            )
         );
 
         this.allSubscriptions.push(
@@ -145,7 +155,7 @@ export class ItemEditComponent implements OnDestroy {
     }
 
     setItemVisible() {
-        if(this.item) {
+        if (this.item) {
             if (this.item.visible === 1) {
                 this.item.visible = 0;
             } else {

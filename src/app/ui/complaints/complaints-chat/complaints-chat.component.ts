@@ -1,5 +1,5 @@
 import {Component, OnDestroy} from '@angular/core';
-import {Observable, Subscription, switchMap} from "rxjs";
+import {of, Subscription, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {HttpService} from "../../../core/service/http/http.service";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
@@ -40,7 +40,7 @@ export class ComplaintsChatComponent implements OnDestroy {
                                                 this.snackbarService.openSnackBar('Could not complaint chat with this ID.');
                                             }
                                         });
-                                        return new Observable<any>();
+                                        return of(null);
                                     } else {
                                         this.currentUserEqualsBuyer = this.currentUser.id === complaintResponse.complaints[0].buyerId;
                                         return this.httpService.getComplaintChatMessages(complaintResponse.complaints[0].complaintId);
@@ -53,7 +53,8 @@ export class ComplaintsChatComponent implements OnDestroy {
             ).subscribe(({
                 next: next => {
                     if (!this.currentUser
-                        || (!this.currentUserEqualsBuyer && !this.currentUser.roles.includes('EMPLOYEE'))) {
+                        || (!this.currentUserEqualsBuyer && !this.currentUser.roles.includes('EMPLOYEE'))
+                    || next === null) {
                         this.router.navigate(['/']);
                     } else {
                         this.complaintChatMessages = sortArrayByDateDesc(next.complaintChatMessages);
