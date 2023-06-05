@@ -7,6 +7,7 @@ export interface ComplaintDTO {
     employeeName: string;
     employeeSurname: string;
     complaintStatus: string;
+    orderId: number;
     createdDate: Date;
 }
 

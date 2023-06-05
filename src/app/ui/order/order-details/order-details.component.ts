@@ -54,7 +54,6 @@ export class OrderDetailsComponent implements OnDestroy {
             this.selectedOrderStatus = this.orderDetails.orderStatus;
             this.orderDate = this.orderDetails.orderDate;
             this.complaint = this.orderDetails.complaint;
-            this.storageService.saveOrderDetails(this.orderDetails);
           }
         },
         error: err => {
@@ -78,8 +77,7 @@ export class OrderDetailsComponent implements OnDestroy {
     this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  navigateToComplaintCreation() {
-    this.storageService.saveOrderDetails(this.orderDetails);
+  navigateToComplaintCreation(): void {
     this.router.navigate(['orders/complaint'], {
       queryParams: {
         orderId: this.orderId
@@ -102,7 +100,7 @@ export class OrderDetailsComponent implements OnDestroy {
 
   protected readonly formatDate = formatDate;
 
-  navigateToItem(item: ItemDTO) {
+  navigateToItem(item: ItemDTO): void {
     this.router.navigate(['item'], {
       queryParams: {
         itemId: item.itemId

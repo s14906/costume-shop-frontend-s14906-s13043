@@ -1,10 +1,10 @@
 import {Component} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Subscription, switchMap} from "rxjs";
 import {ItemDTO, OrderDetailsDTO} from "../../../shared/models/dto.models";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Params} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
-import {StorageService} from "../../../core/service/storage.service";
-import {SnackbarService} from "../../../core/service/snackbar.service";
+import {HttpService} from "../../../core/service/http/http.service";
+import {HttpErrorService} from "../../../core/service/http/http-error.service";
 
 @Component({
   selector: 'app-complaints-create',
@@ -20,18 +20,22 @@ export class ComplaintsCreateComponent {
 
 
   constructor(
-    private snackbarService: SnackbarService,
-    private storageService: StorageService,
-    private router: Router,
+    private httpService: HttpService,
+    private httpErrorService: HttpErrorService,
     private route: ActivatedRoute) {
     this.allSubscriptions.push(
-      this.route.queryParams.subscribe(() => {
-          this.orderDetails = this.storageService.getOrderDetails();
-          if (!this.orderDetails) {
-            this.snackbarService.openSnackBar('Could not find order details for this order.')
-            this.router.navigate(['/']);
+      this.route.queryParams.pipe(
+          switchMap((queryParams: Params) => {
+          const orderId: string = queryParams['orderId'];
+          return this.httpService.getOrderDetails(orderId);
+      })).subscribe({
+          next: next => {
+              this.orderDetails = next.orderDetails
+              this.dataSource = new MatTableDataSource(this.orderDetails.items);
+          },
+          error: err => {
+              this.httpErrorService.handleError(err);
           }
-          this.dataSource = new MatTableDataSource(this.orderDetails.items);
       }));
   }
 

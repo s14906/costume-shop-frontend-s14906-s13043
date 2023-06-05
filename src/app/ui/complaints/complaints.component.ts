@@ -67,7 +67,7 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
     this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  assignToEmployee(complaint: ComplaintDTO) {
+  assignToEmployee(complaint: ComplaintDTO): void {
     this.allSubscriptions.push(
       this.httpService.postAssignComplaintToEmployee(this.loggedUser.id, complaint.complaintId)
         .subscribe({
@@ -85,12 +85,18 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
     );
   }
 
-  navigateToSelectedComplaint(complaintId: string) {
-    this.router.navigate(['/complaints/chat'], {
-      queryParams: {
-        complaintId: complaintId
-      }
-    });
+  navigateToSelectedComplaint(complaintId: string): void {
+    const orderId: number | undefined = this.complaints.find((complaint: ComplaintDTO) =>
+        complaint.complaintId === Number(complaintId))?.orderId;
+    if (orderId) {
+      this.router.navigate(['/complaints/chat'], {
+        queryParams: {
+          complaintId: complaintId,
+          orderId: orderId
+        }
+      });
+    }
+
   }
 
   protected readonly formatDate = formatDate;
