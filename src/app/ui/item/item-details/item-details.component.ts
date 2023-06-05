@@ -5,7 +5,7 @@ import {HttpService} from "../../../core/service/http/http.service";
 import {Subscription, switchMap} from "rxjs";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
-import {ItemDTO} from "../../../shared/models/dto.models";
+import {ItemDTO, ItemImageDTO} from "../../../shared/models/dto.models";
 import {ItemService} from "../../../core/service/item.service";
 
 @Component({
@@ -16,10 +16,10 @@ import {ItemService} from "../../../core/service/item.service";
 export class ItemDetailsComponent implements OnInit, OnDestroy {
     item?: ItemDTO;
     itemSizes: ItemSizeModel[] = [];
-
     selectedItemSize: string = '';
     private allSubscriptions: Subscription[] = [];
     itemAmount: number = 1;
+    currentImageBase64: string;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -39,6 +39,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                 .subscribe(({
                     next: next => {
                         this.item = next.items[0];
+                        this.currentImageBase64 = this.getImage();
                         if (!this.item) {
                             this.router.navigate(['/']).then((navigated: boolean) => {
                                 if (navigated) {
@@ -61,12 +62,12 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         );
     }
 
-    clearInput() {
+    clearInput(): void {
         this.itemAmount = 1
     }
 
-    getImage() {
-        if (this.item?.itemImages) {
+    getImage(): string {
+        if (this.item?.itemImages && !this.currentImageBase64) {
             return this.item.itemImages[0].imageBase64;
         }
         return '';
@@ -78,5 +79,19 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
 
     addToCart(): void {
         this.itemService.addToCart(this.item, this.itemSizes, this.itemAmount, this.selectedItemSize);
+    }
+
+    changeImage(): void {
+        if (this.item) {
+            const allItemImages: ItemImageDTO[] = this.item.itemImages;
+            const currentImageIndex: number = this.item?.itemImages.findIndex((itemImage: ItemImageDTO) =>
+                itemImage.imageBase64 === this.currentImageBase64);
+            if (currentImageIndex + 1 >= allItemImages?.length) {
+                this.currentImageBase64 = allItemImages[0].imageBase64;
+            } else {
+                this.currentImageBase64 = allItemImages[currentImageIndex + 1].imageBase64;
+            }
+        }
+
     }
 }

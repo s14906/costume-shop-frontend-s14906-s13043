@@ -2,7 +2,8 @@
   <div class="product-details title">
   <div class="element card">
     <h2 class="section-title">{{item?.title}}</h2>
-    <img class="card-img" [src]="getImage()" [alt]="item?.title">
+    <img class="card-img" (click)="changeImage()" [src]="this.currentImageBase64" [alt]="item?.title">
+    <p>Click on the image to view the next one</p>
   </div>
   <div>
     <div class="element card text-left">
