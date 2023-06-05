@@ -26,7 +26,7 @@
                   {{complaintChatMessage.chatMessage}} &nbsp; &nbsp;
                 </span>
               <span *ngFor="let chatImageBase64 of complaintChatMessage.chatImagesBase64">
-                  <img [src]="chatImageBase64">
+                  <img [src]="chatImageBase64" (click)="openImage(chatImageBase64)">
                 </span>
             </div>
           </div>

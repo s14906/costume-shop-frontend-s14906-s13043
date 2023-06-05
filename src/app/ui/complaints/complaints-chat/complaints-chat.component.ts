@@ -97,4 +97,11 @@ export class ComplaintsChatComponent implements OnDestroy {
                 })
         )
     }
+
+    openImage(chatImageBase64: string): void  {
+        const newTab: Window | null = window.open();
+        if (newTab) {
+            newTab.document.write(`<html><body><img src="${chatImageBase64}"/></body></html>`);
+        }
+    }
 }
