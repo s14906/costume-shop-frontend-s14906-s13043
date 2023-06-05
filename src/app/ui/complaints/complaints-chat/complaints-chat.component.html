@@ -1,8 +1,10 @@
 <div class="container">
   <h2 class="text-big-left"><span><b>Complaint ID: {{complaintId}}</b></span></h2>
-  <p>Complaint status: {{complaintStatus}}</p>
-  <button *ngIf="complaintStatus !== 'CLOSED'" mat-stroked-button (click)="closeComplaint()">Close complaint</button>
-  <div class="sub-container">
+  <div class="card">
+    <p>Complaint status: <b>{{complaintStatus}}</b>&nbsp;&nbsp;&nbsp;
+    <button class="button" *ngIf="complaintStatus !== 'CLOSED'" (click)="closeComplaint()">Close complaint</button></p>
+  </div>
+  <div class="scroll-panel">
     <ng-template [ngIf]="complaintChatMessages.length !== 0" [ngIfElse]="elseBlock">
       <ul cdkListbox
           cdkListboxUseActiveDescendant

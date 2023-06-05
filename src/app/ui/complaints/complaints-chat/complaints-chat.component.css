@@ -15,19 +15,8 @@
 .spam-text-chat {
   display: block;
   white-space: break-spaces;
-  overflow: clip;
   max-width: 2000px;
   word-wrap: break-word;
-}
-
-button {
-    background-color: #009688;
-    color: #FFF;
-    border: none;
-    padding: 0.5em;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
 }
 
 img {
@@ -67,5 +56,9 @@ img {
 .item-row .column:last-child span {
   display: block;
   margin: 20px 0;
+}
+
+.card:hover {
+  transform: none;
 }
 
