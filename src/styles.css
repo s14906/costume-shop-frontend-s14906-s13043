@@ -124,11 +124,6 @@ a:hover {
   cursor: pointer;
 }
 
-.mat-form-field {
-  padding: 0;
-  font-size: 25px;
-}
-
 .font-container{
   font-size: 20px;
 }
@@ -154,6 +149,8 @@ a:hover {
 }
 
 .mat-form-field {
+  padding: 0;
+  font-size: 25px;
   display: flex;
   align-items: center;
   justify-content: left;
