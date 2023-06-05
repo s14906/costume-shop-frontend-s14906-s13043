@@ -69,7 +69,14 @@ export class CartService {
     }
 
     commencePayment(selectedAddress: AddressDTO, totalPrice: number,
-                    cartItems: CartItemDTO[], allSubscriptions: Subscription[]) {
+                    cartItems: CartItemDTO[], allSubscriptions: Subscription[]): void {
+        let itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase: boolean
+            = this.isItemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase(cartItems);
+
+        if (!itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase) {
+            return;
+        }
+
         if (selectedAddress) {
             const cartConfirmationDTO: CartConfirmationDTO = {
                 userId: this.currentUser.id,
@@ -100,6 +107,24 @@ export class CartService {
                 )
             );
         }
+    }
+
+    private isItemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase(cartItems: CartItemDTO[]) {
+        let itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase: boolean = true;
+        cartItems.forEach((cartItem: CartItemDTO) => {
+            const amountOfItemsToBePurchased: number = cartItem.items.length;
+            const itemsAvailableForPurchase: number = cartItem.items[0].quantity;
+            if (amountOfItemsToBePurchased >= itemsAvailableForPurchase) {
+                itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase = false;
+                this.snackbarService.openSnackBar('Cannot proceed.\nYou intend to purchase '
+                    + amountOfItemsToBePurchased + ' of ' + cartItem.items[0].title
+                    + ' items but there are only '
+                    + itemsAvailableForPurchase
+                    + ' available in the store.\nPlease select fewer items. ')
+                return;
+            }
+        });
+        return itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase;
     }
 
     prepareAllAddressesForBuyer(addressResponse: GetAddressesResponse): AddressDTO[] {

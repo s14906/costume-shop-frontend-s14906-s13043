@@ -47,11 +47,11 @@ export class CartComponent implements OnDestroy {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-    navigateToCartConfirmation() {
+    navigateToCartConfirmation(): void {
         this.router.navigate(['cart/confirmation']);
     }
 
-    deleteItemFromCart(cartItem: CartItemDTO) {
+    deleteItemFromCart(cartItem: CartItemDTO): void {
         this.cartService.deleteItemFromCart(cartItem, this.allSubscriptions);
     }
 }
