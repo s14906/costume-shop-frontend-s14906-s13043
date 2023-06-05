@@ -17,12 +17,6 @@
                     <th>Edit item</th>
                 </tr>
                 </thead>
-                <colgroup>
-                    <col style="width: 10%">
-                    <col style="width: 20%">
-                    <col style="width: 25%">
-                    <col style="width: 25%">
-                </colgroup>
                 <tbody>
                 <tr *ngFor="let item of allItems; index as i" class="card">
                     <td>{{ item.itemId }}</td>
@@ -38,8 +32,9 @@
             </table>
         </ng-template>
     </div>
-</div>
-<div class="container">
+  <div class="text-big-left card">
     <span class="spacer"></span>
-    <button mat-stroked-button (click)="navigateToAddItem()">Add new item</button>
+    <button (click)="navigateToAddItem()">Add new item</button>
+  </div>
 </div>
+
