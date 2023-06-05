@@ -32,7 +32,7 @@
     <div>
       <input class="search-input" type="text" [(ngModel)]="searchText" (keyup)="checkEnterKeyPressed($event)">
     </div>
-    <button class="button" mat-stroked-button [matMenuTriggerFor]="categories">{{selectedCategory ? selectedCategory : 'Category'}}</button>
+    <button class="button" mat-stroked-button [matMenuTriggerFor]="categories">{{selectedCategory && selectedCategory !== 'all' ? selectedCategory : 'Category'}}</button>
     <mat-menu #categories="matMenu" [overlapTrigger]="false">
         <button mat-menu-item *ngFor="let itemCategory of itemCategories" (click)="selectCategory(itemCategory)">{{itemCategory}}</button>
     </mat-menu>

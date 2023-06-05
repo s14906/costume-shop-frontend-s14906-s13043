@@ -46,7 +46,7 @@ export class HeaderComponent implements OnDestroy {
     );
   }
 
-  logout() {
+  logout(): void {
     this.storageService.signOut();
     this.authService.announceLogout();
     this.snackbarService.openSnackBar('Logged out!');
@@ -57,33 +57,38 @@ export class HeaderComponent implements OnDestroy {
     this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  navigateToCart() {
+  navigateToCart(): void {
+    this.selectedCategory = 'all';
     this.router.navigate(['/cart']);
   }
 
-  navigateToAccountInformation() {
+  navigateToAccountInformation(): void {
+    this.selectedCategory = 'all';
     this.router.navigate(['/account']);
   }
 
-  navigateToComplaints() {
+  navigateToComplaints(): void {
+    this.selectedCategory = 'all';
     this.router.navigate(['complaints']);
   }
 
-  navigateToOrderHistory() {
+  navigateToOrderHistory(): void {
+    this.selectedCategory = 'all';
     this.router.navigate(['orders']);
   }
 
-  navigateToAllOrders() {
+  navigateToAllOrders(): void {
+    this.selectedCategory = 'all';
     this.router.navigate(['orders/all']);
   }
 
-  checkEnterKeyPressed($event) {
+  checkEnterKeyPressed($event): void {
     if ($event.key === 'Enter') {
       this.navigateToSearch();
     }
   }
 
-  navigateToSearch() {
+  navigateToSearch(): void {
       this.router.navigate(['/'], {
         queryParams: {
             category: this.selectedCategory ? this.selectedCategory : 'all',
@@ -92,16 +97,17 @@ export class HeaderComponent implements OnDestroy {
       });
   }
 
-  navigateToHome() {
+  navigateToHome(): void {
     this.searchText = '';
     if (this.router.url !== '/') {
+      this.selectedCategory = 'all';
       this.router.navigate(['/']);
     } else {
       window.location.reload();
     }
   }
 
-  navigateToItemList() {
+  navigateToItemList(): void {
     this.router.navigate(['items']);
   }
 
