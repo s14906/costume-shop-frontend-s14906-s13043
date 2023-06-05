@@ -33,16 +33,6 @@
                    value="1">
           </mat-form-field>
         </mat-grid-tile>
-        <mat-grid-tile><p>Color:</p></mat-grid-tile>
-        <mat-grid-tile>
-          <mat-form-field appearance="outline" class="option-form-field">
-            <mat-select [(ngModel)]="selectedItemColor">
-              <mat-option *ngFor="let itemColor of itemColors" [value]="selectedItemColor">
-                {{itemColor.color}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-grid-tile>
         <br>
         <mat-grid-tile class="border-top" [colspan]="4">
           <a class="button" mat-stroked-button (click)="addToCart()">Add to cart</a>

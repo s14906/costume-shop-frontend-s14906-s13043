@@ -8,9 +8,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormValidationService} from "../../../../core/service/form/form-validation.service";
 import {ImageUploadService} from "../../../../core/service/image/image-upload.service";
 import {ImageUploadModel} from "../../../../shared/models/data.models";
-import {SnackbarService} from "../../../../core/service/snackbar.service";
 import {HttpErrorService} from "../../../../core/service/http/http-error.service";
 import {StorageService} from "../../../../core/service/storage.service";
+import {ItemService} from "../../../../core/service/item.service";
 
 @Component({
     selector: 'app-item-edit',
@@ -35,7 +35,7 @@ export class ItemEditComponent implements OnDestroy {
                 private formBuilder: FormBuilder,
                 private formValidationService: FormValidationService,
                 private imageUploadService: ImageUploadService,
-                private snackbarService: SnackbarService,
+                private itemService: ItemService,
                 private httpErrorService: HttpErrorService,
                 private storageService: StorageService,
                 private route: ActivatedRoute,
@@ -115,46 +115,13 @@ export class ItemEditComponent implements OnDestroy {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-    onSubmitRegistrationForm() {
+    onSubmitItemForm() {
         if (!this.fileInvalid && this.itemImagesBase64.length > 0
             && this.formValidationService.isFormValid(this.itemForm)) {
             this.noImageUploaded = false;
-            const itemImagesDTOs: ItemImageDTO[] = [];
-            this.itemImagesBase64.forEach((itemImageBase64: string) => {
-                const itemImageDTO: ItemImageDTO = {
-                    imageId: 0,
-                    imageBase64: itemImageBase64
-                };
-                itemImagesDTOs.push(itemImageDTO);
-            })
+            this.itemService.insertOrUpdateItem(this.itemImagesBase64, this.itemForm, this.item, this.allSubscriptions);
 
-            const itemDTO: ItemDTO = {
-                itemId: this.item ? this.item.itemId : 0,
-                title: this.getFieldValue('title'),
-                price: this.getFieldValue('price'),
-                quantity: this.getFieldValue('quantity'),
-                description: this.getFieldValue('description'),
-                itemSet: this.getFieldValue('itemSet'),
-                itemCategory: this.getFieldValue('itemCategory'),
-                visible: this.item ? this.item.visible : 0,
-                itemImages: itemImagesDTOs
-            }
 
-            this.allSubscriptions.push(
-                this.httpService.postItem(itemDTO)
-                    .subscribe({
-                        next: next => {
-                            this.router.navigate(['/items']).then((navigated: boolean) => {
-                                if (navigated) {
-                                    this.snackbarService.openSnackBar(next.message);
-                                }
-                            });
-                        },
-                        error: err => {
-                            this.httpErrorService.handleError(err);
-                        }
-                    })
-            );
         } else if (this.itemImagesBase64.length === 0) {
             this.noImageUploaded = true;
         }
@@ -175,10 +142,6 @@ export class ItemEditComponent implements OnDestroy {
 
     removeImages() {
         this.itemImagesBase64 = [];
-    }
-
-    private getFieldValue(fieldName: string) {
-        return this.itemForm.get(fieldName)?.value;
     }
 
     setItemVisible() {

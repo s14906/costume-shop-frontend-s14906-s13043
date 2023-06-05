@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ItemColorModel,  ItemSizeModel} from "../../../shared/models/data.models";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ItemSizeModel} from "../../../shared/models/data.models";
 import {HttpService} from "../../../core/service/http/http.service";
-import {combineLatestWith, Subscription} from "rxjs";
+import {Subscription, switchMap} from "rxjs";
 import {SnackbarService} from "../../../core/service/snackbar.service";
-import {StorageService} from "../../../core/service/storage.service";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {ItemDTO} from "../../../shared/models/dto.models";
+import {ItemService} from "../../../core/service/item.service";
 
 @Component({
     selector: 'app-item-details',
@@ -16,17 +16,15 @@ import {ItemDTO} from "../../../shared/models/dto.models";
 export class ItemDetailsComponent implements OnInit, OnDestroy {
     item?: ItemDTO;
     itemSizes: ItemSizeModel[] = [];
-    itemColors: ItemColorModel[] = [];
 
     selectedItemSize: string = '';
-    selectedItemColor: string = '';
     private allSubscriptions: Subscription[] = [];
     itemAmount: number = 1;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
                 private snackbarService: SnackbarService,
-                private storageService: StorageService,
+                private itemService: ItemService,
                 private httpErrorService: HttpErrorService,
                 private router: Router) {
     }
@@ -34,12 +32,13 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.allSubscriptions.push(
             this.route.queryParams.pipe(
-                combineLatestWith(this.httpService.getAllItems()))
+                switchMap((queryParams: Params) => {
+                    const itemId: string = queryParams['itemId'];
+                    return this.httpService.getItemById(itemId);
+                }))
                 .subscribe(({
                     next: next => {
-                        const params = next[0];
-                        const items = next[1].items;
-                        this.item = items.find((item: ItemDTO) => item.itemId.toString() === params['itemId']);
+                        this.item = next.items[0];
                         if (!this.item) {
                             this.router.navigate(['/']).then((navigated: boolean) => {
                                 if (navigated) {
@@ -59,13 +58,6 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                     this.selectedItemSize = itemResponse.itemSizes[0].size;
                 })
         );
-        this.allSubscriptions.push(
-            this.httpService.getAllItemColors()
-                .subscribe(itemColors => {
-                    itemColors.forEach(itemColor => this.itemColors.push(itemColor));
-                    this.selectedItemColor = itemColors[0].color;
-                })
-        );
     }
 
     clearInput() {
@@ -83,19 +75,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
-    addToCart() {
-        this.httpService.postAddToCart({
-            userId: this.storageService.getUser().id,
-            itemId: this.item?.itemId,
-            itemSizeId: this.itemSizes.find(itemSize => itemSize.size === this.selectedItemSize)?.id,
-            itemAmount: this.itemAmount
-        }).subscribe({
-            next: next => {
-                this.snackbarService.openSnackBar(next.message);
-            },
-            error: err => {
-                this.snackbarService.openSnackBar(err.error.message);
-            }
-        });
+    addToCart(): void {
+        this.itemService.addToCart(this.item, this.itemSizes, this.itemAmount, this.selectedItemSize);
     }
 }
