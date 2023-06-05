@@ -9,6 +9,7 @@ import {FormGroup} from "@angular/forms";
 import {HttpErrorService} from "./http/http-error.service";
 import {Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {SimpleResponse} from "../../shared/models/rest.models";
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +31,7 @@ export class ItemService {
             itemSizeId: itemSizes.find(itemSize => itemSize.size === selectedItemSize)?.id,
             itemAmount: itemAmount
         }).subscribe({
-            next: next => {
+            next: (next: SimpleResponse): void => {
                 this.snackbarService.openSnackBar(next.message);
             },
             error: err => {
@@ -40,9 +41,9 @@ export class ItemService {
     }
 
     insertOrUpdateItem(itemImagesBase64: string[], itemForm: FormGroup, item: ItemDTO | undefined,
-                       allSubscriptions: Subscription[]) {
+                       allSubscriptions: Subscription[]): void {
         const itemImagesDTOs: ItemImageDTO[] = [];
-        itemImagesBase64.forEach((itemImageBase64: string) => {
+        itemImagesBase64.forEach((itemImageBase64: string): void => {
             const itemImageDTO: ItemImageDTO = {
                 imageId: 0,
                 imageBase64: itemImageBase64
@@ -65,7 +66,7 @@ export class ItemService {
         allSubscriptions.push(
             this.httpService.postItem(itemDTO)
                 .subscribe({
-                    next: next => {
+                    next: (next: SimpleResponse): void => {
                         this.router.navigate(['/items']).then((navigated: boolean) => {
                             if (navigated) {
                                 this.snackbarService.openSnackBar(next.message);

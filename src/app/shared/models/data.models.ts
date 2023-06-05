@@ -18,6 +18,7 @@ export interface UserModel {
     name: string;
     surname: string
     phone: string;
+    roles: string[];
 }
 
 export interface ImageUploadModel {

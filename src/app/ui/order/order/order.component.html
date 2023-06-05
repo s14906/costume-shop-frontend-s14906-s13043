@@ -4,7 +4,7 @@
   <h2 class="text-big-left"><span><b>{{pageTitle}}</b></span></h2>
   </div>
     <div class="main-card">
-      <ng-template [ngIf]="noOrders()" [ngIfElse]="ordersBlock">
+      <ng-template [ngIf]="isNoOrders()" [ngIfElse]="ordersBlock">
         <h2 class="text-center"> You didn't place any orders yet.</h2>
       </ng-template>
   <ng-template #ordersBlock>

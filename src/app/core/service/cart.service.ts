@@ -6,14 +6,19 @@ import {Router} from "@angular/router";
 import {SnackbarService} from "./snackbar.service";
 import {HttpErrorService} from "./http/http-error.service";
 import {Subscription, switchMap} from "rxjs";
-import {CartResponse, GetAddressesResponse, PaymentTransactionResponse} from "../../shared/models/rest.models";
-import {CartConfirmationDataModel, CartDataModel} from "../../shared/models/data.models";
+import {
+    CartResponse,
+    GetAddressesResponse,
+    PaymentTransactionResponse,
+    SimpleResponse
+} from "../../shared/models/rest.models";
+import {CartConfirmationDataModel, CartDataModel, UserModel} from "../../shared/models/data.models";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
-    currentUser;
+    currentUser: UserModel;
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -28,7 +33,7 @@ export class CartService {
         allSubscriptions.push(
             this.httpService.deleteCartItemByUserIdAndCartItemId(this.currentUser.id, cartItem.cartItemId)
                 .subscribe({
-                    next: next => {
+                    next: (next: CartResponse): void => {
                         this.snackbarService.openSnackBar(next.message);
                         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
                             this.router.navigate(['cart']);
@@ -45,7 +50,7 @@ export class CartService {
         const cartItems: CartItemDTO[] = next.cartItems
         let totalPrice: number = 0;
         const priceTimesItemCount: number[] = [];
-        cartItems.forEach((cartItem: CartItemDTO) => {
+        cartItems.forEach((cartItem: CartItemDTO): void => {
             totalPrice = totalPrice + (cartItem.price * cartItem.items.length);
             priceTimesItemCount.push(cartItem.price * cartItem.items.length);
         });
@@ -59,7 +64,7 @@ export class CartService {
     prepareCartConfirmationData(cartResponse: CartResponse): CartConfirmationDataModel {
         const cartItems: CartItemDTO[] = cartResponse.cartItems;
         let totalPrice: number = 0;
-        cartItems.forEach((cartItem: CartItemDTO) => {
+        cartItems.forEach((cartItem: CartItemDTO): void => {
             totalPrice = totalPrice + (cartItem.price * cartItem.items.length);
         });
         return {
@@ -97,7 +102,7 @@ export class CartService {
                             return this.httpService.postSendPaymentTransactionSuccessEmail(cartConfirmationDTO);
                         }
                     )).subscribe({
-                        next: next => {
+                        next: (next: SimpleResponse): void => {
                             this.snackbarService.openSnackBar(next.message);
                         },
                         error: err => {
@@ -111,7 +116,7 @@ export class CartService {
 
     private isItemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase(cartItems: CartItemDTO[]) {
         let itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase: boolean = true;
-        cartItems.forEach((cartItem: CartItemDTO) => {
+        cartItems.forEach((cartItem: CartItemDTO): void => {
             const amountOfItemsToBePurchased: number = cartItem.items.length;
             const itemsAvailableForPurchase: number = cartItem.items[0].quantity;
             if (amountOfItemsToBePurchased >= itemsAvailableForPurchase) {
@@ -129,7 +134,7 @@ export class CartService {
 
     prepareAllAddressesForBuyer(addressResponse: GetAddressesResponse): AddressDTO[] {
         return addressResponse.addresses
-            .sort((address1: AddressDTO, address2: AddressDTO) =>
+            .sort((address1: AddressDTO, address2: AddressDTO): number =>
                 address1.addressId > address2.addressId ? 1 : -1);
     }
 }

@@ -7,6 +7,8 @@ import {ComplaintChatMessageDTO, UserDTO} from "../../../shared/models/dto.model
 import {formatDate, sortArrayByDateDesc} from 'src/app/shared/utils';
 import {StorageService} from "../../../core/service/storage.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
+import {ComplaintChatMessageResponse, ComplaintResponse} from "../../../shared/models/rest.models";
+import {UserModel} from "../../../shared/models/data.models";
 
 @Component({
     selector: 'app-complaints-chat',
@@ -17,7 +19,7 @@ export class ComplaintsChatComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     complaintId: string;
     complaintChatMessages: ComplaintChatMessageDTO[] = [];
-    currentUser;
+    currentUser: UserModel;
     currentUserEqualsBuyer: boolean;
     complaintStatus: string;
 
@@ -53,10 +55,10 @@ export class ComplaintsChatComponent implements OnDestroy {
                     }
                 )
             ).subscribe(({
-                next: next => {
+                next: (next: ComplaintChatMessageResponse | null): void => {
                     if (!this.currentUser
                         || (!this.currentUserEqualsBuyer && !this.currentUser.roles.includes('EMPLOYEE'))
-                    || next === null) {
+                        || next === null) {
                         this.router.navigate(['/']);
                     } else {
                         this.complaintChatMessages = sortArrayByDateDesc(next.complaintChatMessages);
@@ -69,7 +71,7 @@ export class ComplaintsChatComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
     formatDate(createdDate: Date): string {
@@ -85,7 +87,7 @@ export class ComplaintsChatComponent implements OnDestroy {
         this.allSubscriptions.push(
             this.httpService.postCloseComplaint(this.complaintId)
                 .subscribe({
-                    next: next => {
+                    next: (next: ComplaintResponse): void => {
                         this.complaintStatus = next.complaints[0].complaintStatus;
                         this.snackbarService.openSnackBar(next.message);
                     },

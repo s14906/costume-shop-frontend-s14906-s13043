@@ -2,9 +2,10 @@ import {Component, OnDestroy} from '@angular/core';
 import {Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http/http.service";
 import {ItemDTO} from "../../../shared/models/dto.models";
-import {ItemSizeModel} from "../../../shared/models/data.models";
+import {ItemSizeModel, UserModel} from "../../../shared/models/data.models";
 import {Router} from "@angular/router";
 import {StorageService} from "../../../core/service/storage.service";
+import {ItemResponse} from "../../../shared/models/rest.models";
 
 @Component({
     selector: 'app-item-list',
@@ -15,7 +16,7 @@ export class ItemListComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     allItems: ItemDTO[] = [];
     allItemSizes: ItemSizeModel[] = [];
-    currentUser;
+    currentUser: UserModel;
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -28,7 +29,7 @@ export class ItemListComponent implements OnDestroy {
         this.allSubscriptions.push(
             this.httpService.getAllItems()
                 .subscribe({
-                    next: next => {
+                    next: (next: ItemResponse): void => {
                         this.allItems = next.items;
                         this.allItemSizes = next.itemSizes;
                     }
@@ -37,10 +38,10 @@ export class ItemListComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
-    navigateToEditItem(item: ItemDTO) {
+    navigateToEditItem(item: ItemDTO): void {
         console.log(item);
         this.router.navigate(['/items/edit'], {
             queryParams: {
@@ -49,7 +50,7 @@ export class ItemListComponent implements OnDestroy {
         });
     }
 
-    navigateToAddItem() {
+    navigateToAddItem(): void {
         this.router.navigate(['/items/add']);
 
     }

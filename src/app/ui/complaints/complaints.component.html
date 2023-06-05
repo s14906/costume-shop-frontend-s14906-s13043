@@ -35,7 +35,7 @@
       <ng-container matColumnDef="actions">
         <th class = "font-container" mat-header-cell *matHeaderCellDef> Actions </th>
         <td class="card" mat-cell *matCellDef="let complaint">
-          <button class="button" *ngIf="this.loggedUser.id !== complaint.employeeId" (click)="assignToEmployee(complaint)">Assign to me</button>
+          <button class="button" *ngIf="this.currentUser.id !== complaint.employeeId" (click)="assignToEmployee(complaint)">Assign to me</button>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

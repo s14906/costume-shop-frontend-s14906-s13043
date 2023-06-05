@@ -18,18 +18,18 @@ export class SnackbarService {
         }
     }
 
-    displayNextSnackbar() {
+    displayNextSnackbar(): void {
         const snackbarMessage = this.snackbarQueue[0];
         this.snackbar.open(snackbarMessage, 'Close', {
             duration: 3000,
             verticalPosition: 'bottom',
             horizontalPosition: 'center'
-        }).afterDismissed().subscribe(() => {
+        }).afterDismissed().subscribe((): void => {
             this.removeSnackbarFromQueue();
         });
     }
 
-    removeSnackbarFromQueue() {
+    removeSnackbarFromQueue(): void {
         this.snackbarQueue.shift();
         if (this.snackbarQueue.length > 0) {
             this.displayNextSnackbar();

@@ -3,61 +3,61 @@ import {StorageService} from "../../../core/service/storage.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 import {ImageUploadService} from "../../../core/service/image/image-upload.service";
-import {ImageUploadModel} from "../../../shared/models/data.models";
+import {ImageUploadModel, UserModel} from "../../../shared/models/data.models";
 import {MessagingService} from "../../../core/service/messaging.service";
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+    selector: 'app-chat',
+    templateUrl: './chat.component.html',
+    styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnDestroy {
-  private allSubscriptions: Subscription[] = [];
+    private allSubscriptions: Subscription[] = [];
 
-  chatImagesBase64: string[] = [];
-  fileInvalid: boolean = false;
-  @ViewChild('fileInput') fileInput!: ElementRef;
-  @ViewChild('chatTextarea') chatTextarea!: ElementRef;
+    chatImagesBase64: string[] = [];
+    fileInvalid: boolean = false;
+    @ViewChild('fileInput') fileInput!: ElementRef;
+    @ViewChild('chatTextarea') chatTextarea!: ElementRef;
 
-  complaintId: string;
-  currentUser;
-  orderId: string;
+    complaintId: string;
+    currentUser: UserModel;
+    orderId: string;
 
-  constructor(private storageService: StorageService,
-              private imageUploadService: ImageUploadService,
-              private route: ActivatedRoute,
-              private messagingService: MessagingService) {
-    this.currentUser = this.storageService.getUser();
+    constructor(private storageService: StorageService,
+                private imageUploadService: ImageUploadService,
+                private route: ActivatedRoute,
+                private messagingService: MessagingService) {
+        this.currentUser = this.storageService.getUser();
 
-    this.allSubscriptions.push(
-      this.route.queryParams.subscribe((queryParam: Params) => {
-      this.complaintId = queryParam['complaintId'];
-        this.orderId = queryParam['orderId'];
-    }));
-  }
-
-  sendMessage(): void {
-    this.messagingService.sendMessage(this.fileInvalid, this.chatTextarea, this.complaintId, this.allSubscriptions,
-        this.orderId, this.chatImagesBase64);
-  }
-
-  onFileSelected($event: any) {
-    const imageUploadModel: ImageUploadModel = {
-      fileInvalid: this.fileInvalid,
-      itemImagesBase64: this.chatImagesBase64
+        this.allSubscriptions.push(
+            this.route.queryParams.subscribe((queryParam: Params): void => {
+                this.complaintId = queryParam['complaintId'];
+                this.orderId = queryParam['orderId'];
+            }));
     }
-    this.imageUploadService.onFileSelected($event, imageUploadModel);
-  }
 
-  uploadImage(): void {
-    this.imageUploadService.uploadImage(this.fileInput);
-  }
+    sendMessage(): void {
+        this.messagingService.sendMessage(this.fileInvalid, this.chatTextarea, this.complaintId, this.allSubscriptions,
+            this.orderId, this.chatImagesBase64);
+    }
 
-  ngOnDestroy(): void {
-    this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
-  }
+    onFileSelected($event: any): void {
+        const imageUploadModel: ImageUploadModel = {
+            fileInvalid: this.fileInvalid,
+            itemImagesBase64: this.chatImagesBase64
+        }
+        this.imageUploadService.onFileSelected($event, imageUploadModel);
+    }
 
-  removeImages(): void {
-    this.chatImagesBase64 = [];
-  }
+    uploadImage(): void {
+        this.imageUploadService.uploadImage(this.fileInput);
+    }
+
+    ngOnDestroy(): void {
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    }
+
+    removeImages(): void {
+        this.chatImagesBase64 = [];
+    }
 }

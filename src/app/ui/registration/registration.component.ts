@@ -11,7 +11,6 @@ import {AccountService} from "../../core/service/account.service";
 })
 export class RegistrationComponent implements OnDestroy {
     registrationForm: FormGroup;
-
     allSubscriptions: Subscription[] = [];
 
     constructor(private formBuilder: FormBuilder,
@@ -35,10 +34,10 @@ export class RegistrationComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
-    onSubmitRegistrationForm() {
+    onSubmitRegistrationForm(): void {
         this.accountService.registerUser(this.registrationForm, this.allSubscriptions);
     }
 }

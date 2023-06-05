@@ -6,6 +6,8 @@ import {HttpService} from "../../../core/service/http/http.service";
 import {SnackbarService} from "../../../core/service/snackbar.service";
 import {ItemDTO} from "../../../shared/models/dto.models";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
+import {ItemResponse} from "../../../shared/models/rest.models";
+import {UserModel} from "../../../shared/models/data.models";
 
 @Component({
     selector: 'app-payment-success',
@@ -15,7 +17,7 @@ import {HttpErrorService} from "../../../core/service/http/http-error.service";
 export class PaymentSuccessComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     paymentTransactionId: number;
-    currentUser;
+    currentUser: UserModel;
     items: ItemDTO[] = [];
 
     constructor(private route: ActivatedRoute,
@@ -27,14 +29,14 @@ export class PaymentSuccessComponent implements OnDestroy {
         this.currentUser = this.storageService.getUser();
         this.allSubscriptions.push(
             this.route.queryParams.pipe(
-                switchMap( (queryParam: Params) => {
-                this.paymentTransactionId = queryParam['paymentTransactionId'];
-                if (!this.paymentTransactionId) {
-                    this.router.navigate(['/']);
-                }
-                return this.httpService.getItemsByPaymentTransactionId(this.paymentTransactionId);
-            })).subscribe({
-                next: next => {
+                switchMap((queryParam: Params) => {
+                    this.paymentTransactionId = queryParam['paymentTransactionId'];
+                    if (!this.paymentTransactionId) {
+                        this.router.navigate(['/']);
+                    }
+                    return this.httpService.getItemsByPaymentTransactionId(this.paymentTransactionId);
+                })).subscribe({
+                next: (next: ItemResponse): void => {
                     if (!next.items || next.items.length === 0) {
                         this.router.navigate(['/']).then((navigated: boolean) => {
                             if (navigated) {
@@ -54,7 +56,7 @@ export class PaymentSuccessComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
 }

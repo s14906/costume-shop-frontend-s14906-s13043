@@ -6,10 +6,11 @@ import {ItemCategoryDTO, ItemDTO, ItemImageDTO, ItemSetDTO} from "../../../../sh
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FormValidationService} from "../../../../core/service/form/form-validation.service";
 import {ImageUploadService} from "../../../../core/service/image/image-upload.service";
-import {ImageUploadModel} from "../../../../shared/models/data.models";
+import {ImageUploadModel, UserModel} from "../../../../shared/models/data.models";
 import {HttpErrorService} from "../../../../core/service/http/http-error.service";
 import {StorageService} from "../../../../core/service/storage.service";
 import {ItemService} from "../../../../core/service/item.service";
+import {ItemResponse} from "../../../../shared/models/rest.models";
 
 @Component({
     selector: 'app-item-edit',
@@ -25,7 +26,7 @@ export class ItemEditComponent implements OnDestroy {
     fileInvalid: boolean = false;
     noImageUploaded: boolean = false;
     itemImagesBase64: string[] = [];
-    currentUser;
+    currentUser: UserModel;
     itemCategories: ItemCategoryDTO[] = [];
     itemSets: ItemSetDTO[] = [];
 
@@ -67,7 +68,7 @@ export class ItemEditComponent implements OnDestroy {
                     }
                 })
             ).subscribe({
-                    next: next => {
+                    next: (next: ItemResponse | null): void => {
                         if (next === null) {
                             this.router.navigate(['/']);
                         } else {
@@ -82,7 +83,7 @@ export class ItemEditComponent implements OnDestroy {
                                     itemSet: this.item.itemSet
                                 });
                                 next.items[0].itemImages
-                                    .forEach((itemImage: ItemImageDTO) => {
+                                    .forEach((itemImage: ItemImageDTO): void => {
                                         this.itemImagesBase64.push(itemImage.imageBase64);
                                     });
                             }
@@ -111,7 +112,7 @@ export class ItemEditComponent implements OnDestroy {
         this.allSubscriptions.push(
             this.httpService.getAllItemSets()
                 .subscribe({
-                    next: next => {
+                    next: (next: ItemResponse): void => {
                         this.itemSets = next.itemSets
                     },
                     error: err => {
@@ -122,10 +123,10 @@ export class ItemEditComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
-    onSubmitItemForm() {
+    onSubmitItemForm(): void {
         if (!this.fileInvalid && this.itemImagesBase64.length > 0
             && this.formValidationService.isFormValid(this.itemForm)) {
             this.noImageUploaded = false;
@@ -137,11 +138,11 @@ export class ItemEditComponent implements OnDestroy {
         }
     }
 
-    uploadImage() {
+    uploadImage(): void {
         this.imageUploadService.uploadImage(this.fileInput);
     }
 
-    onFileSelected($event: any) {
+    onFileSelected($event: any): void {
         const imageUploadModel: ImageUploadModel = {
             fileInvalid: this.fileInvalid,
             itemImagesBase64: this.itemImagesBase64
@@ -150,11 +151,11 @@ export class ItemEditComponent implements OnDestroy {
         this.fileInvalid = imageUploadModel.fileInvalid;
     }
 
-    removeImages() {
+    removeImages(): void {
         this.itemImagesBase64 = [];
     }
 
-    setItemVisible() {
+    setItemVisible(): void {
         if (this.item) {
             if (this.item.visible === 1) {
                 this.item.visible = 0;

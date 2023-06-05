@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpService} from "../../core/service/http/http.service";
-import {Subscription, switchMap} from "rxjs";
+import {Observable, Subscription, switchMap} from "rxjs";
 import {HttpErrorService} from "../../core/service/http/http-error.service";
 import {ItemDTO} from "../../shared/models/dto.models";
 import {ActivatedRoute, Params} from "@angular/router";
+import {ItemResponse} from "../../shared/models/rest.models";
 
 @Component({
     selector: 'app-home',
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.allSubscriptions.push(
             this.route.queryParams.pipe(
-                switchMap((queryParams: Params) => {
+                switchMap((queryParams: Params): Observable<ItemResponse> => {
                     const searchText: string = queryParams['searchText'];
                     const category: string = queryParams['category'];
                     this.items = [];
@@ -42,8 +43,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                     }
                 })).subscribe(
                 {
-                    next: next =>
-                        next.items.forEach((item: ItemDTO) => {
+                    next: (next: ItemResponse) =>
+                        next.items.forEach((item: ItemDTO): void => {
                             if (item.visible && item.quantity > 0) {
                                 this.items.push(item)
                             }
@@ -57,6 +58,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 }

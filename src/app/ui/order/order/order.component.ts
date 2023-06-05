@@ -4,8 +4,10 @@ import {StorageService} from "../../../core/service/storage.service";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {Subscription} from "rxjs";
 import {OrderDTO} from "../../../shared/models/dto.models";
-import { formatDate } from 'src/app/shared/utils';
+import {formatDate} from 'src/app/shared/utils';
 import {Router} from "@angular/router";
+import {OrderResponse} from "../../../shared/models/rest.models";
+import {UserModel} from "../../../shared/models/data.models";
 
 @Component({
     selector: 'app-order',
@@ -14,7 +16,7 @@ import {Router} from "@angular/router";
 })
 export class OrderComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
-    private currentUser;
+    private currentUser: UserModel;
     currentPage: number = 0;
     itemsPerPage: number = 10;
     orders: OrderDTO[] = [];
@@ -28,37 +30,37 @@ export class OrderComponent implements OnDestroy {
         this.currentUser = this.storageService.getUser();
 
         if (this.currentUser.roles.includes('EMPLOYEE') && this.router.url.includes('orders/all')) {
-          this.allSubscriptions.push(
-            this.httpService.getAllOrders()
-              .subscribe({
-                next: next => {
-                  this.orders = next.orders;
-                  this.pageTitle = 'ALL ORDERS';
-                },
-                error: err => {
-                  this.httpErrorService.handleError(err);
-                }
-              })
-          );
+            this.allSubscriptions.push(
+                this.httpService.getAllOrders()
+                    .subscribe({
+                        next: (next: OrderResponse): void => {
+                            this.orders = next.orders;
+                            this.pageTitle = 'ALL ORDERS';
+                        },
+                        error: err => {
+                            this.httpErrorService.handleError(err);
+                        }
+                    })
+            );
         } else {
-          this.allSubscriptions.push(
-            this.httpService.getAllOrdersForUser(this.currentUser.id)
-              .subscribe({
-                next: next => {
-                  this.orders = next.orders;
-                  this.pageTitle = 'YOUR ORDERS';
-                },
-                error: err => {
-                  this.httpErrorService.handleError(err);
-                }
-              })
-          );
+            this.allSubscriptions.push(
+                this.httpService.getAllOrdersForUser(this.currentUser.id)
+                    .subscribe({
+                        next: (next: OrderResponse): void => {
+                            this.orders = next.orders;
+                            this.pageTitle = 'YOUR ORDERS';
+                        },
+                        error: err => {
+                            this.httpErrorService.handleError(err);
+                        }
+                    })
+            );
         }
 
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
     formatDate(createdDate: Date | undefined): string {
@@ -68,20 +70,21 @@ export class OrderComponent implements OnDestroy {
         return '';
     }
 
-    navigateToDetails(order: OrderDTO) {
+    navigateToDetails(order: OrderDTO): void {
         this.router.navigate(['orders/details'], {
             queryParams: {
                 orderId: order.orderId
             }
         });
     }
-  get paginatedOrders() {
-    const begin = this.currentPage * this.itemsPerPage;
-    const end = begin + this.itemsPerPage;
-    return this.orders.slice(begin, end);
-  }
 
-  noOrders() {
-    return this.orders.length === 0;
-  }
+    get paginatedOrders() {
+        const begin = this.currentPage * this.itemsPerPage;
+        const end = begin + this.itemsPerPage;
+        return this.orders.slice(begin, end);
+    }
+
+    isNoOrders(): boolean {
+        return this.orders.length === 0;
+    }
 }

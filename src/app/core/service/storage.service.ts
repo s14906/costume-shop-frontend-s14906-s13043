@@ -32,9 +32,9 @@ export class StorageService {
   }
 
   public getUser(): any {
-    const userKey = localStorage.getItem(USER_KEY);
-    if (userKey)
-      return JSON.parse(userKey);
+    const userValue: string | null = localStorage.getItem(USER_KEY);
+    if (userValue)
+      return JSON.parse(userValue);
   }
 
   public getUserRoles(): Observable<string[]> {

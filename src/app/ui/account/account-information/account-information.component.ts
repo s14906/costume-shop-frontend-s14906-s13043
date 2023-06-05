@@ -1,12 +1,13 @@
-import {Component, HostListener, OnDestroy} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {StorageService} from "../../../core/service/storage.service";
-import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from "@angular/forms";
-import {Observable, of, Subscription} from "rxjs";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Subscription} from "rxjs";
 import {HttpService} from "../../../core/service/http/http.service";
-import { UserModel} from "../../../shared/models/data.models";
+import {UserModel} from "../../../shared/models/data.models";
 import {FormValidationService} from "../../../core/service/form/form-validation.service";
 import {AddressDTO} from "../../../shared/models/dto.models";
 import {AccountService} from "../../../core/service/account.service";
+import {GetAddressesResponse} from "../../../shared/models/rest.models";
 
 @Component({
     selector: 'app-account-information',
@@ -19,7 +20,7 @@ export class AccountInformationComponent implements OnDestroy {
     allSubscriptions: Subscription[] = [];
     columnNumber: number = 0;
     password: string;
-    user: UserModel;
+    currentUser: UserModel;
     addresses: AddressDTO[] = [];
 
     constructor(private storageService: StorageService,
@@ -28,13 +29,13 @@ export class AccountInformationComponent implements OnDestroy {
                 private formValidationService: FormValidationService,
                 private accountService: AccountService) {
         this.setGridColumnNumber();
-        this.user = this.storageService.getUser();
+        this.currentUser = this.storageService.getUser();
 
         this.addAddressForm = this.formBuilder.group({
-                street: ['', Validators.required, this.validateField],
-                flatNumber: ['', Validators.required, this.validateField],
-                postalCode: ['', Validators.required, this.validateField],
-                city: ['', Validators.required, this.validateField]
+                street: ['', Validators.required, this.formValidationService.validateField],
+                flatNumber: ['', Validators.required, this.formValidationService.validateField],
+                postalCode: ['', Validators.required, this.formValidationService.validateField],
+                city: ['', Validators.required, this.formValidationService.validateField]
             },
             {updateOn: "submit"}
         );
@@ -47,41 +48,28 @@ export class AccountInformationComponent implements OnDestroy {
         );
 
         this.allSubscriptions.push(
-            this.httpService.getAddressesForUser(this.user.id)
-                .subscribe(response => this.addresses = response.addresses));
+            this.httpService.getAddressesForUser(this.currentUser.id)
+                .subscribe((response: GetAddressesResponse) => this.addresses = response.addresses));
     }
 
-    @HostListener('window:resize', ['$event'])
-    onResize() {
-        this.setGridColumnNumber()
+    onSubmitAddAddress(): void {
+        this.accountService.addAddress(this.addAddressForm, this.currentUser, this.allSubscriptions);
     }
 
-    validateField(control: AbstractControl): Observable<ValidationErrors | null> {
-        if (control?.value === '') {
-            return of({invalid: true})
-        } else {
-            return of(null);
-        }
-    }
-
-    onSubmitAddAddress() {
-        this.accountService.addAddress(this.addAddressForm, this.user, this.allSubscriptions);
-    }
-
-    onSubmitChangePassword() {
-        this.accountService.changePassword(this.changePasswordForm, this.user);
+    onSubmitChangePassword(): void {
+        this.accountService.changePassword(this.changePasswordForm, this.currentUser);
 
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
-    removeAddress(addressId: number) {
+    removeAddress(addressId: number): void {
         this.accountService.removeAddress(addressId, this.allSubscriptions);
     }
 
-    private setGridColumnNumber() {
+    private setGridColumnNumber(): void {
         if (window.innerWidth < 960) {
             this.columnNumber = 1;
         } else {

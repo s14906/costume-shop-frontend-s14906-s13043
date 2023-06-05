@@ -8,7 +8,7 @@ import {
 import {CartService} from "../../../core/service/cart.service";
 import {HttpService} from "../../../core/service/http/http.service";
 import {CartResponse, GetAddressesResponse} from "../../../shared/models/rest.models";
-import {CartConfirmationDataModel} from "../../../shared/models/data.models";
+import {CartConfirmationDataModel, UserModel} from "../../../shared/models/data.models";
 import {Router} from "@angular/router";
 
 @Component({
@@ -19,7 +19,7 @@ import {Router} from "@angular/router";
 export class CartConfirmationComponent implements OnDestroy {
     private allSubscriptions: Subscription[] = [];
     allAddresses: AddressDTO[] = [];
-    currentUser;
+    currentUser: UserModel;
     totalPrice: number = 0;
     @ViewChild('notesTextarea') notesTextarea!: ElementRef;
     private selectedAddress: AddressDTO;
@@ -45,7 +45,7 @@ export class CartConfirmationComponent implements OnDestroy {
                             return this.httpService.getAddressesForUser(this.currentUser.id);
                         }
                     }))
-                .subscribe((addressResponse: GetAddressesResponse | null) => {
+                .subscribe((addressResponse: GetAddressesResponse | null): void => {
                     if (addressResponse === null) {
                         this.router.navigate(['/']);
                     } else {
@@ -55,7 +55,7 @@ export class CartConfirmationComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
     fillNotesForSelectedAddress(address: AddressDTO): void {

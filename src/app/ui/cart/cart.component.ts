@@ -4,9 +4,10 @@ import {StorageService} from "../../core/service/storage.service";
 import {CartItemDTO} from "../../shared/models/dto.models";
 import {Router} from "@angular/router";
 import {CartService} from "../../core/service/cart.service";
-import {CartDataModel} from "../../shared/models/data.models";
+import {CartDataModel, UserModel} from "../../shared/models/data.models";
 import {HttpService} from "../../core/service/http/http.service";
 import {HttpErrorService} from "../../core/service/http/http-error.service";
+import {CartResponse} from "../../shared/models/rest.models";
 
 @Component({
     selector: 'app-cart',
@@ -18,7 +19,7 @@ export class CartComponent implements OnDestroy {
     cartItems: CartItemDTO[] = [];
     totalPrice: number = 0;
     priceTimesItemCount: number[] = [];
-    currentUser;
+    currentUser: UserModel;
 
     constructor(private storageService: StorageService,
                 private cartService: CartService,
@@ -30,7 +31,7 @@ export class CartComponent implements OnDestroy {
         this.allSubscriptions.push(
             this.httpService.getCartByUserId(this.storageService.getUser().id)
                 .subscribe({
-                    next: next => {
+                    next: (next: CartResponse): void => {
                         const cartData: CartDataModel = this.cartService.prepareCartData(next);
                         this.cartItems = cartData.cartItems;
                         this.priceTimesItemCount = cartData.priceTimesItemCount;
@@ -44,7 +45,7 @@ export class CartComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
     navigateToCartConfirmation(): void {

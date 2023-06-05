@@ -7,12 +7,14 @@ import {Subscription} from "rxjs";
 import {HttpErrorService} from "./http/http-error.service";
 import {ComplaintResponse} from "../../shared/models/rest.models";
 import {Router} from "@angular/router";
+import {UserModel} from "../../shared/models/data.models";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MessagingService {
-    currentUser;
+    currentUser: UserModel;
+
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
                 private snackbarService: SnackbarService,
@@ -40,7 +42,7 @@ export class MessagingService {
     }
 
     public sendMessage(fileInvalid: boolean, chatTextarea: ElementRef, complaintId: string,
-                       allSubscriptions: Subscription[], orderId: string, chatImagesBase64: string[]) {
+                       allSubscriptions: Subscription[], orderId: string, chatImagesBase64: string[]): void {
         if (!fileInvalid) {
             const chatMessage: string = chatTextarea.nativeElement.value;
             if (chatMessage.length > 10 && chatMessage.length < 1000) {
@@ -77,7 +79,7 @@ export class MessagingService {
         };
     }
 
-    private refreshOrRedirectPage(createNewComplaintResponse: ComplaintResponse, myComplaintId: number) {
+    private refreshOrRedirectPage(createNewComplaintResponse: ComplaintResponse, myComplaintId: number): void {
         const finalComplaintId = createNewComplaintResponse.complaintId ?
             createNewComplaintResponse.complaintId : myComplaintId;
         const url: string = this.router.url;
@@ -93,7 +95,7 @@ export class MessagingService {
                 });
             });
         } else {
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            this.router.navigateByUrl('/', {skipLocationChange: true}).then((): void => {
                 this.router.navigate(['complaints/chat'], {
                     queryParams: {
                         complaintId: finalComplaintId

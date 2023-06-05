@@ -7,6 +7,7 @@ import {SnackbarService} from "../../../core/service/snackbar.service";
 import {HttpErrorService} from "../../../core/service/http/http-error.service";
 import {ItemDTO, ItemImageDTO} from "../../../shared/models/dto.models";
 import {ItemService} from "../../../core/service/item.service";
+import {ItemResponse} from "../../../shared/models/rest.models";
 
 @Component({
     selector: 'app-item-details',
@@ -41,7 +42,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                         this.item = next.items[0];
                         this.currentImageBase64 = this.getImage();
                         if (!this.item) {
-                            this.router.navigate(['/']).then((navigated: boolean) => {
+                            this.router.navigate(['/']).then((navigated: boolean): void => {
                                 if (navigated) {
                                     this.snackbarService.openSnackBar('Could not find item with this ID.');
                                 }
@@ -55,9 +56,9 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                 })));
         this.allSubscriptions.push(
             this.httpService.getAllItemSizes()
-                .subscribe(itemResponse => {
-                    itemResponse.itemSizes.forEach(itemSize => this.itemSizes.push(itemSize));
-                    this.selectedItemSize = itemResponse.itemSizes[0].size;
+                .subscribe((next: ItemResponse): void => {
+                    next.itemSizes.forEach(itemSize => this.itemSizes.push(itemSize));
+                    this.selectedItemSize = next.itemSizes[0].size;
                 })
         );
     }
@@ -74,7 +75,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.allSubscriptions.forEach(subscription => subscription.unsubscribe());
+        this.allSubscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     }
 
     addToCart(): void {

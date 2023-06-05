@@ -10,6 +10,7 @@ import {Subscription} from "rxjs";
 import {AuthService} from "./auth/auth.service";
 import {StorageService} from "./storage.service";
 import {AddressDTO} from "../../shared/models/dto.models";
+import {SimpleResponse, UserResponse} from "../../shared/models/rest.models";
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,7 @@ export class AccountService {
                 private router: Router) {
     }
 
-    addAddress(addAddressForm: FormGroup, user: UserModel, allSubscriptions: Subscription[]) {
+    addAddress(addAddressForm: FormGroup, user: UserModel, allSubscriptions: Subscription[]): void {
         if (this.formValidationService.isFormValid(addAddressForm)) {
             allSubscriptions.push(
                 this.httpService.postAddAddress({
@@ -38,7 +39,7 @@ export class AccountService {
                 }).subscribe({
                     next: next => {
                         this.snackbarService.openSnackBar(next.message);
-                        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+                        this.router.navigateByUrl('/', {skipLocationChange: true}).then((): void => {
                             this.router.navigate(['account']);
                         });
                     },
@@ -49,7 +50,7 @@ export class AccountService {
         }
     }
 
-    changePassword(changePasswordForm: FormGroup, user: UserModel) {
+    changePassword(changePasswordForm: FormGroup, user: UserModel): void {
         if (this.formValidationService.isFormValid(changePasswordForm)) {
             this.httpService.postChangePassword(user.id,
                 this.formValidationService.getFieldValue(changePasswordForm, 'password'))
@@ -64,10 +65,10 @@ export class AccountService {
         }
     }
 
-    removeAddress(addressId: number, allSubscriptions: Subscription[]) {
+    removeAddress(addressId: number, allSubscriptions: Subscription[]): void {
         allSubscriptions.push(
             this.httpService.postRemoveAddress(addressId).subscribe({
-                next: next => {
+                next: (next: SimpleResponse): void => {
                     this.snackbarService.openSnackBar(next.message);
                     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
                         this.router.navigate(['account']);
@@ -79,15 +80,14 @@ export class AccountService {
             }));
     }
 
-    logUserIn(email: string, password: string) {
+    logUserIn(email: string, password: string): void {
         this.authService.login(email, password).subscribe({
-            next: next => {
+            next: (next: UserResponse): void => {
                 if (next.user.token) {
                     this.storageService.saveToken(next.user.token);
                     this.storageService.saveUser(next.user);
                 }
 
-                // this.roles = this.storageService.getUser().roles;
                 this.snackbarService.openSnackBar(next.message);
                 this.router.navigate(['/']);
             },
@@ -97,7 +97,7 @@ export class AccountService {
         });
     }
 
-    registerUser(registrationForm: FormGroup, allSubscriptions: Subscription[]) {
+    registerUser(registrationForm: FormGroup, allSubscriptions: Subscription[]): void {
         if (this.formValidationService.isFormValid(registrationForm)) {
             const address: AddressDTO = {
                 addressId: 0,
@@ -116,7 +116,7 @@ export class AccountService {
                     address: address,
                     phone: this.formValidationService.getFieldValue(registrationForm, 'phone')
                 }).subscribe({
-                    next: next => {
+                    next: (next: SimpleResponse): void => {
                         this.snackbarService.openSnackBar(next.message);
                         this.router.navigate(['/registration-success']);
                     },
