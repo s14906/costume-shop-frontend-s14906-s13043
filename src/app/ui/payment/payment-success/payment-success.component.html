@@ -1,8 +1,3 @@
-<h2 class="text-center">Payment success!</h2>
-<div class="container">
-    <p class="text-center">Your payment has been created with an ID: {{paymentTransactionId}}.</p>
-    <p class="text-center">Check your email for more details.</p>
-</div>
 <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
     <div *ngIf="loading" class="loading-animation">
         <div class="spinner"></div>
@@ -10,7 +5,11 @@
 </ng-template>
 <ng-template #loadedBlock>
     <div class="container">
-        <h2 class="text-center">Items purchased:</h2>
+        <h2 class="text-big-left">Payment success!</h2>
+        <p class="text-center user-info font-container">Your payment has been proceed successfully with an ID: {{paymentTransactionId}}.
+            <br>Check your email for more details.</p>
+
+        <h2 class="text-big-left">Items purchased:</h2>
         <table class="table">
             <thead>
             <tr class="labels">
@@ -19,12 +18,6 @@
                 <th>Price</th>
             </tr>
             </thead>
-            <colgroup>
-                <col style="width: 10%">
-                <col style="width: 20%">
-                <col style="width: 25%">
-                <col style="width: 25%">
-            </colgroup>
             <tbody>
             <tr *ngFor="let item of items; index as i" class="card">
                 <td>{{ item.itemId }}</td>
