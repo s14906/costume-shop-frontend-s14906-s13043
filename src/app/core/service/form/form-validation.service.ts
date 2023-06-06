@@ -48,7 +48,7 @@ export class FormValidationService {
     const phoneNumberInput: string = phoneNumberControl?.value;
     const regex: RegExp = new RegExp(/^\d{3}-\d{3}-\d{3}$/);
 
-    if (phoneNumberInput === '' || regex.test(phoneNumberInput)) {
+    if (phoneNumberInput === '' || !regex.test(phoneNumberInput)) {
       return of({invalid: true})
     } else {
       return of(null);
