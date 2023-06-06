@@ -25,8 +25,9 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
     displayedColumns: string[] = ['complaintId', 'userName', 'status', 'employee', 'createdDate', 'actions'];
     dataSource = new MatTableDataSource<ComplaintDTO>(this.complaints);
     loading: boolean = true;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
