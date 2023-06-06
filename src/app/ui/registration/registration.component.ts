@@ -12,6 +12,7 @@ import {AccountService} from "../../core/service/account.service";
 export class RegistrationComponent implements OnDestroy {
     registrationForm: FormGroup;
     allSubscriptions: Subscription[] = [];
+    loading: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
                 private formValidationService: FormValidationService,
@@ -38,6 +39,7 @@ export class RegistrationComponent implements OnDestroy {
     }
 
     onSubmitRegistrationForm(): void {
-        this.accountService.registerUser(this.registrationForm, this.allSubscriptions);
+        this.loading = true;
+        this.loading = this.accountService.registerUser(this.registrationForm, this.allSubscriptions);
     }
 }

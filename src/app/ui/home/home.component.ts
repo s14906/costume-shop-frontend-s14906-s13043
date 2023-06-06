@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     items: ItemDTO[] = [];
     allSubscriptions: Subscription[] = [];
     isSearch: boolean = false;
+    loading: boolean = true;
 
     constructor(private httpService: HttpService,
                 private httpErrorService: HttpErrorService,
@@ -43,14 +44,17 @@ export class HomeComponent implements OnInit, OnDestroy {
                     }
                 })).subscribe(
                 {
-                    next: (next: ItemResponse) =>
+                    next: (next: ItemResponse) => {
                         next.items.forEach((item: ItemDTO): void => {
                             if (item.visible && item.quantity > 0) {
                                 this.items.push(item)
                             }
-                        }),
+                        })
+                        this.loading = false;
+                    },
                     error: err => {
                         this.httpErrorService.handleError(err);
+                        this.loading = false;
                     }
                 }
             )

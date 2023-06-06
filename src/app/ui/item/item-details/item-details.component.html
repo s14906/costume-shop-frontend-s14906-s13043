@@ -1,49 +1,57 @@
-<div class="container grid-container">
-  <div class="product-details title">
-  <div class="element card">
-    <h2 class="section-title">{{item?.title}}</h2>
-    <img class="card-img" (click)="changeImage()" [src]="this.currentImageBase64" [alt]="item?.title">
-    <p>Click on the image to view the next one</p>
-  </div>
-  <div>
-    <div class="element card text-left">
-      <h2 class="section-title">Details</h2>
-      <mat-grid-list cols="4" rowHeight="1.5:1" [gutterSize]="'2px'">
-        <mat-grid-tile><p >Price:</p></mat-grid-tile>
-        <mat-grid-tile><p>{{item?.price}} PLN</p></mat-grid-tile>
-        <mat-grid-tile><p>Size:</p></mat-grid-tile>
-        <mat-grid-tile>
-          <mat-form-field appearance="outline" class="option-form-field">
-            <mat-select [(ngModel)]="selectedItemSize">
-              <mat-option *ngFor="let itemSize of itemSizes" [value]="itemSize.size">
-                {{itemSize.size}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-grid-tile>
+<ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+        <div class="spinner"></div>
+    </div>
+</ng-template>
+<ng-template #loadedBlock>
+    <div class="container grid-container">
+        <div class="product-details title">
+            <div class="element card">
+                <h2 class="section-title">{{item?.title}}</h2>
+                <img class="card-img" (click)="changeImage()" [src]="this.currentImageBase64" [alt]="item?.title">
+                <p>Click on the image to view the next one</p>
+            </div>
+            <div>
+                <div class="element card text-left">
+                    <h2 class="section-title">Details</h2>
+                    <mat-grid-list cols="4" rowHeight="1.5:1" [gutterSize]="'2px'">
+                        <mat-grid-tile><p>Price:</p></mat-grid-tile>
+                        <mat-grid-tile><p>{{item?.price}} PLN</p></mat-grid-tile>
+                        <mat-grid-tile><p>Size:</p></mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field appearance="outline" class="option-form-field">
+                                <mat-select [(ngModel)]="selectedItemSize">
+                                    <mat-option *ngFor="let itemSize of itemSizes" [value]="itemSize.size">
+                                        {{itemSize.size}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </mat-grid-tile>
 
-        <mat-grid-tile><p>Amount:</p></mat-grid-tile>
-        <mat-grid-tile>
-          <mat-form-field appearance="outline" class="option-form-field">
-            <input [(ngModel)]="itemAmount"
-                   type="number"
-                   matInput
-                   [min]="1"
-                   [max]="10"
-                   (keydown)="clearInput()"
-                   value="1">
-          </mat-form-field>
-        </mat-grid-tile>
-        <br>
-        <mat-grid-tile class="border-top" [colspan]="4">
-          <a class="button" mat-stroked-button (click)="addToCart()">Add to cart</a>
-        </mat-grid-tile>
-      </mat-grid-list>
-      </div>
-    <div class="element card">
-      <h2 class="section-title">Description</h2>
-      <p>{{item?.description}}</p>
+                        <mat-grid-tile><p>Amount:</p></mat-grid-tile>
+                        <mat-grid-tile>
+                            <mat-form-field appearance="outline" class="option-form-field">
+                                <input [(ngModel)]="itemAmount"
+                                       type="number"
+                                       matInput
+                                       [min]="1"
+                                       [max]="10"
+                                       (keydown)="clearInput()"
+                                       value="1">
+                            </mat-form-field>
+                        </mat-grid-tile>
+                        <br>
+                        <mat-grid-tile class="border-top" [colspan]="4">
+                            <a class="button" mat-stroked-button (click)="addToCart()">Add to cart</a>
+                        </mat-grid-tile>
+                    </mat-grid-list>
+                </div>
+                <div class="element card">
+                    <h2 class="section-title">Description</h2>
+                    <p>{{item?.description}}</p>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-  </div>
-</div>
+
+</ng-template>

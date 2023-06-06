@@ -1,41 +1,55 @@
 <div class="container">
-  <h2 class="text-big-left"><span><b>Complaint ID: {{complaintId}}</b></span></h2>
-  <div class="card">
-    <p>Complaint status: <b>{{complaintStatus}}</b>&nbsp;&nbsp;&nbsp;
-    <button class="button" *ngIf="complaintStatus !== 'CLOSED'" (click)="closeComplaint()">Close complaint</button></p>
-  </div>
-  <div class="scroll-panel">
-    <ng-template [ngIf]="complaintChatMessages.length !== 0" [ngIfElse]="elseBlock">
-      <ul cdkListbox
-          cdkListboxUseActiveDescendant
-          class="listbox">
-        <li *ngFor="let complaintChatMessage of complaintChatMessages; index as i" class="card">
-          <div class="item-row">
-            <div class="column">
-              <ng-template [ngIf]="isMessageAuthorEmployee(complaintChatMessage)" [ngIfElse]="elseBlock">
-                <span class="employee-message"> Employeer: {{ complaintChatMessage.user.name }} {{ complaintChatMessage.user.surname }} &nbsp; &nbsp;
+    <h2 class="text-big-left"><span><b>Complaint ID: {{complaintId}}</b></span></h2>
+    <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+        <div *ngIf="loading" class="loading-animation">
+            <div class="spinner"></div>
+        </div>
+    </ng-template>
+    <ng-template #loadedBlock>
+        <div class="card">
+            <p>Complaint status: <b>{{complaintStatus}}</b>&nbsp;&nbsp;&nbsp;
+                <button class="button" *ngIf="complaintStatus !== 'CLOSED'" (click)="closeComplaint()">Close complaint
+                </button>
+            </p>
+        </div>
+        <div class="scroll-panel">
+            <ng-template [ngIf]="complaintChatMessages.length !== 0" [ngIfElse]="elseBlock">
+                <ul cdkListbox
+                    cdkListboxUseActiveDescendant
+                    class="listbox">
+                    <li *ngFor="let complaintChatMessage of complaintChatMessages; index as i" class="card">
+                        <div class="item-row">
+                            <div class="column">
+                                <ng-template [ngIf]="isMessageAuthorEmployee(complaintChatMessage)"
+                                             [ngIfElse]="elseBlock">
+                <span class="employee-message"> Employeer: {{ complaintChatMessage.user.name }} {{ complaintChatMessage.user.surname }}
+                    &nbsp; &nbsp;
                      Created date: {{ formatDate(complaintChatMessage.createdDate) }}</span>
-              </ng-template>
-              <ng-template #elseBlock>
-                <span class="user-message"> User: {{ complaintChatMessage.user.name }} {{ complaintChatMessage.user.surname }} &nbsp; &nbsp;
+                                </ng-template>
+                                <ng-template #elseBlock>
+                <span class="user-message"> User: {{ complaintChatMessage.user.name }} {{ complaintChatMessage.user.surname }}
+                    &nbsp; &nbsp;
                      Created date: {{ formatDate(complaintChatMessage.createdDate) }}</span>
-              </ng-template>
-            </div>
-            <div class="item-row">
+                                </ng-template>
+                            </div>
+                            <div class="item-row">
                 <span class="spam-text-chat">
                   {{complaintChatMessage.chatMessage}} &nbsp; &nbsp;
                 </span>
-              <span *ngFor="let chatImageBase64 of complaintChatMessage.chatImagesBase64">
+                                <span *ngFor="let chatImageBase64 of complaintChatMessage.chatImagesBase64">
                   <img [src]="chatImageBase64" (click)="openImage(chatImageBase64)">
                 </span>
-            </div>
-          </div>
-        </li>
-      </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </ng-template>
+            <ng-template #elseBlock>
+                <h2 class="text-center">No messages here so far. Start a new chat or wait for a message from
+                    someone!</h2>
+            </ng-template>
+        </div>
+        <app-chat *ngIf="complaintStatus !== 'CLOSED'"></app-chat>
     </ng-template>
-    <ng-template #elseBlock>
-      <h2 class="text-center">No messages here so far. Start a new chat or wait for a message from someone!</h2>
-    </ng-template>
-  </div>
-  <app-chat *ngIf="complaintStatus !== 'CLOSED'"></app-chat>
+
 </div>

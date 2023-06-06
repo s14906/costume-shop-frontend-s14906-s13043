@@ -24,7 +24,7 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
     currentUser: UserModel;
     displayedColumns: string[] = ['complaintId', 'userName', 'status', 'employee', 'createdDate', 'actions'];
     dataSource = new MatTableDataSource<ComplaintDTO>(this.complaints);
-
+    loading: boolean = true;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -44,9 +44,11 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
                     this.complaints = next.complaints;
                     this.dataSource.data = this.complaints;
                     this.dataSource.sort = this.sort;
+                    this.loading = false;
                 },
                 error: err => {
                     this.httpErrorService.handleError(err);
+                    this.loading = false;
                 }
             })
         );
@@ -74,6 +76,7 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
     }
 
     assignToEmployee(complaint: ComplaintDTO): void {
+        this.loading = true;
         this.allSubscriptions.push(
             this.httpService.postAssignComplaintToEmployee(this.currentUser.id, complaint.complaintId)
                 .subscribe({
@@ -83,9 +86,11 @@ export class ComplaintsComponent implements OnDestroy, OnInit {
                             this.router.navigate(['complaints']);
 
                         });
+                        this.loading = false;
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);
+                        this.loading = false;
                     }
                 })
         );

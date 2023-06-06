@@ -283,3 +283,30 @@ ul.listbox {
   background-color: #FFF;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+
+
+.loading-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.spinner {
+  width: 100px;
+  height: 100px;
+  border: 10px solid #ccc;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

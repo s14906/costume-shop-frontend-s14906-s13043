@@ -22,6 +22,7 @@ export class AccountInformationComponent implements OnDestroy {
     password: string;
     currentUser: UserModel;
     addresses: AddressDTO[] = [];
+    loading: boolean = true;
 
     constructor(private storageService: StorageService,
                 private formBuilder: FormBuilder,
@@ -49,7 +50,10 @@ export class AccountInformationComponent implements OnDestroy {
 
         this.allSubscriptions.push(
             this.httpService.getAddressesForUser(this.currentUser.id)
-                .subscribe((response: GetAddressesResponse) => this.addresses = response.addresses));
+                .subscribe((response: GetAddressesResponse): void => {
+                    this.addresses = response.addresses;
+                    this.loading = false;
+                }));
     }
 
     onSubmitAddAddress(): void {

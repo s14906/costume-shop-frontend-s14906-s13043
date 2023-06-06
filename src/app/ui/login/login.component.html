@@ -1,25 +1,35 @@
-<mat-card>
-  <mat-card-content class="labels">
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-      <h2 class="section-title">Log In</h2>
-      <mat-form-field class="mat-form-field" appearance="outline">
-        <mat-label>Email:</mat-label>
-        <input matInput class="reg-input" [(ngModel)]="email" name="email" required>
-        <mat-error>
-          Please provide a valid email address
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="mat-form-field" appearance="outline">
-        <mat-label>Password:</mat-label>
-        <input matInput class="reg-input" type="password" [(ngModel)]="password" name="password" required>
-        <mat-error>
-          Please provide a valid password
-        </mat-error>
-      </mat-form-field>
-      <div class="login-and-sign-up">
-        <button mat-raised-button type="submit" color="primary" class="button" [disabled]="!loginForm.form.valid">Login</button>
-        <a [routerLink]="'/registration'" class="sign-up-link">Don't have an account? Sign up!</a>
-      </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+<ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+        <div class="spinner"></div>
+    </div>
+</ng-template>
+<ng-template #loadedBlock>
+    <mat-card>
+        <mat-card-content class="labels">
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+                <h2 class="section-title">Log In</h2>
+                <mat-form-field class="mat-form-field" appearance="outline">
+                    <mat-label>Email:</mat-label>
+                    <input matInput class="reg-input" [(ngModel)]="email" name="email" required>
+                    <mat-error>
+                        Please provide a valid email address
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="mat-form-field" appearance="outline">
+                    <mat-label>Password:</mat-label>
+                    <input matInput class="reg-input" type="password" [(ngModel)]="password" name="password" required>
+                    <mat-error>
+                        Please provide a valid password
+                    </mat-error>
+                </mat-form-field>
+                <div class="login-and-sign-up">
+                    <button mat-raised-button type="submit" color="primary" class="button"
+                            [disabled]="!loginForm.form.valid">Login
+                    </button>
+                    <a [routerLink]="'/registration'" class="sign-up-link">Don't have an account? Sign up!</a>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+</ng-template>

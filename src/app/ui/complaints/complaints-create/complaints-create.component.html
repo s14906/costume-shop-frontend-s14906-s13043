@@ -1,28 +1,35 @@
 <div class="container">
   <h2 class="text-big-left"><span><b>Create complaint - Order ID: {{getOrderId()}}</b></span></h2>
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="itemId">
-      <th mat-header-cell *matHeaderCellDef> Item ID</th>
-      <td mat-cell *matCellDef="let item"> {{ item.itemId }} </td>
-    </ng-container>
+  <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+      <div class="spinner"></div>
+    </div>
+  </ng-template>
+  <ng-template #loadedBlock>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="itemId">
+        <th mat-header-cell *matHeaderCellDef> Item ID</th>
+        <td mat-cell *matCellDef="let item"> {{ item.itemId }} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Title</th>
-      <td mat-cell *matCellDef="let item"> {{ item.title }} </td>
-    </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title</th>
+        <td mat-cell *matCellDef="let item"> {{ item.title }} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef> Description</th>
-      <td mat-cell *matCellDef="let item"> {{ item.description }} </td>
-    </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description</th>
+        <td mat-cell *matCellDef="let item"> {{ item.description }} </td>
+      </ng-container>
 
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> Price</th>
-      <td mat-cell *matCellDef="let item"> {{ item.price }} PLN </td>
-    </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price</th>
+        <td mat-cell *matCellDef="let item"> {{ item.price }} PLN </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </ng-template>
   <app-chat></app-chat>
 </div>

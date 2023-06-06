@@ -1,47 +1,59 @@
 <script src="../../app.module.ts"></script>
 <div class="container">
-  <h2 class="text-big-left"><span><b>COMPLAINTS</b></span></h2>
-  <div class="main-card">
-    <table mat-table [dataSource]="dataSource" matSort>
-      <ng-container matColumnDef="complaintId">
-        <th class = "font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Complaint ID </th>
-        <td class = "card font-container" mat-cell *matCellDef="let complaint"> {{ complaint.complaintId }} </td>
-      </ng-container>
+    <h2 class="text-big-left"><span><b>COMPLAINTS</b></span></h2>
+    <div class="main-card">
+        <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+            <div *ngIf="loading" class="loading-animation">
+                <div class="spinner"></div>
+            </div>
+        </ng-template>
+        <ng-template #loadedBlock>
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="complaintId">
+                    <th class="font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Complaint ID</th>
+                    <td class="card font-container" mat-cell
+                        *matCellDef="let complaint"> {{ complaint.complaintId }} </td>
+                </ng-container>
 
-      <ng-container matColumnDef="userName">
-        <th class = "font-container" mat-header-cell *matHeaderCellDef mat-sort-header> User </th>
-        <td class = "card font-container" mat-cell *matCellDef="let complaint"> {{ complaint.buyerName }} {{ complaint.buyerSurname }} </td>
-      </ng-container>
+                <ng-container matColumnDef="userName">
+                    <th class="font-container" mat-header-cell *matHeaderCellDef mat-sort-header> User</th>
+                    <td class="card font-container" mat-cell
+                        *matCellDef="let complaint"> {{ complaint.buyerName }} {{ complaint.buyerSurname }} </td>
+                </ng-container>
 
-      <ng-container matColumnDef="status">
-        <th class = "font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-        <td class = "card font-container" mat-cell *matCellDef="let complaint"> {{ complaint.complaintStatus ? complaint.complaintStatus: 'NONE' }} </td>
-      </ng-container>
+                <ng-container matColumnDef="status">
+                    <th class="font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+                    <td class="card font-container" mat-cell
+                        *matCellDef="let complaint"> {{ complaint.complaintStatus ? complaint.complaintStatus : 'NONE' }} </td>
+                </ng-container>
 
-      <ng-container matColumnDef="employee">
-        <th class = "font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Employee </th>
-        <td class = "card font-container" mat-cell *matCellDef="let complaint">
-          {{ complaint.employeeName && complaint.employeeSurname ? complaint.employeeName && complaint.employeeSurname : 'NONE' }}
-        </td>
-      </ng-container>
+                <ng-container matColumnDef="employee">
+                    <th class="font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Employee</th>
+                    <td class="card font-container" mat-cell *matCellDef="let complaint">
+                        {{ complaint.employeeName && complaint.employeeSurname ? complaint.employeeName && complaint.employeeSurname : 'NONE' }}
+                    </td>
+                </ng-container>
 
-      <ng-container matColumnDef="createdDate">
-        <th class = "font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
-        <td class = "card font-container" mat-cell *matCellDef="let complaint">
-          {{ formatDate(complaint.createdDate) }}
-        </td>
-      </ng-container>
+                <ng-container matColumnDef="createdDate">
+                    <th class="font-container" mat-header-cell *matHeaderCellDef mat-sort-header> Created Date</th>
+                    <td class="card font-container" mat-cell *matCellDef="let complaint">
+                        {{ formatDate(complaint.createdDate) }}
+                    </td>
+                </ng-container>
 
-      <ng-container matColumnDef="actions">
-        <th class = "font-container" mat-header-cell *matHeaderCellDef> Actions </th>
-        <td class="card" mat-cell *matCellDef="let complaint">
-          <button class="button" *ngIf="this.currentUser.id !== complaint.employeeId" (click)="assignToEmployee(complaint)">Assign to me</button>
-        </td>
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="navigateToSelectedComplaint(row.complaintId.toString())"></tr>
-    </table>
-
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-  </div>
+                <ng-container matColumnDef="actions">
+                    <th class="font-container" mat-header-cell *matHeaderCellDef> Actions</th>
+                    <td class="card" mat-cell *matCellDef="let complaint">
+                        <button class="button" *ngIf="this.currentUser.id !== complaint.employeeId"
+                                (click)="assignToEmployee(complaint)">Assign to me
+                        </button>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                    (click)="navigateToSelectedComplaint(row.complaintId.toString())"></tr>
+            </table>
+        </ng-template>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
 </div>

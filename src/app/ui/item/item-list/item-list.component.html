@@ -2,39 +2,46 @@
     <div class="header-container">
         <h2 class="text-big-left"><span><b>Item list</b></span></h2>
     </div>
-    <div class="main-card">
-        <ng-template [ngIf]="allItems.length === 0" [ngIfElse]="elseBlock">
-            <h2 class="text-center">There are no items in the database.</h2>
-        </ng-template>
-        <ng-template #elseBlock>
-            <table class="table">
-                <thead>
-                <tr class="labels">
-                    <th>Item ID</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>In stock</th>
-                    <th>Edit item</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let item of allItems; index as i" class="card">
-                    <td>{{ item.itemId }}</td>
-                    <td>{{ item.title }}</td>
-                    <td>{{ item.price }} PLN</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>
-                        <button (click)="navigateToEditItem(item)">Edit</button>
-                    </td>
-                </tr>
-                <br>
-                </tbody>
-            </table>
-        </ng-template>
-    </div>
-  <div class="text-big-left card">
-    <span class="spacer"></span>
-    <button (click)="navigateToAddItem()">Add new item</button>
-  </div>
+    <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+        <div *ngIf="loading" class="loading-animation">
+            <div class="spinner"></div>
+        </div>
+    </ng-template>
+    <ng-template #loadedBlock>
+        <div class="main-card">
+            <ng-template [ngIf]="allItems.length === 0" [ngIfElse]="elseBlock">
+                <h2 class="text-center">There are no items in the database.</h2>
+            </ng-template>
+            <ng-template #elseBlock>
+                <table class="table">
+                    <thead>
+                    <tr class="labels">
+                        <th>Item ID</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>In stock</th>
+                        <th>Edit item</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of allItems; index as i" class="card">
+                        <td>{{ item.itemId }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.price }} PLN</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>
+                            <button (click)="navigateToEditItem(item)">Edit</button>
+                        </td>
+                    </tr>
+                    <br>
+                    </tbody>
+                </table>
+            </ng-template>
+        </div>
+        <div class="text-big-left card">
+            <span class="spacer"></span>
+            <button (click)="navigateToAddItem()">Add new item</button>
+        </div>
+    </ng-template>
 </div>
 

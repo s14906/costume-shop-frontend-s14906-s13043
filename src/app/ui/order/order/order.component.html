@@ -1,47 +1,57 @@
-<!--<ng-template #ordersBlock>-->
 <div class="container">
-  <div class="header-container">
-  <h2 class="text-big-left"><span><b>{{pageTitle}}</b></span></h2>
-  </div>
+    <div class="header-container">
+        <h2 class="text-big-left"><span><b>{{pageTitle}}</b></span></h2>
+    </div>
     <div class="main-card">
-      <ng-template [ngIf]="isNoOrders()" [ngIfElse]="ordersBlock">
-        <h2 class="text-center"> You didn't place any orders yet.</h2>
+      <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+          <div *ngIf="loading" class="loading-animation">
+              <div class="spinner"></div>
+          </div>
       </ng-template>
-  <ng-template #ordersBlock>
-  <table class="table">
-    <thead>
-    <tr class="labels">
-      <th>Order ID</th>
-      <th>Price Total</th>
-      <th>Status</th>
-      <th>Created Date</th>
-      <th>Order Details</th>
-    </tr>
-    </thead>
-    <colgroup>
-      <col style="width: 10%">
-      <col style="width: 20%">
-      <col style="width: 25%">
-      <col style="width: 25%">
-      <col style="width: 20%">
-    </colgroup>
-    <tbody>
-    <tr *ngFor="let order of paginatedOrders; index as i" class="card">
-      <td>{{ order.orderId }}</td>
-      <td>{{ order.totalPrice }} PLN</td>
-      <td>{{ order.orderStatus }}</td>
-      <td>{{formatDate(order.createdDate)}}</td>
-      <td><button (click)="navigateToDetails(order)">Details</button></td>
-    </tr>
-    <br>
-    </tbody>
-  </table>
-  </ng-template>
-  <div class="pagination">
-    <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 0">Previous</button>
-    <span>Page {{ currentPage + 1 }}</span>
-    <button (click)="currentPage = currentPage + 1" [disabled]="paginatedOrders.length < itemsPerPage">Next</button>
-  </div>
-</div>
+        <ng-template #loadedBlock>
+            <ng-template [ngIf]="isNoOrders()" [ngIfElse]="ordersBlock">
+                <h2 class="text-center"> You didn't place any orders yet.</h2>
+            </ng-template>
+            <ng-template #ordersBlock>
+                <table class="table">
+                    <thead>
+                    <tr class="labels">
+                        <th>Order ID</th>
+                        <th>Price Total</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Order Details</th>
+                    </tr>
+                    </thead>
+                    <colgroup>
+                        <col style="width: 10%">
+                        <col style="width: 20%">
+                        <col style="width: 25%">
+                        <col style="width: 25%">
+                        <col style="width: 20%">
+                    </colgroup>
+                    <tbody>
+                    <tr *ngFor="let order of paginatedOrders; index as i" class="card">
+                        <td>{{ order.orderId }}</td>
+                        <td>{{ order.totalPrice }} PLN</td>
+                        <td>{{ order.orderStatus }}</td>
+                        <td>{{formatDate(order.createdDate)}}</td>
+                        <td>
+                            <button (click)="navigateToDetails(order)">Details</button>
+                        </td>
+                    </tr>
+                    <br>
+                    </tbody>
+                </table>
+            </ng-template>
+        </ng-template>
+
+        <div class="pagination">
+            <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 0">Previous</button>
+            <span>Page {{ currentPage + 1 }}</span>
+            <button (click)="currentPage = currentPage + 1" [disabled]="paginatedOrders.length < itemsPerPage">Next
+            </button>
+        </div>
+    </div>
 </div>
 

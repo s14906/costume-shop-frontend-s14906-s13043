@@ -29,6 +29,7 @@ export class ItemEditComponent implements OnDestroy {
     currentUser: UserModel;
     itemCategories: ItemCategoryDTO[] = [];
     itemSets: ItemSetDTO[] = [];
+    loading: boolean = true;
 
 
     constructor(private httpService: HttpService,
@@ -88,10 +89,12 @@ export class ItemEditComponent implements OnDestroy {
                                     });
                             }
                         }
+                        this.loading = false;
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);
                         this.router.navigate(['/']);
+                        this.loading = false;
                     }
                 }
             )
@@ -100,7 +103,7 @@ export class ItemEditComponent implements OnDestroy {
         this.allSubscriptions.push(
             this.httpService.getAllItemCategories()
                 .subscribe({
-                    next: next => {
+                    next: (next: ItemResponse): void => {
                         this.itemCategories = next.itemCategories
                     },
                     error: err => {
@@ -127,6 +130,7 @@ export class ItemEditComponent implements OnDestroy {
     }
 
     onSubmitItemForm(): void {
+        this.loading = true;
         if (!this.fileInvalid && this.itemImagesBase64.length > 0
             && this.formValidationService.isFormValid(this.itemForm)) {
             this.noImageUploaded = false;

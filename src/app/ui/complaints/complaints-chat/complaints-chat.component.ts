@@ -22,6 +22,7 @@ export class ComplaintsChatComponent implements OnDestroy {
     currentUser: UserModel;
     currentUserEqualsBuyer: boolean;
     complaintStatus: string;
+    loading: boolean = true;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -63,9 +64,11 @@ export class ComplaintsChatComponent implements OnDestroy {
                     } else {
                         this.complaintChatMessages = sortArrayByDateDesc(next.complaintChatMessages);
                     }
+                    this.loading = false;
                 },
                 error: err => {
                     this.httpErrorService.handleError(err);
+                    this.loading = false;
                 }
             })));
     }

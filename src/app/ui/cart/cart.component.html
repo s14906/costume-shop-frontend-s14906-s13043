@@ -1,34 +1,44 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-<ng-template [ngIf]="cartItems.length !== 0" [ngIfElse]="emptyCart">
-  <div class="container">
-    <h2 class="text-left"><span><b>YOUR CART</b></span></h2>
-    <div class="sub-container">
-      <ul cdkListbox
-          cdkListboxUseActiveDescendant
-          class="cart-listbox">
-        <li *ngFor="let cartItem of cartItems; index as i"
-            class="card">
-          <div class="item-row">
-            <span class="item-number">{{ i + 1 }}</span>
-            <span class="item-title">{{cartItem.title}}</span>
-            <span class="item-details">{{cartItem.items.length}} x {{cartItem.price}} PLN</span>
-            <span class="item-size">Size: {{cartItem.size}}</span>
-            <span class="item-price">{{cartItem.items.length * cartItem.price}} PLN</span>
-            <img class="delete-button" src="../../../../assets/trash.png" (click)="deleteItemFromCart(cartItem)">
-          </div>
-        </li>
-      </ul>
+
+<ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+        <div class="spinner"></div>
     </div>
-    <div class="checkout">
-      <div class="summary-bar">
-        <span class="summary-text"> </span>
-        <span class="price-sum-text"><b>SUMMARY {{totalPrice}} PLN&nbsp;</b></span>
-      </div>
-      <button class="button continue-button" (click)="navigateToCartConfirmation()">Continue</button>
-    </div>
-  </div>
 </ng-template>
-<ng-template #emptyCart>
-  <h1 class="text-center-big">Your cart is empty! Add some products first.</h1>
+<ng-template #loadedBlock>
+    <ng-template [ngIf]="cartItems.length !== 0" [ngIfElse]="emptyCart">
+        <div class="container">
+            <h2 class="text-left"><span><b>YOUR CART</b></span></h2>
+            <div class="sub-container">
+                <ul cdkListbox
+                    cdkListboxUseActiveDescendant
+                    class="cart-listbox">
+                    <li *ngFor="let cartItem of cartItems; index as i"
+                        class="card">
+                        <div class="item-row">
+                            <span class="item-number">{{ i + 1 }}</span>
+                            <span class="item-title">{{cartItem.title}}</span>
+                            <span class="item-details">{{cartItem.items.length}} x {{cartItem.price}} PLN</span>
+                            <span class="item-size">Size: {{cartItem.size}}</span>
+                            <span class="item-price">{{cartItem.items.length * cartItem.price}} PLN</span>
+                            <img class="delete-button" src="../../../../assets/trash.png"
+                                 (click)="deleteItemFromCart(cartItem)">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="checkout">
+                <div class="summary-bar">
+                    <span class="summary-text"> </span>
+                    <span class="price-sum-text"><b>SUMMARY {{totalPrice}} PLN&nbsp;</b></span>
+                </div>
+                <button class="button continue-button" (click)="navigateToCartConfirmation()">Continue</button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #emptyCart>
+        <h1 class="text-center-big">Your cart is empty! Add some products first.</h1>
+    </ng-template>
 </ng-template>
+

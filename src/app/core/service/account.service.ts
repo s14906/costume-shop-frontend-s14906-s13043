@@ -55,7 +55,7 @@ export class AccountService {
             this.httpService.postChangePassword(user.id,
                 this.formValidationService.getFieldValue(changePasswordForm, 'password'))
                 .subscribe({
-                    next: next => {
+                    next: (next: SimpleResponse): void => {
                         this.snackbarService.openSnackBar(next.message)
                     },
                     error: err => {
@@ -97,7 +97,8 @@ export class AccountService {
         });
     }
 
-    registerUser(registrationForm: FormGroup, allSubscriptions: Subscription[]): void {
+    registerUser(registrationForm: FormGroup, allSubscriptions: Subscription[]): boolean {
+        let loading: boolean = true;
         if (this.formValidationService.isFormValid(registrationForm)) {
             const address: AddressDTO = {
                 addressId: 0,
@@ -119,11 +120,15 @@ export class AccountService {
                     next: (next: SimpleResponse): void => {
                         this.snackbarService.openSnackBar(next.message);
                         this.router.navigate(['/registration-success']);
+                        loading = false;
                     },
                     error: err => {
                         this.snackbarService.openSnackBar(err.error.message);
+                        loading = false;
                     }
                 }));
+
         }
+        return loading;
     }
 }

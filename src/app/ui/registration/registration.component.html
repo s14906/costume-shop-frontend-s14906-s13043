@@ -1,104 +1,112 @@
-<mat-card>
-  <mat-card-content class="labels">
-    <form [formGroup]="registrationForm" (ngSubmit)="onSubmitRegistrationForm()">
-      <h1 class="section-title">New User Registration</h1>
-      <div class="form-container">
-        <h2 class="section-details mat-form-field">Login Information:</h2>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Username:</mat-label>
-            <input class="reg-input" matInput formControlName="username" required>
-            <mat-error>
-              Please provide a valid user name
-            </mat-error>
-          </mat-form-field>
-        <br>
-        <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Password:</mat-label>
-          <input class="reg-input" type="password" matInput formControlName="password" required>
-          <mat-error>
-            Passwords don't match
-          </mat-error>
-        </mat-form-field>
-        <br>
-        <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Confirm Password:</mat-label>
-          <input class="reg-input" type="password" matInput formControlName="confirmPassword" required>
-          <mat-error>
-            Passwords don't match
-          </mat-error>
-        </mat-form-field>
-        <br>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Email:</mat-label>
-            <input class="reg-input" matInput placeholder="Email" formControlName="email" required>
-            <mat-error>
-              Please provide a valid email address
-            </mat-error>
-          </mat-form-field>
-        <br>
-        <h2 class="section-details mat-form-field">Personal Information:</h2>
-        <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Name:</mat-label>
-          <input class="reg-input" matInput formControlName="name" required>
-          <mat-error>
-            Please provide a valid first name
-          </mat-error>
-        </mat-form-field>
-        <br>
-        <mat-form-field class="mat-form-field" appearance="outline">
-          <mat-label>Surname:</mat-label>
-          <input class="reg-input" matInput formControlName="surname" required>
-          <mat-error>
-            Please provide a valid surname
-          </mat-error>
-        </mat-form-field>
-        <br>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Phone:</mat-label>
-            <input matInput class="reg-input" formControlName="phone" required>
-            <mat-error>
-              Please provide a valid phone number
-            </mat-error>
-          </mat-form-field>
-        <br>
-        <h2 class="section-details mat-form-field">Shipping Address:</h2>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Street:</mat-label>
-            <input class="reg-input" matInput formControlName="street" required>
-            <mat-error>
-              Please provide a valid street
-            </mat-error>
-          </mat-form-field>
-        <br>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Apartment/flat number:</mat-label>
-            <input matInput class="reg-input"  formControlName="flatNumber" required>
-            <mat-error>
-              Please provide a valid apartment/flat number
-            </mat-error>
-          </mat-form-field>
-        <br>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Postal Code:</mat-label>
-            <input matInput class="reg-input" formControlName="postalCode" required>
-            <mat-error>
-              Please provide a valid postal code
-            </mat-error>
-          </mat-form-field>
-        <br>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>City:</mat-label>
-            <input matInput class="reg-input"  formControlName="city" required>
-            <mat-error>
-              Please provide a valid city name
-            </mat-error>
-          </mat-form-field>
-        <br>
-        </div>
-      <div class="login-and-sign-up">
-        <button mat-raised-button type="submit" color="primary" class="button">Sign up</button>
-      </div>
-      <br>
-    </form>
-  </mat-card-content>
-</mat-card>
+<ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+        <div class="spinner"></div>
+    </div>
+</ng-template>
+<ng-template #loadedBlock>
+    <mat-card>
+        <mat-card-content class="labels">
+            <form [formGroup]="registrationForm" (ngSubmit)="onSubmitRegistrationForm()">
+                <h1 class="section-title">New User Registration</h1>
+                <div class="form-container">
+                    <h2 class="section-details mat-form-field">Login Information:</h2>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Username:</mat-label>
+                        <input class="reg-input" matInput formControlName="username" required>
+                        <mat-error>
+                            Please provide a valid user name
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Password:</mat-label>
+                        <input class="reg-input" type="password" matInput formControlName="password" required>
+                        <mat-error>
+                            Passwords don't match
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Confirm Password:</mat-label>
+                        <input class="reg-input" type="password" matInput formControlName="confirmPassword" required>
+                        <mat-error>
+                            Passwords don't match
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Email:</mat-label>
+                        <input class="reg-input" matInput placeholder="Email" formControlName="email" required>
+                        <mat-error>
+                            Please provide a valid email address
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <h2 class="section-details mat-form-field">Personal Information:</h2>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Name:</mat-label>
+                        <input class="reg-input" matInput formControlName="name" required>
+                        <mat-error>
+                            Please provide a valid first name
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Surname:</mat-label>
+                        <input class="reg-input" matInput formControlName="surname" required>
+                        <mat-error>
+                            Please provide a valid surname
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Phone:</mat-label>
+                        <input matInput class="reg-input" formControlName="phone" required>
+                        <mat-error>
+                            Please provide a valid phone number
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <h2 class="section-details mat-form-field">Shipping Address:</h2>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Street:</mat-label>
+                        <input class="reg-input" matInput formControlName="street" required>
+                        <mat-error>
+                            Please provide a valid street
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Apartment/flat number:</mat-label>
+                        <input matInput class="reg-input" formControlName="flatNumber" required>
+                        <mat-error>
+                            Please provide a valid apartment/flat number
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Postal Code:</mat-label>
+                        <input matInput class="reg-input" formControlName="postalCode" required>
+                        <mat-error>
+                            Please provide a valid postal code
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>City:</mat-label>
+                        <input matInput class="reg-input" formControlName="city" required>
+                        <mat-error>
+                            Please provide a valid city name
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                </div>
+                <div class="login-and-sign-up">
+                    <button mat-raised-button type="submit" color="primary" class="button">Sign up</button>
+                </div>
+                <br>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+</ng-template>

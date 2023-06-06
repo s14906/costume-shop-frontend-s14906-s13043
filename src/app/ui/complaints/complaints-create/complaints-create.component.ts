@@ -18,6 +18,7 @@ export class ComplaintsCreateComponent {
     orderDetails: OrderDetailsDTO;
     displayedColumns: string[] = ['itemId', 'title', 'description', 'price'];
     dataSource: MatTableDataSource<ItemDTO>;
+    loading: boolean = true;
 
 
     constructor(private httpService: HttpService,
@@ -32,9 +33,11 @@ export class ComplaintsCreateComponent {
                 next: (next: OrderDetailsResponse): void => {
                     this.orderDetails = next.orderDetails;
                     this.dataSource = new MatTableDataSource(this.orderDetails.items);
+                    this.loading = false;
                 },
                 error: err => {
                     this.httpErrorService.handleError(err);
+                    this.loading = false;
                 }
             }));
     }

@@ -1,61 +1,68 @@
 <div class="container cart-listbox">
-  <p class="text-big-left">Summary</p><br>
-    <p class="text-left">Select shipping address</p>
-  <table class="card section-details">
-    <thead>
-    <tr>
-      <th>Address</th>
-      <th>Flat Number</th>
-      <th>City</th>
-      <th>Postal Code</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let address of allAddresses"
-        (click)="fillNotesForSelectedAddress(address)"
-        [class.selected]="address === selectedAddress">
-      <td>{{address.street}}</td>
-      <td>{{address.flatNumber}}</td>
-      <td>{{address.city}}</td>
-      <td>{{address.postalCode}}</td>
-    </tr>
-    </tbody>
-  </table>
-  <div class="column">
-    <p class="text-left">Additional notes</p>
-    <mat-form-field appearance="outline">
-        <mat-label>Additional notes</mat-label>
-        <textarea matInput #notesTextarea
-                  cdkTextareaAutosize
-                  cdkAutosizeMinRows="10"
-                  cdkAutosizeMaxRows="10"></textarea>
-    </mat-form-field>
-  </div>
-    <p class="text-left">Payment method</p>
-    <section>
-        <mat-radio-group>
-            <mat-radio-button>Credit card</mat-radio-button>
-            <mat-radio-button>PayPal</mat-radio-button>
-            <mat-radio-button>Google pay</mat-radio-button>
-        </mat-radio-group>
-    </section>
-  <br>
-    <div class="item-row border-bottom">
-        <span>Shipping</span>
-        <span class="spacer"></span>
-        <span>19,99 PLN</span>
-    </div>
-    <div class="item-row border-bottom">
-        <span>Total cost</span>
-        <span class="spacer"></span>
-        <span>{{totalPrice}} PLN</span>
-    </div>
-  <br>
-    <div class="item-row card">
-        <span></span>
-        <span class="spacer"></span>
-        <span>
+    <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+        <div *ngIf="loading" class="loading-animation">
+            <div class="spinner"></div>
+        </div>
+    </ng-template>
+    <ng-template #loadedBlock>
+        <p class="text-big-left">Summary</p><br>
+        <p class="text-left">Select shipping address</p>
+        <table class="card section-details">
+            <thead>
+            <tr>
+                <th>Address</th>
+                <th>Flat Number</th>
+                <th>City</th>
+                <th>Postal Code</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let address of allAddresses"
+                (click)="fillNotesForSelectedAddress(address)"
+                [class.selected]="address === selectedAddress">
+                <td>{{address.street}}</td>
+                <td>{{address.flatNumber}}</td>
+                <td>{{address.city}}</td>
+                <td>{{address.postalCode}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="column">
+            <p class="text-left">Additional notes</p>
+            <mat-form-field appearance="outline">
+                <mat-label>Additional notes</mat-label>
+                <textarea matInput #notesTextarea
+                          cdkTextareaAutosize
+                          cdkAutosizeMinRows="10"
+                          cdkAutosizeMaxRows="10"></textarea>
+            </mat-form-field>
+        </div>
+        <p class="text-left">Payment method</p>
+        <section>
+            <mat-radio-group>
+                <mat-radio-button>Credit card</mat-radio-button>
+                <mat-radio-button>PayPal</mat-radio-button>
+                <mat-radio-button>Google pay</mat-radio-button>
+            </mat-radio-group>
+        </section>
+        <br>
+        <div class="item-row border-bottom">
+            <span>Shipping</span>
+            <span class="spacer"></span>
+            <span>19,99 PLN</span>
+        </div>
+        <div class="item-row border-bottom">
+            <span>Total cost</span>
+            <span class="spacer"></span>
+            <span>{{totalPrice}} PLN</span>
+        </div>
+        <br>
+        <div class="item-row card">
+            <span></span>
+            <span class="spacer"></span>
+            <span>
             <button class="button" (click)="commencePayment()">Commence payment</button>
         </span>
-    </div>
+        </div>
+    </ng-template>
 </div>

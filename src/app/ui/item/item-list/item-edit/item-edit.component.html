@@ -1,83 +1,92 @@
 <div class="container">
-    <div class="form-container labels">
-        <form [formGroup]="itemForm" (ngSubmit)="onSubmitItemForm()">
-            <h2 class="section-title">Item details:</h2>
-            <table class="UserInfo">
-                <mat-form-field class="mat-form-field" appearance="outline">
-                    <mat-label>Item title:</mat-label>
-                    <input class="reg-input" matInput formControlName="title" required>
-                    <mat-error>
-                        Please provide a valid item title
-                    </mat-error>
-                </mat-form-field>
-                <br><br>
-                <mat-form-field class="description-form-field" appearance="outline">
-                    <mat-label>Item description:</mat-label>
-                    <textarea matInput formControlName="description"
-                              cdkTextareaAutosize
-                              cdkAutosizeMinRows="10"
-                              cdkAutosizeMaxRows="10"></textarea>
-                    <mat-error>
-                        Please provide a valid item description
-                    </mat-error>
-                </mat-form-field>
-                <br><br>
-                <mat-form-field class="mat-form-field" appearance="outline">
-                    <mat-label>Item price:</mat-label>
-                    <input matInput class="reg-input" formControlName="price" required>
-                    <mat-error>
-                        Please provide a valid item price
-                    </mat-error>
-                </mat-form-field>
-                <br><br>
-                <mat-form-field class="mat-form-field" appearance="outline">
-                    <mat-label>Quantity:</mat-label>
-                    <input matInput class="reg-input" formControlName="quantity" required>
-                    <mat-error>
-                        Please provide a valid item quantity
-                    </mat-error>
-                </mat-form-field>
-                <br><br>
-                <mat-form-field appearance="outline" class="mat-form-field">
-                  <mat-label>Category:</mat-label>
-                    <mat-select formControlName="itemCategory">
-                        <mat-option *ngFor="let itemCategory of itemCategories" [value]="itemCategory.category">
-                            {{itemCategory.category}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-<!--            <mat-form-field appearance="outline" class="mat-form-field">-->
-<!--                  <mat-label>Item Set:</mat-label>-->
-<!--                    <mat-select formControlName="itemSet">-->
-<!--                        <mat-option *ngFor="let itemSet of itemSets" [value]="itemSet.set">-->
-<!--                            {{itemSet.set}}-->
-<!--                        </mat-option>-->
-<!--                    </mat-select>-->
-<!--                </mat-form-field>-->
-              <mat-checkbox *ngIf="item?.itemId" (click)="setItemVisible()" [checked]="item?.visible === 1">
-                <mat-label>Show Item: </mat-label>
-              </mat-checkbox>
-              <div class="buttons-with-image-container card">
-                  <span>&nbsp;&nbsp;&nbsp;</span>
-                  <button class="button" type="button" (click)="uploadImage()">Select image
-                    <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
-                  </button>&nbsp;&nbsp;&nbsp;
-                  <button class="button" (click)="removeImages()">Remove images</button>
-                </div>
-                  <p class="invalid-file-warning" *ngIf="noImageUploaded">
-                    You must select at least one image
-                  </p>
-                <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select another one.</a>
-              <br><br>
-                <div *ngIf="itemImagesBase64.length > 0" class="image-container">
-                  <img *ngFor="let imageBase64 of itemImagesBase64" [src]="imageBase64">
-                </div>
-              <br>
-              <div>
-                <button type="submit" class="button">Save item</button>
-              </div>
-              <br>
-            </table>
-        </form>
-    </div>
+    <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+        <div *ngIf="loading" class="loading-animation">
+            <div class="spinner"></div>
+        </div>
+    </ng-template>
+    <ng-template #loadedBlock>
+        <div class="form-container labels">
+            <form [formGroup]="itemForm" (ngSubmit)="onSubmitItemForm()">
+                <h2 class="section-title">Item details:</h2>
+                <table class="UserInfo">
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Item title:</mat-label>
+                        <input class="reg-input" matInput formControlName="title" required>
+                        <mat-error>
+                            Please provide a valid item title
+                        </mat-error>
+                    </mat-form-field>
+                    <br><br>
+                    <mat-form-field class="description-form-field" appearance="outline">
+                        <mat-label>Item description:</mat-label>
+                        <textarea matInput formControlName="description"
+                                  cdkTextareaAutosize
+                                  cdkAutosizeMinRows="10"
+                                  cdkAutosizeMaxRows="10"></textarea>
+                        <mat-error>
+                            Please provide a valid item description
+                        </mat-error>
+                    </mat-form-field>
+                    <br><br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Item price:</mat-label>
+                        <input matInput class="reg-input" formControlName="price" required>
+                        <mat-error>
+                            Please provide a valid item price
+                        </mat-error>
+                    </mat-form-field>
+                    <br><br>
+                    <mat-form-field class="mat-form-field" appearance="outline">
+                        <mat-label>Quantity:</mat-label>
+                        <input matInput class="reg-input" formControlName="quantity" required>
+                        <mat-error>
+                            Please provide a valid item quantity
+                        </mat-error>
+                    </mat-form-field>
+                    <br><br>
+                    <mat-form-field appearance="outline" class="mat-form-field">
+                        <mat-label>Category:</mat-label>
+                        <mat-select formControlName="itemCategory">
+                            <mat-option *ngFor="let itemCategory of itemCategories" [value]="itemCategory.category">
+                                {{itemCategory.category}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <!--            <mat-form-field appearance="outline" class="mat-form-field">-->
+                    <!--                  <mat-label>Item Set:</mat-label>-->
+                    <!--                    <mat-select formControlName="itemSet">-->
+                    <!--                        <mat-option *ngFor="let itemSet of itemSets" [value]="itemSet.set">-->
+                    <!--                            {{itemSet.set}}-->
+                    <!--                        </mat-option>-->
+                    <!--                    </mat-select>-->
+                    <!--                </mat-form-field>-->
+                    <mat-checkbox *ngIf="item?.itemId" (click)="setItemVisible()" [checked]="item?.visible === 1">
+                        <mat-label>Show Item:</mat-label>
+                    </mat-checkbox>
+                    <div class="buttons-with-image-container card">
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        <button class="button" type="button" (click)="uploadImage()">Select image
+                            <input type="file" class="input-upload-image" (change)="onFileSelected($event)" #fileInput>
+                        </button>&nbsp;&nbsp;&nbsp;
+                        <button class="button" (click)="removeImages()">Remove images</button>
+                    </div>
+                    <p class="invalid-file-warning" *ngIf="noImageUploaded">
+                        You must select at least one image
+                    </p>
+                    <a class="invalid-file-warning" *ngIf="fileInvalid">The selected file is not an image. Select
+                        another one.</a>
+                    <br><br>
+                    <div *ngIf="itemImagesBase64.length > 0" class="image-container">
+                        <img *ngFor="let imageBase64 of itemImagesBase64" [src]="imageBase64">
+                    </div>
+                    <br>
+                    <div>
+                        <button type="submit" class="button">Save item</button>
+                    </div>
+                    <br>
+                </table>
+            </form>
+        </div>
+    </ng-template>
+
 </div>

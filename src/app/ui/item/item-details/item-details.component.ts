@@ -21,6 +21,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
     private allSubscriptions: Subscription[] = [];
     itemAmount: number = 1;
     currentImageBase64: string;
+    loading: boolean = true;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -48,6 +49,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
                                 }
                             });
                         }
+                        this.loading = false;
                     },
                     error: err => {
                         this.httpErrorService.handleError(err);
@@ -57,7 +59,7 @@ export class ItemDetailsComponent implements OnInit, OnDestroy {
         this.allSubscriptions.push(
             this.httpService.getAllItemSizes()
                 .subscribe((next: ItemResponse): void => {
-                    next.itemSizes.forEach(itemSize => this.itemSizes.push(itemSize));
+                    next.itemSizes.forEach((itemSize: ItemSizeModel) => this.itemSizes.push(itemSize));
                     this.selectedItemSize = next.itemSizes[0].size;
                 })
         );

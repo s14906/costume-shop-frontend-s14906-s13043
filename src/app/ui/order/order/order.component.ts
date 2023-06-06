@@ -21,6 +21,7 @@ export class OrderComponent implements OnDestroy {
     itemsPerPage: number = 10;
     orders: OrderDTO[] = [];
     pageTitle: string;
+    loading: boolean = true;
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -36,9 +37,12 @@ export class OrderComponent implements OnDestroy {
                         next: (next: OrderResponse): void => {
                             this.orders = next.orders;
                             this.pageTitle = 'ALL ORDERS';
+                            this.loading = false;
                         },
                         error: err => {
                             this.httpErrorService.handleError(err);
+                            this.loading = false;
+
                         }
                     })
             );
@@ -49,9 +53,11 @@ export class OrderComponent implements OnDestroy {
                         next: (next: OrderResponse): void => {
                             this.orders = next.orders;
                             this.pageTitle = 'YOUR ORDERS';
+                            this.loading = false;
                         },
                         error: err => {
                             this.httpErrorService.handleError(err);
+                            this.loading = false;
                         }
                     })
             );

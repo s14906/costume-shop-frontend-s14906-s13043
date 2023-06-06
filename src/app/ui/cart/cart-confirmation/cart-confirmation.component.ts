@@ -24,6 +24,7 @@ export class CartConfirmationComponent implements OnDestroy {
     @ViewChild('notesTextarea') notesTextarea!: ElementRef;
     public selectedAddress: AddressDTO;
     private cartItems: CartItemDTO[];
+    loading: boolean = true;
 
     constructor(private storageService: StorageService,
                 private httpService: HttpService,
@@ -51,6 +52,7 @@ export class CartConfirmationComponent implements OnDestroy {
                     } else {
                         this.allAddresses = this.cartService.prepareAllAddressesForBuyer(addressResponse);
                     }
+                    this.loading = false;
                 }));
     }
 

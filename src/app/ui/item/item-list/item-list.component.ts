@@ -17,6 +17,7 @@ export class ItemListComponent implements OnDestroy {
     allItems: ItemDTO[] = [];
     allItemSizes: ItemSizeModel[] = [];
     currentUser: UserModel;
+    loading: boolean = true;
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -32,6 +33,7 @@ export class ItemListComponent implements OnDestroy {
                     next: (next: ItemResponse): void => {
                         this.allItems = next.items;
                         this.allItemSizes = next.itemSizes;
+                        this.loading = false;
                     }
                 })
         );

@@ -20,6 +20,7 @@ export class CartComponent implements OnDestroy {
     totalPrice: number = 0;
     priceTimesItemCount: number[] = [];
     currentUser: UserModel;
+    loading: boolean = true;
 
     constructor(private storageService: StorageService,
                 private cartService: CartService,
@@ -36,9 +37,11 @@ export class CartComponent implements OnDestroy {
                         this.cartItems = cartData.cartItems;
                         this.priceTimesItemCount = cartData.priceTimesItemCount;
                         this.totalPrice = cartData.totalPrice;
+                        this.loading = false;
 
                     }, error: err => {
                         this.httpErrorService.handleError(err);
+                        this.loading = false;
                     }
                 })
         );
