@@ -11,6 +11,7 @@ import {AuthService} from "./auth/auth.service";
 import {StorageService} from "./storage.service";
 import {AddressDTO} from "../../shared/models/dto.models";
 import {SimpleResponse, UserResponse} from "../../shared/models/rest.models";
+import {RegistrationComponent} from "../../ui/registration/registration.component";
 
 @Injectable({
     providedIn: 'root'
@@ -97,9 +98,9 @@ export class AccountService {
         });
     }
 
-    registerUser(registrationForm: FormGroup, allSubscriptions: Subscription[]): boolean {
-        let loading: boolean = true;
+    registerUser(component: RegistrationComponent, registrationForm: FormGroup, allSubscriptions: Subscription[]): void {
         if (this.formValidationService.isFormValid(registrationForm)) {
+            component.loading = true;
             const address: AddressDTO = {
                 addressId: 0,
                 street: this.formValidationService.getFieldValue(registrationForm, 'street'),
@@ -120,15 +121,14 @@ export class AccountService {
                     next: (next: SimpleResponse): void => {
                         this.snackbarService.openSnackBar(next.message);
                         this.router.navigate(['/registration-success']);
-                        loading = false;
+                        component.loading = false;
                     },
                     error: err => {
                         this.snackbarService.openSnackBar(err.error.message);
-                        loading = false;
+                        component.loading = false;
                     }
                 }));
 
         }
-        return loading;
     }
 }

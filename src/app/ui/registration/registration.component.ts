@@ -39,7 +39,6 @@ export class RegistrationComponent implements OnDestroy {
     }
 
     onSubmitRegistrationForm(): void {
-        this.loading = true;
-        this.loading = this.accountService.registerUser(this.registrationForm, this.allSubscriptions);
+        this.accountService.registerUser(this, this.registrationForm, this.allSubscriptions);
     }
 }

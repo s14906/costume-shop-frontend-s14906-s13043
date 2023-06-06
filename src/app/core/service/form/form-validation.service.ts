@@ -7,12 +7,18 @@ import {Observable, of} from "rxjs";
 })
 export class FormValidationService {
 
-  public validatePasswords(formGroup: FormGroup) {
+  public validatePasswords(formGroup: FormGroup): null {
     const passwordControl: AbstractControl<any, any> | null = formGroup.get('password');
     const confirmPasswordControl: AbstractControl<any, any> | null = formGroup.get('confirmPassword');
 
+    const passwordInput: string = passwordControl?.value;
+
+    const regex: RegExp = new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/);
+    const passwordMatchesRegex: boolean = regex.test(passwordInput);
+
     if ((passwordControl?.value !== confirmPasswordControl?.value) ||
-      (passwordControl?.value === '' || confirmPasswordControl?.value === '')) {
+      (passwordControl?.value === '' || confirmPasswordControl?.value === '') ||
+        !passwordMatchesRegex) {
       passwordControl?.setErrors({invalid: true});
       confirmPasswordControl?.setErrors({invalid: true});
     } else {
