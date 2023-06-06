@@ -25,6 +25,7 @@ export class OrderDetailsComponent implements OnDestroy {
     orderStatuses: OrderStatusDTO[] = []
     selectedOrderStatus: string;
     buyer: UserDTO;
+    loading: boolean = true;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -58,6 +59,7 @@ export class OrderDetailsComponent implements OnDestroy {
                         this.orderDate = this.orderDetails.orderDate;
                         this.complaint = this.orderDetails.complaint;
                     }
+                    this.loading = false;
                 },
                 error: err => {
                     this.httpErrorService.handleError(err);
@@ -124,6 +126,7 @@ export class OrderDetailsComponent implements OnDestroy {
 
 
     updateOrderStatusForOrder(): void {
+        this.loading = true;
         if (this.selectedOrderStatus !== this.orderDetails.orderStatus) {
             const orderStatus: OrderStatusDTO | undefined
                 = this.orderStatuses.find((orderStatus: OrderStatusDTO) =>
@@ -134,9 +137,11 @@ export class OrderDetailsComponent implements OnDestroy {
                     .subscribe({
                         next: next => {
                             this.snackbarService.openSnackBar(next.message);
+                            this.loading = false;
                         },
                         error: err => {
                             this.httpErrorService.handleError(err);
+                            this.loading = false;
                         }
                     })
             }

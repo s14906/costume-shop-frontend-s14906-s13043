@@ -10,6 +10,7 @@ import {HttpService} from "../../../core/service/http/http.service";
 import {CartResponse, GetAddressesResponse} from "../../../shared/models/rest.models";
 import {CartConfirmationDataModel, UserModel} from "../../../shared/models/data.models";
 import {Router} from "@angular/router";
+import {SnackbarService} from "../../../core/service/snackbar.service";
 
 @Component({
     selector: 'app-cart-confirmation',
@@ -29,6 +30,7 @@ export class CartConfirmationComponent implements OnDestroy {
     constructor(private storageService: StorageService,
                 private httpService: HttpService,
                 private cartService: CartService,
+                private snackbarService: SnackbarService,
                 private router: Router) {
         this.currentUser = this.storageService.getUser();
         this.allSubscriptions.push(
@@ -66,7 +68,14 @@ export class CartConfirmationComponent implements OnDestroy {
     }
 
     commencePayment(): void {
-        this.cartService.commencePayment(this.selectedAddress, this.totalPrice,
-            this.cartItems, this.allSubscriptions);
+        this.loading = true;
+        if (this.selectedAddress) {
+            this.cartService.commencePayment(this, this.selectedAddress, this.totalPrice,
+                this.cartItems, this.allSubscriptions);
+        }
+        else {
+            this.snackbarService.openSnackBar("You must select the delivery address first.")
+            this.loading = false;
+        }
     }
 }

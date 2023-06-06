@@ -3,29 +3,36 @@
     <p class="text-center">Your payment has been created with an ID: {{paymentTransactionId}}.</p>
     <p class="text-center">Check your email for more details.</p>
 </div>
-<div class="container">
-    <h2 class="text-center">Items purchased:</h2>
-    <table class="table">
-        <thead>
-        <tr class="labels">
-            <th>Item ID</th>
-            <th>Name</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <colgroup>
-            <col style="width: 10%">
-            <col style="width: 20%">
-            <col style="width: 25%">
-            <col style="width: 25%">
-        </colgroup>
-        <tbody>
-        <tr *ngFor="let item of items; index as i" class="card">
-            <td>{{ item.itemId }}</td>
-            <td>{{ item.title }}</td>
-            <td>{{ item.price }} PLN</td>
-        </tr>
-        <br>
-        </tbody>
-    </table>
-</div>
+<ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+        <div class="spinner"></div>
+    </div>
+</ng-template>
+<ng-template #loadedBlock>
+    <div class="container">
+        <h2 class="text-center">Items purchased:</h2>
+        <table class="table">
+            <thead>
+            <tr class="labels">
+                <th>Item ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <colgroup>
+                <col style="width: 10%">
+                <col style="width: 20%">
+                <col style="width: 25%">
+                <col style="width: 25%">
+            </colgroup>
+            <tbody>
+            <tr *ngFor="let item of items; index as i" class="card">
+                <td>{{ item.itemId }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.price }} PLN</td>
+            </tr>
+            <br>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

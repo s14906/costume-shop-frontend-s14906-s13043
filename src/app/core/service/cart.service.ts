@@ -13,12 +13,15 @@ import {
     SimpleResponse
 } from "../../shared/models/rest.models";
 import {CartConfirmationDataModel, CartDataModel, UserModel} from "../../shared/models/data.models";
+import {CartConfirmationComponent} from "../../ui/cart/cart-confirmation/cart-confirmation.component";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CartService {
     currentUser: UserModel;
+
+    // loadingSubject: Subject<boolean> = new ReplaySubject(1);
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -73,12 +76,13 @@ export class CartService {
         }
     }
 
-    commencePayment(selectedAddress: AddressDTO, totalPrice: number,
-                    cartItems: CartItemDTO[], allSubscriptions: Subscription[]): void {
+    commencePayment(component: CartConfirmationComponent, selectedAddress: AddressDTO,
+                    totalPrice: number, cartItems: CartItemDTO[], allSubscriptions: Subscription[]): void {
         let itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase: boolean
             = this.isItemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase(cartItems);
 
         if (!itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase) {
+            component.loading = false;
             return;
         }
 
@@ -104,9 +108,11 @@ export class CartService {
                     )).subscribe({
                         next: (next: SimpleResponse): void => {
                             this.snackbarService.openSnackBar(next.message);
+                            component.loading = false;
                         },
                         error: err => {
                             this.httpErrorService.handleError(err.message);
+                            component.loading = false;
                         }
                     }
                 )

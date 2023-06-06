@@ -19,6 +19,7 @@ export class PaymentSuccessComponent implements OnDestroy {
     paymentTransactionId: number;
     currentUser: UserModel;
     items: ItemDTO[] = [];
+    loading: boolean = true;
 
     constructor(private route: ActivatedRoute,
                 private storageService: StorageService,
@@ -46,6 +47,7 @@ export class PaymentSuccessComponent implements OnDestroy {
                     } else {
                         this.items = next.items;
                     }
+                    this.loading = false;
                 },
                 error: err => {
                     this.httpErrorService.handleError(err);

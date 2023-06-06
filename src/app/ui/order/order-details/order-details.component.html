@@ -1,68 +1,94 @@
-<div class="container">
-    <div class="user-info labels">
-        <h2 class="section-title">Buyer information</h2>
-        <table class="UserInfo">
-            <tr><td><b>Username: </b></td><td>{{buyer.username}}</td></tr>
-            <tr><td><b>Name: </b></td><td>{{buyer.name}}</td></tr>
-            <tr><td><b>Surname: </b></td><td>{{buyer.surname}}</td></tr>
-            <tr><td><b>Email: </b></td><td>{{buyer.email}}</td></tr>
-            <tr><td><b>Phone: </b></td><td>{{buyer.phone}}</td></tr>
-            <tr><td><b>Roles: </b></td><td>{{buyer.roles}}</td></tr>
+<ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+        <div class="spinner"></div>
+    </div>
+</ng-template>
+<ng-template #loadedBlock>
+    <div class="container">
+        <div class="user-info labels">
+            <h2 class="section-title">Buyer information</h2>
+            <table class="UserInfo">
+                <tr>
+                    <td><b>Username: </b></td>
+                    <td>{{buyer.username}}</td>
+                </tr>
+                <tr>
+                    <td><b>Name: </b></td>
+                    <td>{{buyer.name}}</td>
+                </tr>
+                <tr>
+                    <td><b>Surname: </b></td>
+                    <td>{{buyer.surname}}</td>
+                </tr>
+                <tr>
+                    <td><b>Email: </b></td>
+                    <td>{{buyer.email}}</td>
+                </tr>
+                <tr>
+                    <td><b>Phone: </b></td>
+                    <td>{{buyer.phone}}</td>
+                </tr>
+                <tr>
+                    <td><b>Roles: </b></td>
+                    <td>{{buyer.roles}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header-container">
+            <h2 class="text-big-left"><span><b>Order details ID: {{ orderId }} </b></span></h2>
+            <h2 class="text-big-right"><span><b>Date: {{formatDate(orderDate)}}</b></span></h2>
+        </div>
+        <table class="table">
+            <thead>
+            <tr class="labels">
+                <th>Item ID</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Check the product</th>
+            </tr>
+            </thead>
+            <colgroup>
+                <col style="width: 10%">
+                <col style="width: 25%">
+                <col style="width: 10%">
+                <col style="width: 35%">
+                <col style="width: 20%">
+            </colgroup>
+            <tbody>
+            <tr *ngFor="let item of orderDetails?.items" class="card">
+                <td>{{ item.itemId }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.price }} PLN</td>
+                <td>{{ item.description }}</td>
+                <td>
+                    <button (click)="navigateToItem(item)">Go to Item</button>
+                </td>
+            </tr>
+            </tbody>
         </table>
+        <div class="card item-row">
+            <ng-template [ngIf]="!complaint" [ngIfElse]="elseBlock">
+                <button class="button" (click)="navigateToComplaintCreation()">Create a complaint</button>
+            </ng-template>
+            <ng-template #elseBlock>
+                <button class="button" (click)="navigateToComplaintChat()">Go to complaint</button>
+            </ng-template>
+            <div>
+                <mat-form-field appearance="outline" class="mat-form-field">
+                    <mat-label>Order status: {{selectedOrderStatus}}</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let orderStatus of orderStatuses" [value]="orderStatus"
+                                    (click)="setOrderStatus(orderStatus)">
+                            {{orderStatus.status}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <span class="spacer"></span>
+                <button class="button" (click)="updateOrderStatusForOrder()">Save status</button>
+            </div>
+        </div>
     </div>
-</div>
-<div class="container">
-    <div class="header-container">
-        <h2 class="text-big-left"><span><b>Order details ID: {{ orderId }} </b></span></h2>
-        <h2 class="text-big-right"><span><b>Date: {{formatDate(orderDate)}}</b></span></h2>
-    </div>
-    <table class="table">
-        <thead>
-        <tr class="labels">
-            <th>Item ID</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Description</th>
-            <th>Check the product</th>
-        </tr>
-        </thead>
-        <colgroup>
-            <col style="width: 10%">
-            <col style="width: 25%">
-            <col style="width: 10%">
-            <col style="width: 35%">
-            <col style="width: 20%">
-        </colgroup>
-        <tbody>
-        <tr *ngFor="let item of orderDetails?.items" class="card">
-            <td>{{ item.itemId }}</td>
-            <td>{{ item.title }}</td>
-            <td>{{ item.price }} PLN</td>
-            <td>{{ item.description }}</td>
-            <td>
-                <button (click)="navigateToItem(item)">Go to Item</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="card item-row">
-        <ng-template [ngIf]="!complaint" [ngIfElse]="elseBlock">
-            <button class="button" (click)="navigateToComplaintCreation()">Create a complaint</button>
-        </ng-template>
-        <ng-template #elseBlock>
-            <button class="button" (click)="navigateToComplaintChat()">Go to complaint</button>
-        </ng-template>
-      <div>
-        <mat-form-field appearance="outline" class="mat-form-field">
-            <mat-label>Order status: {{selectedOrderStatus}}</mat-label>
-            <mat-select>
-                <mat-option *ngFor="let orderStatus of orderStatuses" [value]="orderStatus" (click)="setOrderStatus(orderStatus)">
-                    {{orderStatus.status}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <span class="spacer"></span>
-        <button class="button" (click)="updateOrderStatusForOrder()">Save status</button>
-      </div>
-    </div>
-</div>
+</ng-template>
