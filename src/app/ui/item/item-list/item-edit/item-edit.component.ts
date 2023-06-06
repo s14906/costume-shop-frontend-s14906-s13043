@@ -48,8 +48,8 @@ export class ItemEditComponent implements OnDestroy {
         }
 
         this.itemForm = this.formBuilder.group({
-                title: ['', Validators.required, this.formValidationService.validateField],
-                description: ['', Validators.required, this.formValidationService.validateField],
+                title: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                description: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
                 price: ['', Validators.required, this.formValidationService.validateNumber],
                 quantity: ['', Validators.required, this.formValidationService.validateNumber],
                 itemCategory: ['', Validators.required],

@@ -36,8 +36,19 @@ export class FormValidationService {
     }
   }
 
-  validateField(control: AbstractControl): Observable<ValidationErrors | null> {
+  validateFieldNotEmpty(control: AbstractControl): Observable<ValidationErrors | null> {
     if (control?.value === '') {
+      return of({invalid: true})
+    } else {
+      return of(null);
+    }
+  }
+
+  validatePhoneNumber(phoneNumberControl: AbstractControl): Observable<ValidationErrors | null> {
+    const phoneNumberInput: string = phoneNumberControl?.value;
+    const regex: RegExp = new RegExp(/^\d{3}-\d{3}-\d{3}$/);
+
+    if (phoneNumberInput === '' || regex.test(phoneNumberInput)) {
       return of({invalid: true})
     } else {
       return of(null);

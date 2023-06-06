@@ -33,10 +33,10 @@ export class AccountInformationComponent implements OnDestroy {
         this.currentUser = this.storageService.getUser();
 
         this.addAddressForm = this.formBuilder.group({
-                street: ['', Validators.required, this.formValidationService.validateField],
-                flatNumber: ['', Validators.required, this.formValidationService.validateField],
-                postalCode: ['', Validators.required, this.formValidationService.validateField],
-                city: ['', Validators.required, this.formValidationService.validateField]
+                street: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                flatNumber: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                postalCode: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                city: ['', Validators.required, this.formValidationService.validateFieldNotEmpty]
             },
             {updateOn: "submit"}
         );

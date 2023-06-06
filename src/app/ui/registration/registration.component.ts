@@ -20,15 +20,15 @@ export class RegistrationComponent implements OnDestroy {
         this.registrationForm = this.formBuilder.group({
                 password: ['', Validators.required],
                 confirmPassword: ['', Validators.required],
-                email: ['', Validators.required, this.formValidationService.validateField],
-                username: ['', Validators.required, this.formValidationService.validateField],
-                name: ['', Validators.required, this.formValidationService.validateField],
-                surname: ['', Validators.required, this.formValidationService.validateField],
-                street: ['', Validators.required, this.formValidationService.validateField],
-                flatNumber: ['', Validators.required, this.formValidationService.validateField],
-                postalCode: ['', Validators.required, this.formValidationService.validateField],
-                phone: ['', Validators.required, this.formValidationService.validateField],
-                city: ['', Validators.required, this.formValidationService.validateField]
+                email: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                username: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                name: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                surname: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                street: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                flatNumber: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                postalCode: ['', Validators.required, this.formValidationService.validateFieldNotEmpty],
+                phone: ['', Validators.required, this.formValidationService.validatePhoneNumber],
+                city: ['', Validators.required, this.formValidationService.validateFieldNotEmpty]
             },
             {validators: [this.formValidationService.validatePasswords], updateOn: "submit"}
         );
