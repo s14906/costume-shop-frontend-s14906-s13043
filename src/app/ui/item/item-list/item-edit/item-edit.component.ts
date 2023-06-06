@@ -70,11 +70,9 @@ export class ItemEditComponent implements OnDestroy {
                 })
             ).subscribe({
                     next: (next: ItemResponse | null): void => {
-                        if (next === null) {
-                            this.router.navigate(['/']);
-                        } else {
-                            if (next.items) {
-                                this.item = next.items[0];
+                        if (next && next.items) {
+                            this.item = next.items[0];
+                            if (this.item) {
                                 this.itemForm.setValue({
                                     title: this.item.title,
                                     description: this.item.description,
@@ -83,12 +81,13 @@ export class ItemEditComponent implements OnDestroy {
                                     itemCategory: this.item.itemCategory,
                                     itemSet: this.item.itemSet
                                 });
-                                next.items[0].itemImages
-                                    .forEach((itemImage: ItemImageDTO): void => {
-                                        this.itemImagesBase64.push(itemImage.imageBase64);
-                                    });
                             }
+                            next.items[0].itemImages
+                                .forEach((itemImage: ItemImageDTO): void => {
+                                    this.itemImagesBase64.push(itemImage.imageBase64);
+                                });
                         }
+
                         this.loading = false;
                     },
                     error: err => {
