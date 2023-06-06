@@ -24,7 +24,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let item of allItems; index as i" class="card">
+                    <tr *ngFor="let item of paginatedOrders; index as i" class="card">
                         <td>{{ item.itemId }}</td>
                         <td>{{ item.title }}</td>
                         <td>{{ item.price }} PLN</td>
@@ -37,6 +37,13 @@
                     </tbody>
                 </table>
             </ng-template>
+
+          <div class="pagination">
+            <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 0">Previous</button>
+            <span>Page {{ currentPage + 1 }}</span>
+            <button (click)="currentPage = currentPage + 1" [disabled]="paginatedOrders.length < itemsPerPage">Next
+            </button>
+          </div>
         </div>
         <div class="text-big-left card">
             <span class="spacer"></span>

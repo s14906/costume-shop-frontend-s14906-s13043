@@ -18,6 +18,8 @@ export class ItemListComponent implements OnDestroy {
     allItemSizes: ItemSizeModel[] = [];
     currentUser: UserModel;
     loading: boolean = true;
+    currentPage: number = 0;
+    itemsPerPage: number = 10;
 
     constructor(private httpService: HttpService,
                 private storageService: StorageService,
@@ -54,6 +56,14 @@ export class ItemListComponent implements OnDestroy {
 
     navigateToAddItem(): void {
         this.router.navigate(['/items/add']);
-
     }
+  get paginatedOrders() {
+    const begin = this.currentPage * this.itemsPerPage;
+    const end = begin + this.itemsPerPage;
+    return this.allItems.slice(begin, end);
+  }
+
+  isNoOrders(): boolean {
+    return this.allItems.length === 0;
+  }
 }
