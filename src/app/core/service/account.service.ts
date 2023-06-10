@@ -68,7 +68,7 @@ export class AccountService {
 
     removeAddress(addressId: number, allSubscriptions: Subscription[]): void {
         allSubscriptions.push(
-            this.httpService.postRemoveAddress(addressId).subscribe({
+            this.httpService.deleteAddressById(addressId).subscribe({
                 next: (next: SimpleResponse): void => {
                     this.snackbarService.openSnackBar(next.message);
                     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
@@ -109,7 +109,7 @@ export class AccountService {
                 city: this.formValidationService.getFieldValue(registrationForm, 'city')
             }
             allSubscriptions.push(
-                this.httpService.postRegistration({
+                this.httpService.postUserRegistration({
                     username: this.formValidationService.getFieldValue(registrationForm, 'username'),
                     email: this.formValidationService.getFieldValue(registrationForm, 'email'),
                     name: this.formValidationService.getFieldValue(registrationForm, 'name'),

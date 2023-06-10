@@ -45,7 +45,7 @@ export class CartConfirmationComponent implements OnDestroy {
                                 = this.cartService.prepareCartConfirmationData(cartResponse);
                             this.totalPrice = cartConfirmationData.totalPrice;
                             this.cartItems = cartConfirmationData.cartItems;
-                            return this.httpService.getAddressesForUser(this.currentUser.id);
+                            return this.httpService.getAddressesByUserId(this.currentUser.id);
                         }
                     }))
                 .subscribe((addressResponse: GetAddressesResponse | null): void => {

@@ -28,7 +28,7 @@ export class ComplaintsCreateComponent {
             this.route.queryParams.pipe(
                 switchMap((queryParams: Params) => {
                     const orderId: string = queryParams['orderId'];
-                    return this.httpService.getOrderDetails(orderId);
+                    return this.httpService.getOrderDetailsByOrderId(orderId);
                 })).subscribe({
                 next: (next: OrderDetailsResponse): void => {
                     this.orderDetails = next.orderDetails;

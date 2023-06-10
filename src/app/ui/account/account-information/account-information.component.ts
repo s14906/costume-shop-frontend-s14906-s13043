@@ -49,7 +49,7 @@ export class AccountInformationComponent implements OnDestroy {
         );
 
         this.allSubscriptions.push(
-            this.httpService.getAddressesForUser(this.currentUser.id)
+            this.httpService.getAddressesByUserId(this.currentUser.id)
                 .subscribe((response: GetAddressesResponse): void => {
                     this.addresses = response.addresses;
                     this.loading = false;

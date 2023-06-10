@@ -20,7 +20,7 @@ export class RegistrationVerificationComponent implements OnDestroy {
                 switchMap(params =>
                     this.httpService.getUserByVerificationToken(params['token'])),
                 mergeMap((response) =>
-                    this.httpService.postUserVerification(response.user.id)))
+                    this.httpService.postUserVerificationById(response.user.id)))
                 .subscribe((response) =>
                     this.userVerified = response.success
                 ));

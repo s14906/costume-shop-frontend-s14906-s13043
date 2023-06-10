@@ -10,7 +10,7 @@ export enum UrlPart {
   CART = 'cart',
   ADD_ADDRESS = 'add-address',
   GET_ADDRESSES = 'get-addresses',
-  REMOVE_ADDRESS = 'remove-address',
+  DELETE_ADDRESS = 'delete-address',
   CHANGE_PASSWORD = 'change-password',
   COMPLAINTS = 'complaints',
   MESSAGES = 'messages',

@@ -48,7 +48,7 @@ export class OrderComponent implements OnDestroy {
             );
         } else {
             this.allSubscriptions.push(
-                this.httpService.getAllOrdersForUser(this.currentUser.id)
+                this.httpService.getAllOrdersByUserId(this.currentUser.id)
                     .subscribe({
                         next: (next: OrderResponse): void => {
                             this.orders = next.orders;

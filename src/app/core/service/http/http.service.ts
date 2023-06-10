@@ -70,7 +70,7 @@ export class HttpService {
         });
     }
 
-    public getAddressesForUser(userId: number): Observable<GetAddressesResponse> {
+    public getAddressesByUserId(userId: number): Observable<GetAddressesResponse> {
         return this.http.get<GetAddressesResponse>(UrlPart.BACKEND_LINK + UrlPart.GET_ADDRESSES, {
             params: {
                 userId: userId
@@ -78,15 +78,15 @@ export class HttpService {
         });
     }
 
-    public getComplaint(complaintId: string): Observable<ComplaintResponse> {
+    public getComplaintById(complaintId: string): Observable<ComplaintResponse> {
         return this.http.get<ComplaintResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`);
     }
 
-    public getComplaintChatMessages(complaintId: number): Observable<ComplaintChatMessageResponse> {
+    public getComplaintChatMessagesByComplaintId(complaintId: number): Observable<ComplaintChatMessageResponse> {
         return this.http.get<ComplaintChatMessageResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}/${UrlPart.MESSAGES}`);
     }
 
-    public getAllOrdersForUser(userId: number): Observable<OrderResponse> {
+    public getAllOrdersByUserId(userId: number): Observable<OrderResponse> {
         return this.http.get<OrderResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USERS}/${userId}/${UrlPart.ORDERS}`);
     }
 
@@ -98,7 +98,7 @@ export class HttpService {
         return this.http.get<OrderStatusResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${UrlPart.STATUSES}`);
     }
 
-    public getOrderDetails(orderId: string): Observable<OrderDetailsResponse> {
+    public getOrderDetailsByOrderId(orderId: string): Observable<OrderDetailsResponse> {
         return this.http.get<OrderDetailsResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}/${orderId}`);
     }
 
@@ -106,7 +106,7 @@ export class HttpService {
         return this.http.get<CartResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.USER}/${userId}/${UrlPart.CART}`);
     }
 
-    public postUserVerification(userId: number): Observable<SimpleResponse> {
+    public postUserVerificationById(userId: number): Observable<SimpleResponse> {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.VERIFICATION, {}, {
             params: {
                 userId: userId
@@ -121,8 +121,8 @@ export class HttpService {
     public postItem(dto: ItemDTO): Observable<SimpleResponse> {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.ITEMS, dto);
     }
-    public postRemoveAddress(addressId: number): Observable<SimpleResponse> {
-        return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.REMOVE_ADDRESS, {}, {
+    public deleteAddressById(addressId: number): Observable<SimpleResponse> {
+        return this.http.delete<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.DELETE_ADDRESS, {
             params: {
                 addressId: addressId
             }
@@ -138,11 +138,11 @@ export class HttpService {
         });
     }
 
-    public postRegistration(dto: UserRegistrationDTO): Observable<SimpleResponse> {
+    public postUserRegistration(dto: UserRegistrationDTO): Observable<SimpleResponse> {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.REGISTRATION, dto);
     }
 
-    public postLogin(dto: UserLoginDTO): Observable<UserResponse> {
+    public postUserLogin(dto: UserLoginDTO): Observable<UserResponse> {
         return this.http.post<UserResponse>(UrlPart.BACKEND_LINK + UrlPart.LOGIN, dto);
     }
 
@@ -175,7 +175,7 @@ export class HttpService {
         return this.http.post<SimpleResponse>(UrlPart.BACKEND_LINK + UrlPart.EMAIL, dto);
     }
 
-    public postCloseComplaint(complaintId: string): Observable<ComplaintResponse> {
+    public postCloseComplaintById(complaintId: string): Observable<ComplaintResponse> {
         return this.http.post<ComplaintResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.COMPLAINTS}/${complaintId}`, {});
     }
 

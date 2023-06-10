@@ -39,7 +39,7 @@ export class OrderDetailsComponent implements OnDestroy {
             this.route.queryParams.pipe(
                 switchMap((queryParam) => {
                     this.orderId = queryParam['orderId'];
-                    return this.httpService.getOrderDetails(this.orderId);
+                    return this.httpService.getOrderDetailsByOrderId(this.orderId);
                 })
             ).subscribe({
                 next: (next: OrderDetailsResponse): void => {

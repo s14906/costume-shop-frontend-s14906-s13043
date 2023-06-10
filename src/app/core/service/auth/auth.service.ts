@@ -16,7 +16,7 @@ export class AuthService {
               private storageService: StorageService) { }
 
   login(username: string, password: string): Observable<UserResponse>{
-    return this.httpService.postLogin(
+    return this.httpService.postUserLogin(
       { email: username, password: password }
       ).pipe(map((response: UserResponse) => {
       localStorage.setItem(this.USER_NAME_SESSION_ATTRIBUTE_NAME, username)
