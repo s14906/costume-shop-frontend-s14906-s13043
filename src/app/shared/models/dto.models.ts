@@ -131,6 +131,7 @@ export interface CreateNewComplaintDTO {
     orderId: number;
     complaintCategory: string;
     complaintMessage?: string;
+    complaintChatImagesBase64?: string[];
 }
 
 export interface CartConfirmationDTO {

@@ -52,7 +52,8 @@ export class MessagingService {
                             userId: this.storageService.getUser().id,
                             orderId: Number(orderId),
                             complaintCategory: 'Damaged item',
-                            complaintMessage: chatMessage
+                            complaintMessage: chatMessage,
+                            complaintChatImagesBase64: chatImagesBase64.length > 0 ? chatImagesBase64 : []
                         }).subscribe(this.getNextFromSendComplaintChatMessageResponse(Number(complaintId))));
                 } else {
                     allSubscriptions.push(
