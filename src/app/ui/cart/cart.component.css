@@ -1,6 +1,7 @@
 .text-center-big {
   text-align: center;
   margin: 20px 0;
+  font-size: 1.6em;
 }
 .text-left {
   margin: 20px 0;
