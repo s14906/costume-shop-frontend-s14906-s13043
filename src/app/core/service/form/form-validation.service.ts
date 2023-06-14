@@ -13,18 +13,22 @@ export class FormValidationService {
 
     const passwordInput: string = passwordControl?.value;
 
-    const regex: RegExp = new RegExp(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/);
+    const regex: RegExp = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-=+{};:,<.>]).{8,16}$/;
     const passwordMatchesRegex: boolean = regex.test(passwordInput);
 
-    if ((passwordControl?.value !== confirmPasswordControl?.value) ||
-      (passwordControl?.value === '' || confirmPasswordControl?.value === '') ||
-        !passwordMatchesRegex) {
-      passwordControl?.setErrors({invalid: true});
-      confirmPasswordControl?.setErrors({invalid: true});
+    if (
+      passwordControl?.value !== confirmPasswordControl?.value ||
+      passwordControl?.value === '' ||
+      confirmPasswordControl?.value === '' ||
+      !passwordMatchesRegex
+    ) {
+      passwordControl?.setErrors({ invalid: true });
+      confirmPasswordControl?.setErrors({ invalid: true });
     } else {
       passwordControl?.setErrors(null);
       confirmPasswordControl?.setErrors(null);
     }
+
     return null;
   }
 
