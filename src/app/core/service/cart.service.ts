@@ -5,7 +5,7 @@ import {StorageService} from "./storage.service";
 import {Router} from "@angular/router";
 import {SnackbarService} from "./snackbar.service";
 import {HttpErrorService} from "./http/http-error.service";
-import {Subscription, switchMap} from "rxjs";
+import {concatMap, Subscription} from "rxjs";
 import {
     CartResponse,
     GetAddressesResponse,
@@ -96,7 +96,7 @@ export class CartService {
 
             allSubscriptions.push(
                 this.httpService.postCreateNewOrderPaymentTransaction(cartConfirmationDTO)
-                    .pipe(switchMap((response: PaymentTransactionResponse) => {
+                    .pipe(concatMap((response: PaymentTransactionResponse) => {
                             this.snackbarService.openSnackBar(response.message);
                             this.router.navigate(['payment-success'], {
                                 queryParams: {
