@@ -180,7 +180,11 @@ export class HttpService {
     }
 
     public postUpdateOrderStatusForOrder(dto: OrderStatusDTO): Observable<SimpleResponse> {
-        return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`, dto)
+        return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ORDERS}`, dto);
+    }
+
+    public postAddItemCategory(category: string): Observable<SimpleResponse> {
+      return this.http.post<SimpleResponse>(`${UrlPart.BACKEND_LINK}${UrlPart.ITEM_CATEGORIES}/${category}`, {});
     }
 
     public deleteCartItemByUserIdAndCartItemId(userId: number, itemId: number): Observable<CartResponse> {
