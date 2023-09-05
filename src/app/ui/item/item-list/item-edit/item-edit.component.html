@@ -52,14 +52,14 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <!--            <mat-form-field appearance="outline" class="mat-form-field">-->
-                    <!--                  <mat-label>Item Set:</mat-label>-->
-                    <!--                    <mat-select formControlName="itemSet">-->
-                    <!--                        <mat-option *ngFor="let itemSet of itemSets" [value]="itemSet.set">-->
-                    <!--                            {{itemSet.set}}-->
-                    <!--                        </mat-option>-->
-                    <!--                    </mat-select>-->
-                    <!--                </mat-form-field>-->
+                  <mat-form-field appearance="outline" class="mat-form-field">
+                    <mat-label>Item Set:</mat-label>
+                    <mat-select formControlName="itemSet">
+                      <mat-option *ngFor="let itemSet of itemSets" [value]="itemSet.set">
+                        {{itemSet.set}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
                     <mat-checkbox *ngIf="item?.itemId" (click)="setItemVisible()" [checked]="item?.visible === 1">
                         <mat-label>Show Item:</mat-label>
                     </mat-checkbox>

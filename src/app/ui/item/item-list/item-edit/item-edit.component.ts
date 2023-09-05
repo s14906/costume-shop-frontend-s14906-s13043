@@ -135,10 +135,10 @@ export class ItemEditComponent implements OnDestroy {
             this.noImageUploaded = false;
             this.itemService.insertOrUpdateItem(this.itemImagesBase64, this.itemForm, this.item, this.allSubscriptions);
 
-
         } else if (this.itemImagesBase64.length === 0) {
             this.noImageUploaded = true;
         }
+      this.loading = false;
     }
 
     uploadImage(): void {
