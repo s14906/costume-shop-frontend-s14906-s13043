@@ -43,7 +43,7 @@ export class CartConfirmationComponent implements OnDestroy {
                         } else {
                             const cartConfirmationData: CartConfirmationDataModel
                                 = this.cartService.prepareCartConfirmationData(cartResponse);
-                            this.totalPrice = cartConfirmationData.totalPrice;
+                            this.totalPrice = cartConfirmationData.totalPrice + 19.99;
                             this.cartItems = cartConfirmationData.cartItems;
                             return this.httpService.getAddressesByUserId(this.currentUser.id);
                         }
