@@ -1,1 +1,49 @@
-<p>item-category works!</p>
+<div class="container">
+  <div class="header-container">
+    <h2 class="text-big-left"><span><b>Item list</b></span></h2>
+  </div>
+  <ng-template [ngIf]="loading" [ngIfElse]="loadedBlock">
+    <div *ngIf="loading" class="loading-animation">
+      <div class="spinner"></div>
+    </div>
+  </ng-template>
+  <ng-template #loadedBlock>
+    <div class="main-card">
+      <ng-template [ngIf]="ItemCategoryList.length === 0" [ngIfElse]="elseBlock">
+        <h2 class="text-center">There are no categories in the database.</h2>
+      </ng-template>
+      <ng-template #elseBlock>
+        <table class="table">
+          <thead>
+          <tr class="labels">
+            <th>Category ID</th>
+            <th>Name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of paginatedOrders; index as i" class="card">
+            <td></td>
+            <td></td>
+            <td>
+              <button (click)="navigateToEditItem(item)">Edit</button>
+            </td>
+          </tr>
+          <br>
+          </tbody>
+        </table>
+      </ng-template>
+
+      <div class="pagination">
+        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 0">Previous</button>
+        <span>Page {{ currentPage + 1 }}</span>
+        <button (click)="currentPage = currentPage + 1" [disabled]="paginatedOrders.length < itemsPerPage">Next
+        </button>
+      </div>
+    </div>
+    <div class="text-big-left card">
+      <span class="spacer"></span>
+      <button (click)="navigateToAddItem()">Add new item</button>
+    </div>
+  </ng-template>
+</div>
+
