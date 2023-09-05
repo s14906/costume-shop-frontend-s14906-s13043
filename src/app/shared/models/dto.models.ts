@@ -21,7 +21,7 @@ export interface ItemDTO {
     visible: number;
     itemCategory?: string;
     itemSet?: string;
-    itemSize: string;
+    itemSize?: string;
 }
 
 export interface ItemCategoryDTO {
