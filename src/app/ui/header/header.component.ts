@@ -81,6 +81,11 @@ export class HeaderComponent implements OnDestroy {
         this.router.navigate(['orders/all']);
     }
 
+    navigateToItemCategories(): void {
+      this.selectedCategory = 'all';
+      this.router.navigate(['item-categories']);
+    }
+
     checkEnterKeyPressed($event): void {
         if ($event.key === 'Enter') {
             this.navigateToSearch();
