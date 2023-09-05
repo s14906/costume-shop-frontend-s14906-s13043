@@ -125,7 +125,7 @@ export class CartService {
         cartItems.forEach((cartItem: CartItemDTO): void => {
             const amountOfItemsToBePurchased: number = cartItem.items.length;
             const itemsAvailableForPurchase: number = cartItem.items[0].quantity;
-            if (amountOfItemsToBePurchased >= itemsAvailableForPurchase) {
+            if (amountOfItemsToBePurchased > itemsAvailableForPurchase) {
                 itemAmountToBePurchasedLowerOrEqualNumberAvailableForPurchase = false;
                 this.snackbarService.openSnackBar('Cannot proceed.\nYou intend to purchase '
                     + amountOfItemsToBePurchased + ' of ' + cartItem.items[0].title
