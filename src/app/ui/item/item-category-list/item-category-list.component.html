@@ -18,15 +18,14 @@
           <tr class="labels">
             <th>Category ID</th>
             <th>Name</th>
+            <th>Delete Category</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let item of paginatedOrders; index as i" class="card">
             <td> {{item.itemCategoryId}} </td>
             <td> {{item.category}} </td>
-            <td>
-<!--              <button (click)="navigateToEditItem(item)">Edit</button>-->
-            </td>
+            <td><button>Delete</button></td>
           </tr>
           <br>
           </tbody>
@@ -40,6 +39,7 @@
         </button>
       </div>
     </div>
+  </ng-template>
     <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmitAddNewCategory()">
       <mat-form-field class="mat-form-field" appearance="outline">
         <mat-label>Category:</mat-label>
@@ -48,8 +48,9 @@
           Please provide a valid category name
         </mat-error>
       </mat-form-field>
-      <span class="spacer"></span>
-      <button class="button">Add new category</button>
+      <div class="card">
+        <span class="spacer"></span>
+        <button>Add new category</button>
+      </div>
     </form>
-  </ng-template>
 </div>

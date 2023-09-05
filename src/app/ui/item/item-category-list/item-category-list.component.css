@@ -7,6 +7,17 @@
   padding: 20px;
   justify-content: left;
 }
+.form-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px; /* Dodaj odstęp między inputem a przyciskiem */
+}
 
 .text-big-left {
   margin: 20px 0;
