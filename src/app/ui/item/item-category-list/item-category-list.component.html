@@ -40,10 +40,16 @@
         </button>
       </div>
     </div>
-    <div class="text-big-left card">
+    <form [formGroup]="addCategoryForm" (ngSubmit)="onSubmitAddNewCategory()">
+      <mat-form-field class="mat-form-field" appearance="outline">
+        <mat-label>Category:</mat-label>
+        <input matInput class="reg-input" formControlName="category" required>
+        <mat-error>
+          Please provide a valid category name
+        </mat-error>
+      </mat-form-field>
       <span class="spacer"></span>
-      <button (click)="addNewCategory()">Add new category</button>
-    </div>
+      <button class="button">Add new category</button>
+    </form>
   </ng-template>
 </div>
-
