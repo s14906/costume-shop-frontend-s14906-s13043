@@ -26,6 +26,7 @@ export class OrderDetailsComponent implements OnDestroy {
     selectedOrderStatus: string;
     buyer: UserDTO;
     loading: boolean = true;
+    isEmployee: boolean = false;
 
     constructor(private route: ActivatedRoute,
                 private httpService: HttpService,
@@ -87,6 +88,8 @@ export class OrderDetailsComponent implements OnDestroy {
                     }
                 })
         );
+
+        this.isEmployee = this.storageService.getUser().roles.includes("EMPLOYEE");
     }
 
     ngOnDestroy(): void {

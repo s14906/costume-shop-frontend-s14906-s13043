@@ -74,7 +74,7 @@
             <ng-template #elseBlock>
                 <button class="button" (click)="navigateToComplaintChat()">Go to complaint</button>
             </ng-template>
-            <div>
+            <div *ngIf="isEmployee">
                 <mat-form-field appearance="outline" class="mat-form-field">
                     <mat-label>Order status: {{selectedOrderStatus}}</mat-label>
                     <mat-select>
