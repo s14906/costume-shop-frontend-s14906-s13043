@@ -35,7 +35,8 @@ export class OrderComponent implements OnDestroy {
                 this.httpService.getAllOrders()
                     .subscribe({
                         next: (next: OrderResponse): void => {
-                            this.orders = next.orders;
+                          this.orders = next.orders.sort((a: OrderDTO, b: OrderDTO): number =>
+                            a.createdDate > b.createdDate ? -1 : 1);
                             this.pageTitle = 'ALL ORDERS';
                             this.loading = false;
                         },
@@ -51,7 +52,8 @@ export class OrderComponent implements OnDestroy {
                 this.httpService.getAllOrdersByUserId(this.currentUser.id)
                     .subscribe({
                         next: (next: OrderResponse): void => {
-                            this.orders = next.orders;
+                            this.orders = next.orders.sort((a: OrderDTO, b: OrderDTO): number =>
+                              a.createdDate > b.createdDate ? -1 : 1);
                             this.pageTitle = 'YOUR ORDERS';
                             this.loading = false;
                         },
