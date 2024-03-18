@@ -1,6 +1,6 @@
 # Costume Shop Frontend
 
-This project is the frontend for an online costume shop, built using Angular Framework. It provides a user interface for customers to browse and search costumes, place and view orders, and manage their accounts.
+This project is the frontend for an online costume shop, done as part of my engineer's thesis at PJATK university, It is built using Angular Framework. It provides a user interface for customers to browse and search costumes, place and view orders, and manage their accounts.
 
 ## Table of Contents
 
