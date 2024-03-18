@@ -10,32 +10,31 @@ This project is the frontend for an online costume shop, built using Angular Fra
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
 - User-friendly interface for browsing costumes and placing orders
-- Authentication and authorization for users
-- Integration with the backend APIs (e.g., Spring Boot)
+- Authentication and authorization for users using JWT tokens
+- Integration with the backend APIs (using the dedicated Spring Boot backend)
 - Responsive design for mobile and desktop devices
 - State management using Angular services and RxJS
 
 ## Technologies Used
 
 - Angular
-- Angular Material (optional for UI components)
+- Angular Material
 - Angular CLI
 - TypeScript
 - RxJS
 - Node.js (for development environment)
-- npm or yarn for package management
+- npm for package management
+- HTML/CSS
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js and npm or yarn installed on your machine
+- Node.js and npm installed on your machine
 
 ### Installation
 
@@ -52,14 +51,13 @@ cd costume-shop-frontend-s14906-s13043
 
 3. Build the project:
 ```bash
-mvn clean install
+npm install
 ```
 # Usage
-1. Configure your database connection properties in application.properties.
 
-2. Run the application:
+1. Start the development server:
 
 ```bash
-mvn spring-boot:run
+ng serve
 ```
-3. Once the application is running, you can access the API endpoints using tools like Postman or by integrat
+2. Open your browser and navigate to http://localhost:4200 to view the application.
